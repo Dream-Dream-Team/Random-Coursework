@@ -2,4 +2,4 @@ ello
 hi
 welcome
 
-hey we all doing young slimes
+how we all doing young slimes
