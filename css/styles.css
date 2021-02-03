@@ -3,7 +3,7 @@
   background-color: white;
   overflow: hidden;
   border-bottom-style: solid;
-  border-bottom-width: medium;
+  border-bottom-width: thick;
   border-bottom-color: black;
 }
 
@@ -13,8 +13,9 @@
   color: black;
   text-align: center;
   padding: 17px 19px;
+  font-weight: bold;
   text-decoration: none;
-  font-size: 40px;
+  font-size: 35px;
 }
 
 /* Change the color of links on hover */
