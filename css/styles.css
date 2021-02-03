@@ -46,7 +46,7 @@ h2{
   width: 50%;
   position: fixed;
   z-index: 1;
-  top: 40px;
+  top: 100px;
   overflow-x: hidden;
   padding-top: 20px;
 }
