@@ -80,4 +80,6 @@ h2{
   font-size: 35px;
   font-family: Garamond, serif;
   text-align: center;
+  padding: 10px;
+  background-color: #d3d3d3;
 }
