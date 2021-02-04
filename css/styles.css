@@ -100,5 +100,5 @@ h2{
 .topbar h1 {
   font-size: 40px;
   font-family: Garamond, serif;
-  float: left;
+  text-align: center;
 }
