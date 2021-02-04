@@ -69,3 +69,9 @@ h2{
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
+.underlined {
+  border-bottom-style: solid;
+  border-bottom-width: medium;
+  border-bottom-color: black;
+}
