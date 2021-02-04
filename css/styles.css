@@ -40,7 +40,7 @@ h2{
   font-size: 40px;
 }
 
-/* Split the screen in half */
+/* Split the screen in half (index)*/
 .split {
   height: 100%;
   width: 50%;
@@ -51,17 +51,17 @@ h2{
   padding-top: 20px;
 }
 
-/* Control the left side */
+/* Control the left side (index)*/
 .left {
   left: 0;
 }
 
-/* Control the right side */
+/* Control the right side (index)*/
 .right {
   right: 0;
 }
 
-/* If you want the content centered horizontally and vertically */
+/* If you want the content centered horizontally and vertically (index, login, register)*/
 .centered {
   position: absolute;
   top: 50%;
@@ -70,13 +70,15 @@ h2{
   text-align: center;
 }
 
+/* (login, register)*/
 .underlined h1{
   border-bottom-style: solid;
   border-bottom-width: medium;
   border-bottom-color: black;
 }
 
-.centered input {
+/* Style input boxes (login, register)*/
+input {
   font-size: 35px;
   font-family: Garamond, serif;
   text-align: center;
@@ -85,6 +87,7 @@ h2{
   color: black;
 }
 
+/* style topbar (user homepage) */
 .topbar {
   background-color: white;
   overflow: hidden;
