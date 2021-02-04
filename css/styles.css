@@ -70,7 +70,7 @@ h2{
   text-align: center;
 }
 
-.underlined {
+.underlined h1{
   border-bottom-style: solid;
   border-bottom-width: medium;
   border-bottom-color: black;
