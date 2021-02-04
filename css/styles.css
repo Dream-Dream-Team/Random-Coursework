@@ -84,3 +84,21 @@ h2{
   background-color: #e6e6e6;
   color: black;
 }
+
+.topbar {
+  background-color: white;
+  overflow: hidden;
+  border-bottom-style: solid;
+  border-bottom-width: thick;
+  border-bottom-color: black;
+}
+
+.topbar a {
+  float: right;
+}
+
+.topbar h1 {
+  font-size: 40px;
+  font-family: Garamond, serif;
+  text-align: center;
+}
