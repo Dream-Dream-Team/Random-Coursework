@@ -75,3 +75,7 @@ h2{
   border-bottom-width: medium;
   border-bottom-color: black;
 }
+
+.centered input {
+  font-size: 35px;
+}
