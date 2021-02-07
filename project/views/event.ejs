@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+		.event-form {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.event-form h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+		.event-form input[type="password"],
+		.event-form input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+		.event-form input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color:grey;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
+		</style>
+	<body>
+		<div class="event-form">
+			<h1>Hello <%= username%></h1>
+			<h2>Create an event</h2>
+			<form action="/addEvent" method="POST">
+				<input type="text" name="eventName" placeholder="Event Name" required>
+				<input type="number" name="participants" placeholder="No. of participants" required><br>
+                <label for="startDate">Start:</label><input type="date" name="startDate" required>
+                <label for="endDate">End:</label><input type="date" name="endDate" required>
+                <label for="public">Anyone can attend:</label><input type ="checkbox" value="true" name="public">
+				<label for="analytics">Analytics</label><input type="checkbox" value="true" name="analytics">
+                <label for="generalMood">General Mood</label><input type="checkbox" value="true" name="generalMood">
+                <label for="generalMoodOverTime">General Mood Over Time</label><input type="checkbox" value="true" name="generalMoodOverTime">
+                <label for="requests">Requests</label><input type="checkbox" value="true" name="requests">
+
+				<input type="submit" value="Create">
+			
+				<a href="/hostEvents">View my events</a>
+			</form>
+
+			<h2>Join an event</h2>
+			<form action="/joinEvent" method="POST">
+				<input type="text" name="eventToken" placeholder="Token" required>
+				<input type="submit" value="Join">
+			</form>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>View Events</title>
+    </head>
+    <body>
+    <h1>My Events</h1>
+    <%eventsList.forEach(event => {%>
+        <h3>Event: <%= event.eventName %></h3>
+        <p>Participants: <%= event.participants %></p>
+        <p>Start date: <%= event.startDate %></p>
+        <p>End date: <%= event.endDate %></p>
+    <%})%>
+
+    <h1>Public Events</h1>
+    <%publicEventsList.forEach(publicEvent => {%>
+        <h3><%= publicEvent.eventName %></h3>
+    <%})%>
+    </body>
+
+</html>
