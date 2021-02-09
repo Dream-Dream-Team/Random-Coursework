@@ -30,12 +30,12 @@
   color: white;
 }
 
-h1{
+.homepage h1{
   font-family: Garamond, serif;
   font-size: 60px;
 }
 
-h2{
+.homepage h2{
   font-family: Garamond, serif;
   font-size: 40px;
 }
@@ -46,7 +46,7 @@ h2{
   width: 50%;
   position: fixed;
   z-index: 1;
-  top: 70px;
+  top: 75px;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -102,7 +102,7 @@ input {
 }
 
 .topbar h1 {
-  font-size: 40px;
+  font-size: 43px;
   font-family: Garamond, serif;
   text-align: center;
 }
@@ -150,7 +150,7 @@ input {
 }
 
 .inputPlaceholders input{
-  font-size: 20px;
+  font-size: 25px;
   font-family: Garamond, serif;
   text-align: center;
   background-color: #e6e6e6;
@@ -158,7 +158,7 @@ input {
 }
 
 .button button{
-  font-size: 35px;
+  font-size: 30px;
   font-family: Garamond, serif;
   text-align: center;
   background-color: #e6e6e6;
@@ -170,4 +170,14 @@ input {
 
 .button {
   text-align: center;
+}
+
+h1 {
+  font-size: 40px;
+  font-family: Garamond, serif;
+}
+
+h2 {
+  font-size: 40px;
+  font-family: Garamond, serif;
 }
