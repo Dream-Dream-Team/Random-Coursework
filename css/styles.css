@@ -46,14 +46,14 @@ h2{
   width: 50%;
   position: fixed;
   z-index: 1;
-  top: 60px;
+  top: 70px;
   overflow-x: hidden;
   padding-top: 20px;
 }
 
 /* Control the left side (index)*/
 .left {
-  left: 0;
+  left: 120px;
 }
 
 /* Control the right side (index)*/
@@ -147,4 +147,27 @@ input {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.inputPlaceholders input{
+  font-size: 20px;
+  font-family: Garamond, serif;
+  text-align: center;
+  background-color: #e6e6e6;
+  color: black;
+}
+
+.button button{
+  font-size: 35px;
+  font-family: Garamond, serif;
+  text-align: center;
+  background-color: #e6e6e6;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button {
+  text-align: center;
 }
