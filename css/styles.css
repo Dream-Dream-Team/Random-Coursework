@@ -74,7 +74,7 @@
 .underlined h1{
   border-bottom-style: solid;
   border-bottom-width: medium;
-  border-bottom-color: black;
+  border-bottom-color: #ff8c00;
 }
 
 /* Style input boxes (login, register)*/
@@ -157,6 +157,10 @@ input {
   color: black;
 }
 
+.checkboxes{
+  background-color: #fed8b1;
+}
+
 .button button{
   font-size: 30px;
   font-family: Garamond, serif;
@@ -166,6 +170,16 @@ input {
   text-align: center;
   text-decoration: none;
   display: inline-block;
+}
+
+.button button:hover{
+  color: black;
+  background-color: orange;
+}
+
+.button button:focus{
+  color: black;
+  background-color: orange;
 }
 
 .button {
