@@ -7,5 +7,14 @@
 
 <body>
   <p> Welcome to the attendee view event page </p>
+  <h1> Comments and questions:</h1> 
+  <form action="/action.page.php" id="usrform"> 
+    Username: <input type="text" name="usrname"> 
+    <input type="checkbox" name="anonymous" value="Anonymous"> 
+    <label for="anonymous"> Anonymous</label>
+    <input type="submit" value="Submit"> 
+  </form>
+  <br>
+  <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea>
 </body>
 </html>
