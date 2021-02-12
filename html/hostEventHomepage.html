@@ -11,15 +11,15 @@
 
     /* Set width length for the left, right and middle columns */
     .left {
-      width: 33%;
+      width: 40%;
     }
 
     .middle {
-      width: 34%;
+      width: 30%;
     }
 
     .right {
-      width: 33%;
+      width: 30%;
     }
   </style>
 </head>
@@ -38,7 +38,28 @@
     <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
   </div>
 
-  <div class="column left" style="text-align: center;">
+  <div class="column left" style="text-align: right;">
+    <h1> Comments & Questions:</h1>
+    <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea><br>
+    <button onclick="showContent()"> Show hidden content </button>
+    <input type="checkbox" name="anonymous" value="Anonymous" style="border-left:0px;margin-left:100px;">
+    <label for="anonymous"> Anonymous</label>
+    <button style="background-color: aquamarine;">
+      <i class="fa fa-paper-plane-o icon-white"></i>
+      <span>Submit</span>
+    </button>
+    <div id="comment" style="text-align: center;">
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+    </div>
+  </div>
+
+  <div class="column middle" style="text-align: center;">
+    <h1> Overall mood: </h1>
+    <a href="../html/hostEventHomepage.html"><img src="../images/mood.png" style="width:300px;height:250px;"></a>
     <h1> Smiley faces:</h1>
     <button onclick="mood()"> Show template moods </button><br>
     <div id="smiley">
@@ -52,11 +73,10 @@
       <i class="fa fa-paper-plane-o icon-white"></i>
       <span>Submit</span>
     </button>
-    <a href="../html/attendeeEventHomepage.html"><img src="../images/smiley.jpeg" style="width:300px;height:250px;"></a>
   </div>
 
-  <div class="column middle" style="text-align: center;">
-    <a href="../html/attendeeEventHomepage.html"><img src="../images/voting-poll.png"
+  <div class="column right" style="text-align: center;">
+    <a href="../html/hostEventHomepage.html"><img src="../images/hostPoll.png"
         style="width:250px;height:250px;"></a><br>
     <h1> Voting polls:</h1><br>
     <button onclick="vote()"> Show voting polls </button><br>
@@ -71,25 +91,6 @@
       <i class="fa fa-paper-plane-o icon-white"></i>
       <span>Submit</span>
     </button>
-  </div>
-
-  <div class="column right" style="text-align: center;">
-    <h1> Provide feedback:</h1>
-    <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea><br>
-    <button onclick="showContent()"> Show hidden content </button>
-    <input type="checkbox" name="anonymous" value="Anonymous" style="border-left:0px;margin-left:100px;">
-    <label for="anonymous"> Anonymous</label>
-    <button style="background-color: aquamarine;">
-      <i class="fa fa-paper-plane-o icon-white"></i>
-      <span>Submit</span>
-    </button>
-    <div id="comment">
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
-    </div>
   </div>
 
   <script>
