@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>This is the attendee view event page</title>
-  <link rel="stylesheet" href="/css/styles.css" type="text/css">
+<head> 
+  <link rel="stylesheet" href="../css/styles.css" type="text/css"> 
 </head>
 
 <body>
-  <p> Welcome to the attendee view event page </p>
-  <h1> Comments and questions:</h1> 
-  <form action="/action.page.php" id="usrform"> 
-    Username: <input type="text" name="usrname"> 
-    <input type="checkbox" name="anonymous" value="Anonymous"> 
-    <label for="anonymous"> Anonymous</label>
-    <input type="submit" value="Submit"> 
-  </form>
-  <br>
-  <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea>
+  <div class="topbar">
+    <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <h1> EVENT X </h1>
+  </div>
+  <div class="sidenav">
+    <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+  </div>
+  <div class="comment" style="float:right"> 
+    <h1> Comments and questions:</h1>
+    <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea>
+    <form action="/action.page.php" id="usrform">
+      <input type="checkbox" name="anonymous" value="Anonymous">
+      <label for="anonymous"> Anonymous</label>
+      <input type="submit" value="Submit">
+    </form>
+    <br>
+  </div>
 </body>
 </html>
