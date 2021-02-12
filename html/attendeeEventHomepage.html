@@ -2,6 +2,7 @@
 <html>
 <head> 
   <link rel="stylesheet" href="../css/styles.css" type="text/css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -9,6 +10,7 @@
     <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
     <h1> EVENT X </h1>
   </div>
+
   <div class="sidenav">
     <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
     <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
@@ -16,15 +18,36 @@
     <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
     <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
   </div>
-  <div class="comment" style="float:right"> 
-    <h1> Comments and questions:</h1>
-    <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea>
-    <form action="/action.page.php" id="usrform">
-      <input type="checkbox" name="anonymous" value="Anonymous">
-      <label for="anonymous"> Anonymous</label>
-      <input type="submit" value="Submit">
-    </form>
-    <br>
+
+  <div class="comment" style="text-align: right;"> 
+    <h1> Provide feedback:</h1>
+    <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea><br>
+    <button onclick="showContent()"> Show hidden content </button>
+    <input type="checkbox" name="anonymous" value="Anonymous" style="border-left: 0px; margin-left: 100px;">
+    <label for="anonymous"> Anonymous</label>
+    <button style="background-color: aquamarine;">
+      <i class="fa fa-paper-plane-o icon-white"></i>
+      <span>Submit</span>
+    </button>
   </div>
+
+  <div id="myDIV" style="text-align: right;">
+    <h3> Published comment</h3>
+    <h3> Published comment</h3>
+    <h3> Published comment</h3>
+    <h3> Published comment</h3>
+    <h3> Published comment</h3>
+  </div>
+
+  <script>
+    function showContent() {
+      var x = document.getElementById("myDIV");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
