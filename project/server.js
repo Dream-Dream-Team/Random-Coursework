@@ -7,7 +7,6 @@ const path = require('path');
 
 const routes = require('./routes/route');
 
-
 // Database
 dotenv.config()
 
@@ -28,6 +27,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Middleware
+app.use(express.static('public'));
 app.use('/', routes);
 
 app.listen(4000, () => console.log('Server is running ... '));

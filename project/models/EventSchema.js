@@ -4,6 +4,10 @@ const eventTemplate = new mongoose.Schema({
     hostID:{
         type: String
     },
+    img:{
+        type: String,
+        default: 'placeholder.jpg'
+    },
     eventName:{
         type: String
     },

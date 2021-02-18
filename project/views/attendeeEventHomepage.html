@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <link rel="stylesheet" href="../css/styles.css" type="text/css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .column {
+    float: left;
+    }
+
+    /* Set width length for the left, right and middle columns */
+    .left {
+    width: 33%;
+    }
+
+    .middle {
+    width: 34%;
+    }
+    
+    .right {
+    width: 33%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <h1> EVENT X </h1>
+  </div>
+  
+  <div class="sidenav">
+    <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+  </div>
+
+  <div class="column left" style="text-align: center;"> 
+    <h1> Smiley faces:</h1>
+    <button onclick="mood()"> Show template moods </button><br>
+    <div id="smiley">
+      <h3> Mood 1</h3>
+      <h3> Mood 2</h3>
+      <h3> Mood 3</h3>
+    </div><br>
+    <input type="checkbox" name="anonymous" value="Anonymous">
+    <label for="anonymous"> Anonymous</label>
+    <button style="background-color: aquamarine;">
+      <i class="fa fa-paper-plane-o icon-white"></i>
+      <span>Submit</span>
+    </button>
+    <a href="../html/attendeeEventHomepage.html"><img src="../images/smiley.jpeg" style="width:300px;height:250px;"></a>
+  </div>
+
+  <div class="column middle" style="text-align: center;">
+    <a href="../html/attendeeEventHomepage.html"><img src="../images/voting-poll.png" style="width:250px;height:250px;"></a><br>
+    <h1> Voting polls:</h1><br>
+    <button onclick="vote()"> Show voting polls </button><br>
+    <div id="poll">
+      <h3> Poll 1</h3>
+      <h3> Poll 2</h3>
+      <h3> Poll 3</h3>
+    </div><br>
+    <input type="checkbox" name="anonymous" value="Anonymous">
+    <label for="anonymous"> Anonymous</label>
+    <button style="background-color: aquamarine;">
+      <i class="fa fa-paper-plane-o icon-white"></i>
+      <span>Submit</span>
+    </button>
+  </div>
+  
+  <div class="column right" style="text-align: center;">
+    <h1> Provide feedback:</h1>
+    <textarea rows="4" cols="50" name="comment" form="usrform" > Enter comment here...</textarea><br>
+    <button onclick="showContent()"> Show hidden content </button>
+    <input type="checkbox" name="anonymous" value="Anonymous" style="border-left:0px;margin-left:100px;">
+    <label for="anonymous"> Anonymous</label>
+    <button style="background-color: aquamarine;">
+      <i class="fa fa-paper-plane-o icon-white"></i>
+      <span>Submit</span>
+    </button>
+    <div id="comment">
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+      <h3> Published comment</h3>
+    </div>
+  </div>
+
+  <script>
+    function showContent() {
+      var x = document.getElementById("comment");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+
+    function mood() {
+        var x = document.getElementById("smiley");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    
+    function vote() {
+        var x = document.getElementById("poll");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+  </script>
+</body>
+</html>
