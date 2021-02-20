@@ -206,7 +206,7 @@ h3 {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 600px; /* Location of the box */
+  padding-top: 0px; /* Location of the box */
   right: 0px;
   top: 0;
   width: 100%; /* Full width */
@@ -218,7 +218,7 @@ h3 {
 .modal-content {
   background-color: white;
   margin: auto;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #888;
   width: 80%;
   text-align: center;
@@ -240,4 +240,3 @@ h3 {
   text-decoration: none;
   cursor: pointer;
 }
-

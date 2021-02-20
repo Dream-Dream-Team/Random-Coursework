@@ -58,11 +58,55 @@
               <!-- Modal content -->
               <div class="modal-content">
                 <span class="close">&times;</span>
-                <p>Enter username: <input placeholder="username" style="font-size:20px;"> </p>
+                  <div id="people-container">
+                    <h3>Person 1:</h3>
+                    <p>
+                        <label>First name</label><br>
+                        <input name="people[1][first_name]" style="font-size:20px;">
+                    </p>
+                    <p>
+                        <label>Last name</label><br>
+                        <input name="people[1][last_name]" style="font-size:20px;">
+                    </p>
+                    <p>
+                        <label>Email</label><br>
+                        <input name="people[1][email]" style="font-size:20px;">
+                    </p>
+                  </div>
+                  <a href="javascript:;" id="add-new-person">Add new person</a>
+                  <p>
+                      <input type="submit" style="font-size:25px;">
+                  </p>
               </div>
 
-            </div>
+              <script>
+              let i = 2;
+              document.getElementById('add-new-person').onclick = function () {
+                  let template = `
+                      <h3>Person ${i}:</h3>
+                      <p>
+                          <label>First name</label><br>
+                          <input name="people[${i}][first_name]" style="font-size:20px;">
+                      </p>
 
+                      <p>
+                          <label>Last name</label><br>
+                          <input name="people[${i}][last_name]" style="font-size:20px;">
+                      </p>
+
+                      <p>
+                          <label>Email</label><br>
+                          <input name="people[${i}][email]" style="font-size:20px;">
+                      </p>`;
+
+                  let container = document.getElementById('people-container');
+                  let div = document.createElement('div');
+                  div.innerHTML = template;
+                  container.appendChild(div);
+                  i++;
+              }
+              </script>
+            </div>
             <script>
             // Get the modal
             var modal = document.getElementById("myModal");
