@@ -69,6 +69,20 @@ router.get('/login', (request, response) => {
     response.render('login');
 });
 
+router.get('/createEvent', (request, response) => {
+    // Event.find({hostID: request.session.user._id}, function(err, events) {
+    //     //  Event.find({$and: [{public: true}, {hostID: {$ne: request.session.user._uid}}]}, function(err, publicEvents) {
+    //         response.render('createEvent', {
+    //             username: request.session.user.username,
+    //             eventsList: events,
+    //             // publicEventsList: publicEvents,
+    //         })
+    //     // })
+    // })
+    response.render('createEvent');
+});
+
+
 router.get('/guest', (request, response) => {
     Event.find({public: true}, function(err, publicEvents) {
         response.render('guest', {
@@ -95,7 +109,7 @@ router.post('/register', async (request, response) => {
 
     signUpUser.save().then(date => {
         response.json(data)
-        response.render('home');
+        response.render('login');
         console.log('Account created');
     }).catch(error => {
         response.json(error)
