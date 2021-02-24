@@ -30,4 +30,4 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use('/', routes);
 
-app.listen(4000, () => console.log('Server is running ... '));
+app.listen(process.env.PORT, () => console.log('Server is running ... '));
