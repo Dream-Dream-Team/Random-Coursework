@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>This is the created event page</title>
+  <link rel="stylesheet" href="../css/styles.css" type="text/css">
+  <style>
+      /* Add a black background color to the top navigation */
+.topnav {
+    background-color: white;
+    overflow: hidden;
+    border-bottom-style: solid;
+    border-bottom-width: thick;
+    border-bottom-color: black;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: right;
+    color: black;
+    text-align: center;
+    padding: 10px 15px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 35px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ffa500;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #ff8c00;
+    color: white;
+  }
+  
+  h1{
+    font-family: Garamond, serif;
+    font-size: 60px;
+  }
+  
+  h2{
+    font-family: Garamond, serif;
+    font-size: 40px;
+  }
+  
+  /* Split the screen in half (index)*/
+  .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 60px;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side (index)*/
+  .left {
+    left: 0;
+  }
+  
+  /* Control the right side (index)*/
+  .right {
+    right: 0;
+  }
+  
+  /* If you want the content centered horizontally and vertically (index, login, register)*/
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* (login, register)*/
+  .underlined h1{
+    border-bottom-style: solid;
+    border-bottom-width: medium;
+    border-bottom-color: black;
+  }
+  
+  /* Style input boxes (login, register)*/
+  input {
+    font-size: 35px;
+    font-family: Garamond, serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #e6e6e6;
+    color: black;
+  }
+  
+  /* style topbar (user homepage) */
+  .topbar {
+    background-color: white;
+    overflow: hidden;
+    border-bottom-style: solid;
+    border-bottom-width: thick;
+    border-bottom-color: black;
+    padding: 1px 1px;
+  }
+  
+  .topbar a {
+    float: right;
+  }
+  
+  .topbar h1 {
+    font-size: 40px;
+    font-family: Garamond, serif;
+    text-align: center;
+  }
+  
+  /* The sidebar menu (userHomepage)*/
+  .sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 100px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: white; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    border-right-style: solid;
+    border-right-width: thick;
+    border-right-color: black;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Style page content */
+  .main {
+    margin-left: 100px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
+</head>
+
+<body>
+    <div class="topbar">
+      <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+      <h1> SUMMARY </h1>
+    </div>
+    <div class="sidenav">
+      <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
+    </div>
+    <div class="main">
+        <%eventDetails.forEach(event => {%>
+        <div class="split left">
+                <h1><%= event.eventName %></h1>
+                <h1>Your icon = </h1>
+                <h1>Participants: <%= event.participants %></h1>
+                <h1><label for="attendees">Joined:</label></h1>
+                <select name="attendees" id="attendees">
+                    <% for(i in event.participantsList) {%>
+                        <option value="<%= event.participantsList[i] %>">"<%= event.participantsList[i] %>"</option>
+                    <%}%>
+                </select>
+                <h1>Your start date = <%= moment(event.startDate).format('Do MMMM, YYYY'); %></h1>
+                <h1>Your end date = <%= moment(event.endDate).format('Do MMMM, YYYY'); %></h1>
+                <h1>Your other options = </h1>
+        </div>
+
+        <div class="split right">
+            <h1>Your templates = </h1>
+            <h1>Your attendees or token = </h1>
+        </div>
+
+        <%})%>
+    </div>
+</body>
+</html>

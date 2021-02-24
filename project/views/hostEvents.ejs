@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>View Events</title>
+        <style>
+            .popup{
+                background: rgba(0, 0, 0, 0.6);
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                display:  none;
+                justify-content: center;
+                align-items: center;
+            }
+            .popup-content{
+                height: 350px;
+                width: 500px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                position: relative;
+                display: none;
+            }
+            .popup-input{
+                height: 30px
+            }
+        </style>
+    </head>
+    <body>
+
+    <h1>My Events</h1>
+    <%if (eventsList.length > 0) { %>
+    <%eventsList.forEach(function(event, index) {%>
+        <form action="/modifyEvent" method="POST">
+            <div class="popup">
+                <div class="popup-content">
+                    <div class="popup-input">
+                        <form action="/modifyEvent" method="POST">
+                        <input type="file" name="image">
+                        <input type="text" name="eventName" id="enameWindow" required>
+                        <input type="number" name="participants" id="eidWindow" required><br>
+                        <label for="startDate">Start:</label><input type="date" name="startDate" value="<%= event.startDate %>" required>
+                        <label for="endDate">End:</label><input type="date" name="endDate" value="<%= event.endDate %>" required>
+                        <label for="public">Anyone can attend:</label><input type ="checkbox" value="<%= event.public%>" name="public">
+                        <label for="analytics">Analytics</label><input type="checkbox" value="true" name="analytics">
+                        <label for="generalMood">General Mood</label><input type="checkbox" value="true" name="generalMood">
+                        <label for="generalMoodOverTime">General Mood Over Time</label><input type="checkbox" value="true" name="generalMoodOverTime">
+                        <label for="requests">Requests</label><input type="checkbox" value="true" name="requests">
+                        </form>
+                    </div>
+                    
+                    <div class="close">
+                        <input type="submit" value="X">
+                    </div>
+                </div>
+            </div>
+
+            <h3>Event: <%= event.eventName %></h3>
+            <img src="/uploads/images/<%= event.img %>" style="width: 60px; height: 60px;">
+            <p>Event ID: <%=event._id%></p>
+            <p>Participants: <%= event.participants %></p>
+            <label for="attendees">Joined:</label>
+            <select name="attendees" id="attendees">
+                <% for(i in event.participantsList) {%>
+                    <option value="<%= event.participantsList[i] %>">"<%= event.participantsList[i] %>"</option>
+                <%}%>
+            </select>
+            <p>Start date: <%= event.startDate %></p>
+            <p>End date: <%= event.endDate %></p>
+            <input type="hidden" name="event_id" value="<%=event._id%>">
+            <input type="hidden" name="ename" id="ename" value="<%=event.eventName%>">
+            <input type="hidden" name="eid" id="eid" value="<%=event.participants%>">
+            <input type="submit" name="button" value="Delete">
+            <input type="submit" name="button" onClick="modifyFunction()" value="Modify">
+        </form>
+
+        <script> 
+            function modifyFunction(){
+                document.querySelector('.popup').style.display = 'flex';
+                document.querySelector('.popup-content').style.display = 'flex';
+
+                var eventName = document.getElementById('ename').value;
+                document.getElementById('enameWindow').value = eventName; 
+
+                var eventParticipants = document.getElementById('eid').value;
+                document.getElementById('eidWindow').value = eventID;
+            }
+    
+            document.querySelector('.close').addEventListener('click', function() {
+                document.querySelector('.popup').style.display = 'none';
+                document.querySelector('.popup-content').style.display = 'none';
+            })
+        </script>
+    <%})%>
+    <% }else  {%>
+        <h3>You currently do not have any events created!</h3>
+        <a href="/">Create an event</a>
+    <% } %>
+
+    <h1>Public Events</h1>
+    <%publicEventsList.forEach(publicEvent => {%>
+        <h3><%= publicEvent.eventName %></h3>
+    <%})%>
+    </body>
+
+</html>

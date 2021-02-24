@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+		.event-form {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.event-form h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+		.event-form input[type="password"],
+		.event-form input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+		.event-form input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color:grey;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
+		.popup{
+			background: rgba(0, 0, 0, 0.6);
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			display:  none;
+			justify-content: center;
+			align-items: center;
+		}
+		.popup-content{
+			height: 350px;
+			width: 500px;
+			background: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			position: relative;
+			display: none;
+		}
+		.popup-input{
+			height: 30px
+		}
+		</style>
+	<body>
+
+		<div class="popup">
+			<div class="popup-content">
+				<div class="popup-input">
+					<button type="button" id="addBtn">+ New attendee</button>
+					<h5>Attendee 1</h5>
+					<input type="text" name="attendeeName[1][username]" id="aName" placeholder="Username">
+				</div>
+				
+				<p id="attendeesAdded"></p>
+
+				<script>
+				let i = 1;
+
+				var addBtn = document.getElementById('addBtn').addEventListener('click', function() {
+					var usernameEntered = document.getElementById('aName').value;
+					document.getElementById('attendeesAdded').innerHTML = usernameEntered;
+
+				let template = `
+				<h5>Attendee ${i}:</h5>
+				<input type="text" name="attendeeName[${i}][username]" id="aName" placeholder="Username">`;
+
+				let container = document.getElementById('popup-content');
+				let div = document.createElement('div');
+				div.innerHTML = template;
+				container.appendChild(div);
+				
+				i++;
+				})
+				</script>
+				<div class="close">
+					<input type="submit" value="Close">
+				</div>
+			</div>
+		</div>
+
+		<div class="event-form">
+			<h1>Hello <%= username%></h1>
+			<h2>Public events</h2>
+
+            <%if (publicEventsList.length > 0) { %>
+            <%publicEventsList.forEach(publicEvent => {%>
+                <h3><%= publicEvent.eventName %></h3>
+            <%})%>
+            <% }else  {%>
+                <p>There are no public events available to join.</p>
+            <% } %>
+
+		</div>
+	</body>
+</html>
