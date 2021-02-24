@@ -3,6 +3,20 @@
 <head>
   <title>This is the create an event page</title>
   <link rel="stylesheet" href="../css/styles.css" type="text/css">
+  <style>
+    .column {
+      float: left;
+    }
+  
+    /* Set width length for the left, right and middle columns */
+    .left {
+      width: 50%;
+    }
+  
+    .right {
+      width: 50%;
+    }
+  </style>
 </head>
 
 <body>
@@ -14,152 +28,148 @@
     <div class="sidenav">
       <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
     </div>
-    <div class="main">
-      <div class="split left">
-        <div class="inputPlaceholders" style="padding-top:50px;">
-          <form>
-            <h1> Choose an icon: <input type="file" id="eventIcon" name="eventIcon"> </h1>
-            <h1> Start (dd/mm/yy):<input type="date" id="sDate" name="startDate" placeholder="Enter start date"> </h1>
-            <h1> End (dd/mm/yy):<input type="date" id="eDate" name="endDate" placeholder="Enter end date"> </h1>
-          </form>
-        </div>
-        <div class="underlined" style="padding-top:70px;">
-          <h1> Other options: </h1>
-          <form>
-            <h2> <input type="checkbox" id="analytics" name="analyticsCheck"> Analytics </h2>
-            <h2> <input type="checkbox" id="generalMood" name="generalMoodCheck"> General Mood </h2>
-            <h2> <input type="checkbox" id="generalMoodOT" name="generalMoodOTCheck"> General Mood Over Time </h2>
-            <h2> <input type="checkbox" id="requests" name="requestsCheck"> Requests </h2>
-          </form>
-        </div>
+
+    <div class="column left">
+      <div class="inputPlaceholders" style="padding-top:50px; margin-left: 150px;">
+        <form>
+          <h2> Choose an icon: <input type="file" id="eventIcon" name="eventIcon"> </h2>
+          <h2> Start (dd/mm/yy):<input type="date" id="sDate" name="startDate" placeholder="Enter start date"> </h2>
+          <h2> End (dd/mm/yy):<input type="date" id="eDate" name="endDate" placeholder="Enter end date"> </h2>
+        </form>
       </div>
-
-      <div class="split right">
-        <div class="centered">
-          <div class="underlined">
-            <h1> Templates: </h1>
-          </div>
-          <div class = "button" style="padding-bottom:90px;">
-            <form>
-              <button type="button">Template 1</button>
-              <br>
-              <button type="button">Template 2</button>
-              <br>
-              <button type="button">Template 3</button>
-              <br>
-              <button type="button">Create your own</button>
-              <br>
-            </form>
-          </div>
-          <div class="underlined">
-            <h1> Attendees: </h1>
-          </div>
-          <div class = "button" style="padding-bottom:90px;">
-            <!-- Trigger/Open The Modal -->
-            <button id="myBtn">Select attendees</button>
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-              <!-- Modal content -->
-              <div class="modal-content">
-                <span class="close">&times;</span>
-                  <div id="people-container">
-                    <form>
-                      <h3>Person 1:</h3>
-                      <p>
-                          <label>First name</label><br>
-                          <input type="text" name="people[1][first_name]" style="font-size:20px;">
-                      </p>
-                      <p>
-                          <label>Last name</label><br>
-                          <input type="text" name="people[1][last_name]" style="font-size:20px;">
-                      </p>
-                      <p>
-                          <label>Email</label><br>
-                          <input type="email" name="people[1][email]" style="font-size:20px;">
-                      </p>
-                    </form>
-                  </div>
-                  <a href="javascript:;" id="add-new-person">Add new person</a>
-                  <p>
-                      <input type="submit" name="submitButton" style="font-size:25px;">
-                  </p>
-              </div>
-
-              <script>
-              let i = 2;
-              document.getElementById('add-new-person').onclick = function () {
-                  let template = `
-                      <form>
-                        <h3>Person ${i}:</h3>
-                        <p>
-                            <label>First name</label><br>
-                            <input type="text" name="people[${i}][first_name]" style="font-size:20px;">
-                        </p>
-
-                        <p>
-                            <label>Last name</label><br>
-                            <input type="text" name="people[${i}][last_name]" style="font-size:20px;">
-                        </p>
-
-                        <p>
-                            <label>Email</label><br>
-                            <input type="email" name="people[${i}][email]" style="font-size:20px;">
-                        </p>
-                      </form>`;
-
-                  let container = document.getElementById('people-container');
-                  let div = document.createElement('div');
-                  div.innerHTML = template;
-                  container.appendChild(div);
-                  i++;
-              }
-              </script>
-            </div>
-            <script>
-            // Get the modal
-            var modal = document.getElementById("myModal");
-
-            // Get the button that opens the modal
-            var btn = document.getElementById("myBtn");
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks the button, open the modal
-            btn.onclick = function() {
-              modal.style.display = "block";
-            }
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-              modal.style.display = "none";
-            }
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-              if (event.target == modal) {
-                modal.style.display = "none";
-              }
-            }
-            </script>
-            <br>
-            <button onclick="myFunction()">Create token</button>
-            <input name ="sequence" id="demo" type="text">
-            <script>
-                var seq = 0;
-
-                function myFunction() {
-                    seq = seq +1;
-                    number = '0000'.substr(String(seq).length) + seq
-                    document.getElementById("demo").value = number;
-                }
-            </script>
-            <br>
-            <button type="button">Anyone Can Attend!</button>
-            <br>
-          </div>
-        </div>
+      <div class="underlined" style="padding-top:70px; margin-left: 150px;">
+        <h2> Other options: </h2>
+        <form>
+          <h2> <input type="checkbox" id="analytics" name="analyticsCheck"> Analytics </h2>
+          <h2> <input type="checkbox" id="generalMood" name="generalMoodCheck"> General Mood </h2>
+          <h2> <input type="checkbox" id="generalMoodOT" name="generalMoodOTCheck"> General Mood Over Time </h2>
+          <h2> <input type="checkbox" id="requests" name="requestsCheck"> Requests </h2>
+        </form>
       </div>
     </div>
+
+    <div class="column right"> 
+      <div class="underlined" style="margin-left: 100px;">
+        <h1> Templates: </h1>
+      </div>
+      <div class="button" style="padding-bottom:90px;">
+        <form>
+          <button type="button">Template 1</button>
+          <br>
+          <button type="button">Template 2</button>
+          <br>
+          <button type="button">Template 3</button>
+          <br>
+          <button type="button">Create your own</button>
+          <br>
+        </form>
+      </div>
+      <div class="underlined" style="margin-left: 100px;">
+        <h1> Attendees: </h1>
+      </div>
+      <div class="button" style="padding-bottom:90px;">
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn">Select attendees</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="people-container">
+              <form>
+                <h3>Person 1:</h3>
+                <p>
+                  <label>First name</label><br>
+                  <input type="text" name="people[1][first_name]" style="font-size:20px;">
+                </p>
+                <p>
+                  <label>Last name</label><br>
+                  <input type="text" name="people[1][last_name]" style="font-size:20px;">
+                </p>
+                <p>
+                  <label>Email</label><br>
+                  <input type="email" name="people[1][email]" style="font-size:20px;">
+                </p>
+              </form>
+            </div>
+            <a href="javascript:;" id="add-new-person">Add new person</a>
+            <p>
+              <input type="submit" name="submitButton" style="font-size:25px;">
+            </p>
+          </div>
+      
+          <script>
+            let i = 2;
+            document.getElementById('add-new-person').onclick = function () {
+              let template = `
+                                <form>
+                                  <h3>Person ${i}:</h3>
+                                  <p>
+                                      <label>First name</label><br>
+                                      <input type="text" name="people[${i}][first_name]" style="font-size:20px;">
+                                  </p>
+          
+                                  <p>
+                                      <label>Last name</label><br>
+                                      <input type="text" name="people[${i}][last_name]" style="font-size:20px;">
+                                  </p>
+          
+                                  <p>
+                                      <label>Email</label><br>
+                                      <input type="email" name="people[${i}][email]" style="font-size:20px;">
+                                  </p>
+                                </form>`;
+
+              let container = document.getElementById('people-container');
+              let div = document.createElement('div');
+              div.innerHTML = template;
+              container.appendChild(div);
+              i++;
+            }
+          </script>
+        </div>
+        <script>
+          // Get the modal
+          var modal = document.getElementById("myModal");
+
+          // Get the button that opens the modal
+          var btn = document.getElementById("myBtn");
+
+          // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
+
+          // When the user clicks the button, open the modal
+          btn.onclick = function () {
+            modal.style.display = "block";
+          }
+
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function () {
+            modal.style.display = "none";
+          }
+
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function (event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          }
+        </script>
+        <br>
+        <button onclick="myFunction()">Create token</button><br>
+        <input name="sequence" id="demo" type="text">
+        <script>
+          var seq = 0;
+
+          function myFunction() {
+            seq = seq + 1;
+            number = '0000'.substr(String(seq).length) + seq
+            document.getElementById("demo").value = number;
+          }
+        </script>
+        <br>
+        <button type="button">Anyone Can Attend!</button>
+        <br>
+  </div>
 </body>
 </html>
