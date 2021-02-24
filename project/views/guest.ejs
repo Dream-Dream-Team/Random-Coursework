@@ -8,57 +8,26 @@
 	<body>
 		<!-- Includes the Top Navigation bar -->
 		<%- include('partials/topnav') %>
-		
-		<!-- Includes the Side  bar -->
-		<%- include('partials/sidebar') %>
+	
 
-		<div class="popup">
-			<div class="popup-content">
-				<div class="popup-input">
-					<button type="button" id="addBtn">+ New attendee</button>
-					<h5>Attendee 1</h5>
-					<input type="text" name="attendeeName[1][username]" id="aName" placeholder="Username">
-				</div>
-				
-				<p id="attendeesAdded"></p>
-
-				<script>
-				let i = 1;
-
-				var addBtn = document.getElementById('addBtn').addEventListener('click', function() {
-					var usernameEntered = document.getElementById('aName').value;
-					document.getElementById('attendeesAdded').innerHTML = usernameEntered;
-
-				let template = `
-				<h5>Attendee ${i}:</h5>
-				<input type="text" name="attendeeName[${i}][username]" id="aName" placeholder="Username">`;
-
-				let container = document.getElementById('popup-content');
-				let div = document.createElement('div');
-				div.innerHTML = template;
-				container.appendChild(div);
-				
-				i++;
-				})
-				</script>
-				<div class="close">
-					<input type="submit" value="Close">
-				</div>
+		<div class="homepage">
+			<div class="centered">
+			  <div class="underlined">
+				<h1> Join event </h1>
+			  </div>
+			  <form>
+				<input type="text" id="username" name="newUserUsername" placeholder="Enter username">
+				<br>
+				<input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
+				<br>
+				<input type="password" id="pwd" name="password" placeholder="Enter password">
+				<br>
+				<a href="attendeeEventHomepage.html"><img src="../images/joinButton.png"
+					style="width:180px;height:70px;padding-bottom:150px;"></a>
+				<br>
+			  </form>
 			</div>
-		</div>
-
-		<div class="event-form">
-			<h1>Hello <%= username%></h1>
-			<h2>Public events</h2>
-
-            <%if (publicEventsList.length > 0) { %>
-            <%publicEventsList.forEach(publicEvent => {%>
-                <h3><%= publicEvent.eventName %></h3>
-            <%})%>
-            <% }else  {%>
-                <p>There are no public events available to join.</p>
-            <% } %>
-
-		</div>
+		  </div>
+		
 	</body>
 </html>

@@ -29,5 +29,5 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Middleware
 app.use(express.static('public'));
 app.use('/', routes);
-
-app.listen(process.env.PORT, () => console.log('Server is running ... '));
+port = process.env.PORT || 4000
+app.listen(port, () => console.log('Server is running ... '));
