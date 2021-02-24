@@ -16,7 +16,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "cd ./project/; npm run start"
+    "start": "cd ./project/; npm run start",
+    "build": "cd ./project/; npm install"
   },
   "eslintConfig": {
     "extends": [
