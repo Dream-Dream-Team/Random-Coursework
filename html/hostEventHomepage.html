@@ -40,8 +40,7 @@
 
   <div class="column left" style="text-align: right;">
     <h1> Comments & Questions:</h1>
-    <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea><br>
-    <div style="text-align: center; background-color: lightgrey;border: 2px solid rgb(0, 0, 0);
+    <div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
         border-radius: 5px; width: 415px; margin-left: 150px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
       <h3> This is a comment</h3>
     </div>
@@ -53,7 +52,7 @@
       <i class="fa fa-comment icon-white"></i>
       <span>Publish</span>
     </button>
-    <div style="text-align: center; background-color: lightgrey;border: 2px solid rgb(0, 0, 0);
+    <div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
             border-radius: 5px; width: 415px; margin-left: 150px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
       <h3> This is a comment</h3>
     </div>
@@ -66,7 +65,7 @@
       <span>Publish</span>
     </button>
     <div
-      style="text-align: center; background-color: lightgrey;border: 2px solid rgb(0, 0, 0);
+      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
                 border-radius: 5px; width: 415px; margin-left: 150px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
       <h3> This is a comment</h3>
     </div>
@@ -79,7 +78,7 @@
       <span>Publish</span>
     </button>
     <div
-      style="text-align: center; background-color: lightgrey;border: 2px solid rgb(0, 0, 0);
+      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
                 border-radius: 5px; width: 415px; margin-left: 150px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
       <h3> This is a comment</h3>
     </div>
@@ -93,7 +92,7 @@
     </button>
     <br>
     <span id="dots">...</span>
-    <span id="more"><div style="text-align: center; background-color: lightgrey;border: 2px solid rgb(0, 0, 0);
+    <span id="more"><div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
                     border-radius: 5px; width: 415px; margin-left: 150px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
       <h3> This is a comment</h3>
       </div>
@@ -114,12 +113,16 @@
     <h1> Overall mood: </h1>
     <img src="../images/mood.png" style="width:300px;height:250px;"></a>
     <h1> Smiley faces:</h1>
-    <button onclick="mood()"> Show template moods </button><br>
-    <div id="smiley">
-      <h3> Mood 1</h3>
-      <h3> Mood 2</h3>
-      <h3> Mood 3</h3>
-    </div><br>
+    <h4 style="text-align: left;margin-left: 100px;"> Recent smiley faces: </h4>
+    <div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+            border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+      <h3> </h3>
+    </div>
+    <div
+      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+      <h3> </h3>
+    </div>
     <button style="background-color: rgb(255, 145, 0); text-align: left; margin-right: 100px;">
       <i class="fa fa-lightbulb-o icon-white"></i>
       <span>Create</span>
@@ -128,17 +131,37 @@
       <i class="fa fa-comment icon-white"></i>
       <span>Publish</span>
     </button>
+    <span id="voteDot">...</span>
+    </button>
+    <span id="all"> <div
+      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+      <h3> </h3>
+      </div>
+      <div
+        style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                      border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+        <h3> </h3>
+      </div>
+    </span>
+    <br>
+    <button onclick="voteFunc()" id="voteBtn" style="margin-top: 10px;">Read more</button>
   </div>
 
   <div class="column right" style="text-align: center;">
     <img src="../images/hostPoll.png" style="width:250px;height:250px;"></a><br>
     <h1> Voting polls:</h1><br>
-    <button onclick="vote()"> Show voting polls </button><br>
-    <div id="poll">
-      <h3> Poll 1</h3>
-      <h3> Poll 2</h3>
-      <h3> Poll 3</h3>
-    </div><br>
+    <h4 style="text-align: left;margin-left: 100px;"> Recent polls: </h4>
+    <div
+      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+      <h3> </h3>
+    </div>
+    <div
+      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                    border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+      <h3> </h3>
+    </div>
     <button style="background-color: rgb(255, 145, 0); text-align: left; margin-right: 100px;">
       <i class="fa fa-lightbulb-o icon-white"></i>
       <span>Create</span>
@@ -147,6 +170,22 @@
       <i class="fa fa-comment icon-white"></i>
       <span>Publish</span>
     </button>
+    <span id="pollDot">...</span>
+    </button>
+    <span id="readPoll">
+      <div
+        style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                    border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+        <h3> </h3>
+      </div>
+      <div
+        style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                          border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+        <h3> </h3>
+      </div>
+    </span>
+    <br>
+    <button onclick="pollFunc()" id="pollBtn" style="margin-top: 10px;">Read more</button>
   </div>
 
   <script>
@@ -167,9 +206,9 @@
     }
 
     function voteFunc() {
-      var dots = document.getElementById("dots");
-      var moreText = document.getElementById("more");
-      var btnText = document.getElementById("myBtn");
+      var dots = document.getElementById("voteDot");
+      var moreText = document.getElementById("all");
+      var btnText = document.getElementById("voteBtn");
 
       if (dots.style.display === "none") {
         dots.style.display = "inline";
@@ -183,9 +222,9 @@
     }
 
     function pollFunc() {
-      var dots = document.getElementById("dots");
-      var moreText = document.getElementById("more");
-      var btnText = document.getElementById("myBtn");
+      var dots = document.getElementById("pollDot");
+      var moreText = document.getElementById("readPoll");
+      var btnText = document.getElementById("pollBtn");
 
       if (dots.style.display === "none") {
         dots.style.display = "inline";
