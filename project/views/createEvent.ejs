@@ -11,102 +11,225 @@
 			<a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
 		</div>
 
-		<div class="sidenav">
-			<a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
-			<a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-			<a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-			<a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-			<a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-		  </div>
-		  <div class="main">
-			<div class="split left">
-			  <div class="centered">
-				<div class="underlined">
-				  <h1> My Events </h1>
-				</div>
-			  </div>
-			</div>
+
+        <!-- Includes the Side  bar -->
+		<%- include('partials/sidebar') %>
+
 		
-			<div class="split right">
-			  <div class="centered">
-				<div class="underlined">
-				  <h1> Join Event </h1>
-				  <input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
-				  <br>
-				  <a href="attendeeEventHomepage.html"><img src="../images/joinButton.png" style="width:180px;height:70px;padding-bottom:150px;"></a>
-				  <br>
-				  <h1> Create an Event </h1>
-				  <a href="/createAnEvent"><img src="../images/createButton.png" style="width:180px;height:70px;padding-bottom:200px;"></a>
-				</div>
-			  </div>
-			</div>
-		  </div>
+		  <!-- <div class="main">
+			<div class="centered">
+            
+        <h2>Create event</h2>
+            <form action="/addEvent" method="POST" id="add_event" enctype="multipart/form-data">
 
-
-
-
-		<!-- Functionality -->
-
-        <h1>Hello <%= username%></h1>
-			<h2>Create event</h2>
-			<form action="/addEvent" method="POST" id="add_event" enctype="multipart/form-data">
-
-				<input type="file" name="image" id="image">
-				<input type="text" name="eventName" id="ename" placeholder="Event Name" required>
-				<input type="number" name="participants" placeholder="No. of participants" required><br>
+                <input type="file" name="image" id="image">
+                <input type="text" name="eventName" id="ename" placeholder="Event Name" required>
+                <input type="number" name="participants" placeholder="No. of participants" required><br>
                 <label for="startDate">Start:</label><input type="date" name="startDate" required>
                 <label for="endDate">End:</label><input type="date" name="endDate" required>
                 <label for="public">Anyone can attend:</label><input type ="checkbox" id="public" value="true" name="public">
-				<label for="analytics">Analytics</label><input type="checkbox" value="true" name="analytics">
+                <label for="analytics">Analytics</label><input type="checkbox" value="true" name="analytics">
                 <label for="generalMood">General Mood</label><input type="checkbox" value="true" name="generalMood">
                 <label for="generalMoodOverTime">General Mood Over Time</label><input type="checkbox" value="true" name="generalMoodOverTime">
                 <label for="requests">Requests</label><input type="checkbox" value="true" name="requests">
 
-				<button type="button" id="attendees">Select attendees</button>
-				<button type="button" id="createToken" onclick="myFunction()">Create token</button>
-				<input id="demo" name="createToken" type="text">
-				<script>
-					var public = document.getElementById('public');
-					var tokenbtn = document.getElementById('createToken');
-					var tokenInput = document.getElementById('demo');
-					public.onchange = function() {
-						if(this.checked) {
-							tokenbtn.disabled = true;
-							tokenInput.disabled = true;
-						}else {
-							tokenbtn.disabled = false;
-							tokenInput.disabled = false;
-						}
-					}
-				</script>
-				<script>
-					var seq = 0;
+                <button type="button" id="attendees">Select attendees</button>
+                <button type="button" id="createToken" onclick="myFunction()">Create token</button>
+                <input id="demo" name="createToken" type="text">
+                <script>
+                    var public = document.getElementById('public');
+                    var tokenbtn = document.getElementById('createToken');
+                    var tokenInput = document.getElementById('demo');
+                    public.onchange = function() {
+                        if(this.checked) {
+                            tokenbtn.disabled = true;
+                            tokenInput.disabled = true;
+                        }else {
+                            tokenbtn.disabled = false;
+                            tokenInput.disabled = false;
+                        }
+                    }
+                </script>
+                <script>
+                    var seq = 0;
 
-					function myFunction() {
-						seq = seq +1;
-						number = '0000'.substr(String(seq).length) + seq
-						document.getElementById("demo").value = number;
-					}
-				</script>
-				<input type="submit" id="button" value="Create">
+                    function myFunction() {
+                        seq = seq +1;
+                        number = '0000'.substr(String(seq).length) + seq
+                        document.getElementById("demo").value = number;
+                    }
+                </script>
+                <input type="submit" id="button" value="Create">
 
-				<script> 
-				var btn = document.getElementById('attendees');
-				btn.addEventListener('click', function() {
-					document.querySelector('.popup').style.display = 'flex';
-					document.querySelector('.popup-content').style.display = 'flex';
-				});
+                <script> 
+                var btn = document.getElementById('attendees');
+                btn.addEventListener('click', function() {
+                    document.querySelector('.popup').style.display = 'flex';
+                    document.querySelector('.popup-content').style.display = 'flex';
+                });
 
-				document.querySelector('.close').addEventListener('click', function() {
-					document.querySelector('.popup').style.display = 'none';
-					document.querySelector('.popup-content').style.display = 'none';
-				})
-				</script>
-			
-				<a href="/hostEvents">View my events</a><br></br><a href="/joinedEvents">View joined events</a>
-			</form>
+                document.querySelector('.close').addEventListener('click', function() {
+                    document.querySelector('.popup').style.display = 'none';
+                    document.querySelector('.popup-content').style.display = 'none';
+                })
+                </script>
+            
+                <a href="/hostEvents">View my events</a><br><a href="/joinedEvents">View joined events</a>
+            </form> 
+
+			</div>
+		  </div>
+
+ -->
 
 
+
+
+
+
+
+          <!-- FrontEnd Ver  -->
+
+          <div class="main">
+            <div class="split left">
+              <div class="inputPlaceholders" style="padding-top:50px;">
+                <h1> Event Name: <input type="text" name="eventName" id="ename" placeholder="Event Name" required> </h1>
+                <h1> Choose an icon: <input type="file" name="image" id="image"> </h1>
+                <h1> Start (dd/mm/yy): <label for="startDate">Start:</label><input type="date" name="startDate" required></h1>
+                <h1> End (dd/mm/yy): <label for="endDate">End:</label><input type="date" name="endDate" required> </h1>
+              </div>
+              <div class="underlined" style="padding-top:70px;">
+                <h1> Other options: </h1>
+                <h2> <input type="checkbox" value="true" name="analytics"> Analytics </h2>
+                <h2> <input type="checkbox" value="true" name="generalMood">General Mood </h2>
+                <h2> <input type="checkbox" value="true" name="generalMoodOverTime"> General Mood Over Time </h2>
+                <h2> <input type="checkbox" value="true" name="requests"> Requests </h2>
+              </div>
+            </div>
+      
+            <div class="split right">
+              <div class="centered">
+                <div class="underlined">
+                  <h1> Templates: </h1>
+                </div>
+                <div class = "button" style="padding-bottom:90px;">
+                  <button type="button">Template 1</button>
+                  <br>
+                  <button type="button">Template 2</button>
+                  <br>
+                  <button type="button">Template 3</button>
+                  <br>
+                  <button type="button">Create your own</button>
+                  <br>
+                </div>
+                <div class="underlined">
+                  <h1> Attendees: </h1>
+                </div>
+                <div class = "button" style="padding-bottom:90px;">
+                  <!-- Trigger/Open The Modal -->
+                  <button id="myBtn">Select attendees</button>
+      
+                  <!-- The Modal -->
+                  <div id="myModal" class="modal">
+      
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                        <div id="people-container">
+                          <h3>Person 1:</h3>
+                          <p>
+                              <label>First name</label><br>
+                              <input name="people[1][first_name]" style="font-size:20px;">
+                          </p>
+                          <p>
+                              <label>Last name</label><br>
+                              <input name="people[1][last_name]" style="font-size:20px;">
+                          </p>
+                          <p>
+                              <label>Email</label><br>
+                              <input name="people[1][email]" style="font-size:20px;">
+                          </p>
+                        </div>
+                        <a href="javascript:;" id="add-new-person">Add new person</a>
+                        <p>
+                            <input type="submit" style="font-size:25px;">
+                        </p>
+                    </div>
+      
+                    <script>
+                    let i = 2;
+                    document.getElementById('add-new-person').onclick = function () {
+                        let template = `
+                            <h3>Person ${i}:</h3>
+                            <p>
+                                <label>First name</label><br>
+                                <input name="people[${i}][first_name]" style="font-size:20px;">
+                            </p>
+      
+                            <p>
+                                <label>Last name</label><br>
+                                <input name="people[${i}][last_name]" style="font-size:20px;">
+                            </p>
+      
+                            <p>
+                                <label>Email</label><br>
+                                <input name="people[${i}][email]" style="font-size:20px;">
+                            </p>`;
+      
+                        let container = document.getElementById('people-container');
+                        let div = document.createElement('div');
+                        div.innerHTML = template;
+                        container.appendChild(div);
+                        i++;
+                    }
+                    </script>
+                  </div>
+                  <script>
+                  // Get the modal
+                  var modal = document.getElementById("myModal");
+      
+                  // Get the button that opens the modal
+                  var btn = document.getElementById("myBtn");
+      
+                  // Get the <span> element that closes the modal
+                  var span = document.getElementsByClassName("close")[0];
+      
+                  // When the user clicks the button, open the modal
+                  btn.onclick = function() {
+                    modal.style.display = "block";
+                  }
+      
+                  // When the user clicks on <span> (x), close the modal
+                  span.onclick = function() {
+                    modal.style.display = "none";
+                  }
+      
+                  // When the user clicks anywhere outside of the modal, close it
+                  window.onclick = function(event) {
+                    if (event.target == modal) {
+                      modal.style.display = "none";
+                    }
+                  }
+                  </script>
+                  <br>
+                  <button onclick="myFunction()">Create token</button>
+                  <input id="demo" type="text">
+                  <script>
+                      var seq = 0;
+      
+                      function myFunction() {
+                          seq = seq +1;
+                          number = '0000'.substr(String(seq).length) + seq
+                          document.getElementById("demo").value = number;
+                      }
+                  </script>
+                  <br>
+                  <button type="button">Anyone Can Attend!</button>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
 
 	</body>
 </html>

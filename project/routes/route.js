@@ -55,7 +55,12 @@ const Event = mongoose.model('Event', eventSchema);
 
 router.get('/', (request, response) => {
     if(request.session.cust_log == "true") {
-        response.render('event', {username: request.session.user.username});
+        Event.find({hostID: request.session.user._id}, function(err, events) {
+                response.render('event', {
+                    username: request.session.user.username,
+                    eventsList: events
+                })
+        })
     }else {
         response.render('index');
     }
@@ -70,16 +75,14 @@ router.get('/login', (request, response) => {
 });
 
 router.get('/createEvent', (request, response) => {
-    // Event.find({hostID: request.session.user._id}, function(err, events) {
-    //     //  Event.find({$and: [{public: true}, {hostID: {$ne: request.session.user._uid}}]}, function(err, publicEvents) {
-    //         response.render('createEvent', {
-    //             username: request.session.user.username,
-    //             eventsList: events,
-    //             // publicEventsList: publicEvents,
-    //         })
-    //     // })
-    // })
-    response.render('createEvent');
+    
+   // Create event page:
+   // - Needs user info
+
+   response.render('createEvent', {
+    username: request.session.user.username
+});
+    
 });
 
 
@@ -133,7 +136,7 @@ router.post('/login', async (request, response) => {
             response.render('event', {
                 username: request.session.user.username,
                 eventsList: events,
-                // publicEventsList: publicEvents,
+                // publicEventsList: publicEvents
             })
         // })
     })
