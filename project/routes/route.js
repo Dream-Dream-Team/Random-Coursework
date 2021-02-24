@@ -62,7 +62,11 @@ router.get('/', (request, response) => {
 });
 
 router.get('/register', (request, response) => {
-    response.render('home');
+    response.render('register');
+});
+
+router.get('/login', (request, response) => {
+    response.render('login');
 });
 
 router.get('/guest', (request, response) => {
