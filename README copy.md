@@ -1,3 +1,0 @@
-ello
-hi
-welcome
