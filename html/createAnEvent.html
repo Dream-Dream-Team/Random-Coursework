@@ -17,16 +17,20 @@
     <div class="main">
       <div class="split left">
         <div class="inputPlaceholders" style="padding-top:50px;">
-          <h1> Choose an icon: <input type="file" id="myfile"> </h1>
-          <h1> Start (dd/mm/yy):<input placeholder="Enter start date"> </h1>
-          <h1> End (dd/mm/yy):<input placeholder="Enter end date"> </h1>
+          <form>
+            <h1> Choose an icon: <input type="file" id="eventIcon" name="eventIcon"> </h1>
+            <h1> Start (dd/mm/yy):<input type="date" id="sDate" name="startDate" placeholder="Enter start date"> </h1>
+            <h1> End (dd/mm/yy):<input type="date" id="eDate" name="endDate" placeholder="Enter end date"> </h1>
+          </form>
         </div>
         <div class="underlined" style="padding-top:70px;">
           <h1> Other options: </h1>
-          <h2> <input type="checkbox" id="analytics"> Analytics </h2>
-          <h2> <input type="checkbox" id="generalMood"> General Mood </h2>
-          <h2> <input type="checkbox" id="generalMoodOT"> General Mood Over Time </h2>
-          <h2> <input type="checkbox" id="requests"> Requests </h2>
+          <form>
+            <h2> <input type="checkbox" id="analytics" name="analyticsCheck"> Analytics </h2>
+            <h2> <input type="checkbox" id="generalMood" name="generalMoodCheck"> General Mood </h2>
+            <h2> <input type="checkbox" id="generalMoodOT" name="generalMoodOTCheck"> General Mood Over Time </h2>
+            <h2> <input type="checkbox" id="requests" name="requestsCheck"> Requests </h2>
+          </form>
         </div>
       </div>
 
@@ -36,14 +40,16 @@
             <h1> Templates: </h1>
           </div>
           <div class = "button" style="padding-bottom:90px;">
-            <button type="button">Template 1</button>
-            <br>
-            <button type="button">Template 2</button>
-            <br>
-            <button type="button">Template 3</button>
-            <br>
-            <button type="button">Create your own</button>
-            <br>
+            <form>
+              <button type="button">Template 1</button>
+              <br>
+              <button type="button">Template 2</button>
+              <br>
+              <button type="button">Template 3</button>
+              <br>
+              <button type="button">Create your own</button>
+              <br>
+            </form>
           </div>
           <div class="underlined">
             <h1> Attendees: </h1>
@@ -51,31 +57,31 @@
           <div class = "button" style="padding-bottom:90px;">
             <!-- Trigger/Open The Modal -->
             <button id="myBtn">Select attendees</button>
-
             <!-- The Modal -->
             <div id="myModal" class="modal">
-
               <!-- Modal content -->
               <div class="modal-content">
                 <span class="close">&times;</span>
                   <div id="people-container">
-                    <h3>Person 1:</h3>
-                    <p>
-                        <label>First name</label><br>
-                        <input name="people[1][first_name]" style="font-size:20px;">
-                    </p>
-                    <p>
-                        <label>Last name</label><br>
-                        <input name="people[1][last_name]" style="font-size:20px;">
-                    </p>
-                    <p>
-                        <label>Email</label><br>
-                        <input name="people[1][email]" style="font-size:20px;">
-                    </p>
+                    <form>
+                      <h3>Person 1:</h3>
+                      <p>
+                          <label>First name</label><br>
+                          <input type="text" name="people[1][first_name]" style="font-size:20px;">
+                      </p>
+                      <p>
+                          <label>Last name</label><br>
+                          <input type="text" name="people[1][last_name]" style="font-size:20px;">
+                      </p>
+                      <p>
+                          <label>Email</label><br>
+                          <input type="email" name="people[1][email]" style="font-size:20px;">
+                      </p>
+                    </form>
                   </div>
                   <a href="javascript:;" id="add-new-person">Add new person</a>
                   <p>
-                      <input type="submit" style="font-size:25px;">
+                      <input type="submit" name="submitButton" style="font-size:25px;">
                   </p>
               </div>
 
@@ -83,21 +89,23 @@
               let i = 2;
               document.getElementById('add-new-person').onclick = function () {
                   let template = `
-                      <h3>Person ${i}:</h3>
-                      <p>
-                          <label>First name</label><br>
-                          <input name="people[${i}][first_name]" style="font-size:20px;">
-                      </p>
+                      <form>
+                        <h3>Person ${i}:</h3>
+                        <p>
+                            <label>First name</label><br>
+                            <input type="text" name="people[${i}][first_name]" style="font-size:20px;">
+                        </p>
 
-                      <p>
-                          <label>Last name</label><br>
-                          <input name="people[${i}][last_name]" style="font-size:20px;">
-                      </p>
+                        <p>
+                            <label>Last name</label><br>
+                            <input type="text" name="people[${i}][last_name]" style="font-size:20px;">
+                        </p>
 
-                      <p>
-                          <label>Email</label><br>
-                          <input name="people[${i}][email]" style="font-size:20px;">
-                      </p>`;
+                        <p>
+                            <label>Email</label><br>
+                            <input type="email" name="people[${i}][email]" style="font-size:20px;">
+                        </p>
+                      </form>`;
 
                   let container = document.getElementById('people-container');
                   let div = document.createElement('div');
@@ -136,7 +144,7 @@
             </script>
             <br>
             <button onclick="myFunction()">Create token</button>
-            <input id="demo" type="text">
+            <input name ="sequence" id="demo" type="text">
             <script>
                 var seq = 0;
 
