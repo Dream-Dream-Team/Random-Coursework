@@ -85,14 +85,12 @@
   
   /* Style input boxes (login, register)*/
   input {
-    font-size: 15px;
+    font-size: 35px;
     font-family: Garamond, serif;
     text-align: center;
     padding: 20px;
-    margin: 30px;
     background-color: #e6e6e6;
     color: black;
-    border-radius: 20px;
   }
   
   /* style topbar (user homepage) */
@@ -150,12 +148,6 @@
     margin-left: 100px; /* Same as the width of the sidebar */
     padding: 0px 10px;
   }
-  .split_lift {
-    margin-left: 100px;
-  }
-  .split_right {
-    margin-top: 20px;
-  }
   
   /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
@@ -166,8 +158,6 @@
 </head>
 
 <body>
-    <script>
-    </script>
     <div class="topbar">
       <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
       <h1> SUMMARY </h1>
@@ -177,9 +167,9 @@
     </div>
     <div class="main">
         <%eventDetails.forEach(event => {%>
-        <div class="split_left">
-                <h2><%= event.eventName %></h2>
-                <h3>Your icon =  <img src="/uploads/images/<%=event.img%>" style="width: 60px; height: 60px;"></h3>
+        <div class="split left">
+                <h3><%= event.eventName %></h3>
+                <img src="/uploads/images/<%=event.img%>" style="width: 60px; height: 60px;">
                 <h3>Participants: <%= event.participants %></h3>
                 <h3><label for="attendees">Joined:</label></h3>
                 <select name="attendees" id="attendees">
@@ -200,12 +190,6 @@
             <%}else { %>
               <h3><%= event.eventToken %></h3>
             <%}%>
-            <form action="/modifyEvent" method="POST">
-              <input type="hidden" name="event_id" value="<%=event._id%>">
-              <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure you wish to delete this event?')">
-              <input type="submit" name="start" value="Begin" onclick="return confirm('Do you wish to start the event now?')">
-            </form>
-            <a href="/home">Return home</a>
         </div>
 
         <%})%>

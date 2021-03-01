@@ -39,12 +39,14 @@ router.use(session({
 const eventSchema = {
     _id: String,
     eventName: String,
+    eventToken: String,
     img: String,
     participants: Number,
     participantsList: Array,
     startDate: Date,
     endDate: Date,
     public: Boolean,
+    active: Boolean,
     hostID: String,
     analytics: Boolean,
     generalMood: Boolean,
@@ -107,17 +109,15 @@ router.post('/login', async (request, response) => {
 
     request.session.cust_log = "true";
     request.session.user = user;
-    console.log(request.session.user._id);
-    // response.render('event', {username: request.session.user.username});
 
     Event.find({hostID: request.session.user._id}, function(err, events) {
-        //  Event.find({$and: [{public: true}, {hostID: {$ne: request.session.user._uid}}]}, function(err, publicEvents) {
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
             response.render('event', {
                 username: request.session.user.username,
                 eventsList: events,
-                // publicEventsList: publicEvents,
+                joinedEvents: joinedEvent
             })
-        // })
+        }).sort({active: -1})
     })
 });
 
@@ -145,7 +145,8 @@ router.post('/addEvent', upload.single('image'), async (request, response) => {
         generalMood: request.body.generalMood,
         generalMoodOverTime: request.body.generalMoodOverTime,
         requests: request.body.requests,
-        eventToken: request.body.createToken
+        eventToken: request.body.createToken,
+        active: false
     });
 
     // Event is public - no need to create a unique access token for attendees
@@ -154,7 +155,13 @@ router.post('/addEvent', upload.single('image'), async (request, response) => {
     }
 
     event.save().then(date => {
-        response.json(data)
+        const eventName2 = request.body.eventName;
+        Event.find({$and: [{eventName: eventName2}, {hostID: request.session.user._id}]}, function(err, events) {
+        response.render('viewEvent', {
+            eventDetails: events,
+            moment: moment
+        })
+    })
     }).catch(error => {
         response.json(error)
     });
@@ -202,39 +209,116 @@ router.post('/modifyEvent', (request, response) => {
     const id = request.body.event_id; // contains the event ID of event to be deleted
     console.log(id);
 
-    const button = request.body.button;
-    if(button == "Delete") { // Button clicked corresponds to deleting the event
+    const deleteButton = request.body.delete;
+    if(deleteButton == "Delete") { // Button clicked corresponds to deleting the event
         eventTemplate.findOneAndDelete({_id: id}, function(err, doc) {
         if(err) throw err;
 
-        response.redirect('/hostEvents');
+            Event.find({hostID: request.session.user._id}, function(err, events) {
+                Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                    response.render('event', {
+                        username: request.session.user.username,
+                        eventsList: events,
+                        joinedEvents: joinedEvent
+                    })
+                }).sort({active: -1})
+            })
         })
     }
 
-        repsonse.redirect('/hostEvents');
-    // Event.find({$and: [{hostID: request.session.user._id}, {eventID: request.body.event_id}]}, function(err, events) {
-    //     console.log(eventID);
-    //     response.render('/hostEvents', {
-    //         eventPopup: events
-    //     })
-    // })
-    // Otherwise pop up window for user to modify their event.
+    const startButton = request.body.start;
+    if(startButton == "Begin") { // Button clicked corresponds to deleting the event
+        eventTemplate.findOneAndUpdate({_id: id}, {$set : {active: true}}, {new: true}, function(err, doc) {
+            if(err) throw err;
+            console.log("hello");
 
-})
+            Event.find({hostID: request.session.user._id}, function(err, events) {
+                Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                    response.render('event', {
+                        username: request.session.user.username,
+                        eventsList: events,
+                        joinedEvents: joinedEvent
+                    })
+                }).sort({active: -1})
+            })
+        })
+    } 
+});
 
-router.get('/hostEvents', (request, response) => { // For processing in ejs file
+router.get('/', (request, response) => {
     Event.find({hostID: request.session.user._id}, function(err, events) {
-        Event.find({$and: [{public: true}, {hostID: {$ne: request.session.user._id}}]}, function(err, publicEvents) {
-            response.render('hostEvents', {
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+            response.render('event', {
+                username: request.session.user.username,
                 eventsList: events,
-                publicEventsList: publicEvents,
-                eventPopup: events
+                joinedEvents: joinedEvent
             })
         })
     })
-});
+})
 
-router.post('/viewEvent', (request, response) => {
+router.get('/guestEvents', (request, response) => {
+    Event.find({public: true}, function(err, publicEvents) {
+        response.render('guest', {
+            publicEventsList: publicEvents,
+        })
+    })
+})
+
+router.get('/home', (request, response) => {
+    Event.find({hostID: request.session.user._id}, function(err, events) {
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+            response.render('event', {
+                username: request.session.user.username,
+                eventsList: events,
+                joinedEvents: joinedEvent
+            })
+        }).sort({active: -1})
+    })
+})
+
+router.post('/feedback/:event_id', async (request, response) => {
+    const eventID = request.body.event_id;
+    console.log(eventID);
+
+    // Attempting to clicking on an event icon that has not begun
+    // const eventNotStarted = eventTemplate.findOne({$and: [{_id: eventID}, {active: false}]});
+    // if(eventNotStarted){
+    //     Event.find({_id: eventID}, function(err, events) {
+    //         if(err) throw err;
+    //         response.render('attendeeEventHomepage', {
+    //             feedbackEvent: events
+    //         });
+    //     }) 
+    //     // response.render('index');
+    // }else {
+    //     Event.find({_id: eventID}, function(err, events) {
+    //         response.render('attendeeEventHomepage', {
+    //             feedbackEvent: events
+    //         });
+    //     }) 
+    // }
+    const event = Event.find({_id: eventID}, function(err, events) {
+        response.render('attendeeEventHomepage', {
+            feedbackEvent: events
+        });
+    }) 
+    console.log(event.eventName);
+})
+
+// router.get('/viewEvent/:event_id', async (request, response) => {
+//     const eventID = request.params.event_id;
+//     console.log(eventID);
+
+//     Event.find({$and: [{_id: eventID}, {hostID: request.session.user._id}]}, function(err, events) {
+//         response.render('viewEvent', {
+//             eventDetails: events,
+//             moment: moment
+//         })
+//     })
+// })
+
+router.post('/viewEvent/:event_id', (request, response) => {
     const eventName2 = request.body.event_name;
     Event.find({$and: [{eventName: eventName2}, {hostID: request.session.user._id}]}, function(err, events) {
         response.render('viewEvent', {
@@ -243,5 +327,34 @@ router.post('/viewEvent', (request, response) => {
         })
     })
 });
+
+router.post('/viewEventGuest', (request, response) => {
+    const eventName2 = request.body.event_name;
+    Event.find({eventName: eventName2}, function(err, events) {
+        response.render('viewEventGuest', {
+            eventDetails: events,
+            moment: moment
+        })
+    })
+});
+
+router.post('/startEvent', (request, response) => {
+    const id = request.body.event_id; // contains the event ID of event to be deleted
+    console.log(id);
+    const button = request.body.delete;
+    if(button == "Begin") { // Button clicked corresponds to deleting the event
+        eventTemplate.findOneAndUpdate({_id: id}, {$set : {live: "true"}}, function(err, doc) {
+            if(err) throw err;
+            console.log("hello");
+
+            Event.find({hostID: request.session.user._id}, function(err, events) {
+                response.render('event', {
+                    username: request.session.user.username,
+                    eventsList: events,
+                })
+            })
+        })
+    } 
+})
 
 module.exports = router;

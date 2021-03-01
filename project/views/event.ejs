@@ -54,6 +54,51 @@
 		.popup-input{
 			height: 30px
 		}
+		/* The sidebar menu (userHomepage)*/
+		.sidenav {
+		height: 100%; /* Full-height: remove this if you want "auto" height */
+		width: 100px; /* Set the width of the sidebar */
+		position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+		z-index: 1; /* Stay on top */
+		top: 0; /* Stay at the top */
+		left: 0;
+		background-color: white; /* Black */
+		overflow-x: hidden; /* Disable horizontal scroll */
+		padding-top: 20px;
+		border-right-style: solid;
+		border-right-width: thick;
+		border-right-color: black;
+		}
+
+		/* The navigation menu links */
+		.sidenav a {
+		padding: 6px 8px 6px 16px;
+		text-decoration: none;
+		font-size: 25px;
+		color: #818181;
+		display: block;
+		}
+
+		/* When you mouse over the navigation links, change their color */
+		.sidenav a:hover {
+		color: #f1f1f1;
+		}
+
+		#circle_active {
+			background-size: cover;
+			border-radius: 50% 50% 50% 50%;
+			border: 1.7px solid transparent;
+			border-color: red;
+			width: 70px;
+			height: 70px;
+		}
+		
+		#circle_inactive {
+			background-size: cover;
+			border-radius: 50% 50% 50% 50%;
+			width: 70px;
+			height: 70px;
+		}
 		</style>
 	<body>
 
@@ -93,13 +138,31 @@
 		</div>
 
 		<div class="event-form">
+			<div class="sidenav">
+				<a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
+				<%joinedEvents.forEach(joinedEvent => {%>
+					<% if(joinedEvent.active) {%>
+						<form action="/feedback/<%=joinedEvent._id%>" method="POST">
+							<input type="image" src="/uploads/images/<%=joinedEvent.img%>" 
+							style="width: 75px; height: 75px; margin-left: 10px; margin-bottom: 5px;" id="circle_active">
+							<input type="hidden" name="event_id" value="<%=joinedEvent._id%>">
+						</form>
+					<%} else {%>
+						<form action="/feedback/<%=joinedEvent._id%>" method="POST">
+							<input type="image" img src="/uploads/images/<%=joinedEvent.img%>" 
+							style="width: 75px; height: 75px; margin-left: 10px; margin-bottom: 5px;" id="circle_inactive">
+							<input type="hidden" name="event_id" value="<%=joinedEvent._id%>">
+						</form>
+					<%}%>
+				<%})%>
+			  </div>
 			<h1>Hello <%= username%></h1>
 			<h2>Create event</h2>
 			<form action="/addEvent" method="POST" id="add_event" enctype="multipart/form-data">
 
 				<input type="file" name="image" id="image">
 				<input type="text" name="eventName" id="ename" placeholder="Event Name" required>
-				<input type="number" name="participants" placeholder="No. of participants" required><br>
+				<input type="number" name="participants" placeholder="No. of participants" min="0" required><br>
                 <label for="startDate">Start:</label><input type="date" name="startDate" required>
                 <label for="endDate">End:</label><input type="date" name="endDate" required>
                 <label for="public">Anyone can attend:</label><input type ="checkbox" id="public" value="true" name="public">
@@ -148,8 +211,7 @@
 					document.querySelector('.popup-content').style.display = 'none';
 				})
 				</script>
-			
-				<a href="/hostEvents">View my events</a><br></br><a href="/joinedEvents">View joined events</a>
+
 			</form>
 
 			<h2>Join event</h2>
@@ -162,11 +224,11 @@
 
 			<%if (eventsList.length > 0) { %>
 				<%eventsList.forEach(event => {%>
-					<form action="/viewEvent" method="POST">
-						<h3><%= event.eventName %></h3><img src="/uploads/images/<%=event.img%>" style="width: 60px; height: 60px;">
-						<input type="hidden" name="event_name" value="<%=event.eventName%>">
-						<input type="submit" name="view_event" value="View event">
-					</form>
+						<h3><%= event.eventName %></h3><img src="/uploads/images/<%=event.img%>" style="width: 40px; height: 40px;" id="circle_inactive">
+						<form action="/viewEvent/<%=event._id%>" method="POST">
+							<input type="hidden" name="event_name" value="<%= event.eventName%>">
+							<input type="submit" name="view_event" value="View event">
+						</form>
 				<%})%>
 			<% }else  {%>
 				<h3>You currently do not have any events created!</h3>

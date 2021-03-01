@@ -57,48 +57,17 @@
 		</style>
 	<body>
 
-		<div class="popup">
-			<div class="popup-content">
-				<div class="popup-input">
-					<button type="button" id="addBtn">+ New attendee</button>
-					<h5>Attendee 1</h5>
-					<input type="text" name="attendeeName[1][username]" id="aName" placeholder="Username">
-				</div>
-				
-				<p id="attendeesAdded"></p>
-
-				<script>
-				let i = 1;
-
-				var addBtn = document.getElementById('addBtn').addEventListener('click', function() {
-					var usernameEntered = document.getElementById('aName').value;
-					document.getElementById('attendeesAdded').innerHTML = usernameEntered;
-
-				let template = `
-				<h5>Attendee ${i}:</h5>
-				<input type="text" name="attendeeName[${i}][username]" id="aName" placeholder="Username">`;
-
-				let container = document.getElementById('popup-content');
-				let div = document.createElement('div');
-				div.innerHTML = template;
-				container.appendChild(div);
-				
-				i++;
-				})
-				</script>
-				<div class="close">
-					<input type="submit" value="Close">
-				</div>
-			</div>
-		</div>
-
 		<div class="event-form">
-			<h1>Hello <%= username%></h1>
+			<h1>Hello Guest</h1>
 			<h2>Public events</h2>
 
             <%if (publicEventsList.length > 0) { %>
             <%publicEventsList.forEach(publicEvent => {%>
-                <h3><%= publicEvent.eventName %></h3>
+				<form action="/viewEventGuest" method="POST">
+					<h3><%= publicEvent.eventName %></h3><img src="/uploads/images/<%=publicEvent.img%>" style="width: 60px; height: 60px;">
+					<input type="hidden" name="event_name" value="<%=publicEvent.eventName%>">
+					<input type="submit" name="view_event" value="View event">
+				</form>
             <%})%>
             <% }else  {%>
                 <p>There are no public events available to join.</p>
