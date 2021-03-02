@@ -240,3 +240,89 @@ h3 {
   text-decoration: none;
   cursor: pointer;
 }
+
+.help {
+  width: 40px;
+  margin-top: 50px;
+  margin-left: 220px;
+}
+
+.help .question {
+  height: 40px;
+  width: 40px;
+  background: #ccc;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.help .popup, .help .popup2 {
+  width: 500px;
+  height: 0px;
+  text-align: left;
+  overflow: hidden;
+  position: relative;
+  background: #eee;
+  opacity: 0;
+  transition: 1s;
+}
+
+.help .popup {
+  left: -260px;
+  top: 10px;
+}
+
+.help .popup2 {
+  height: 220px;
+}
+
+.help .popup2 h4 {
+  font-size: 18px;
+  padding: 10px;
+  margin-top: 0;
+}
+
+.help:hover .popup {
+  opacity: 1;
+  height: 270px;
+}
+
+.help .tell-me p:first-child {
+  color: #317eac;
+  cursor: pointer;
+}
+
+.tell-me {
+  width: 150px;
+}
+
+.help .tell-me:hover .popup2 {
+  top: -110px;
+  opacity: 1;
+}
+
+.help .popup h3 {
+  margin: 0;
+  padding: 10px 0 0 10px;
+  height: 30px;
+  background: #555;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.help .popup p {
+  font-size: 16px;
+  padding: 10px;
+  margin: 0;
+}
+
+.help .popup .popup2 .sub-levels {
+  padding: 0 0 10px 140px;
+}
+
+.help .popup .popup2 p:nth-child(5) {
+  padding: 20px 0 0 10px;
+}
