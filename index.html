@@ -3,6 +3,19 @@
 <head>
   <title>This is the homepage</title>
   <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <style>
+    .column {
+      float: left;
+    }
+  
+    /* Set width length for the left, right and middle columns */
+    .left {
+      width: 50%;
+    }
+    .right {
+      width: 50%;
+    }
+  </style>
 </head>
 
 <body>
@@ -15,24 +28,17 @@
   </div>
 
   <div class="homepage">
-    <div class="split left">
-      <div class="centered">
-        <h1> REAL TIME </h1>
-        <h1> MESSAGING </h1>
-        <h1>    APP   </h1>
-        <h2> Add team members </h2>
-        <h2> to events. Provide </h2>
-        <h2> live feedback. Create </h2>
-        <h2> templates and much </h2>
-        <h2>      more.        </h2>
-      </div>
+    <div class="column left">
+      <h1> REAL TIME MESSAGING APP</h1>
+      <h2> Add team members to</h2>
+      <h2>  events. Provide live</h2>
+      <h2>  feedback. Create templates</h2>
+      <h2>  and much more.</h2>
     </div>
 
-    <div class="split right">
-      <div class="centered">
-        <img src="images/messaging.jpg">
-        <a href="html/guestHomepage.html"><img src="images/loginGuest.png"></a>
-      </div>
+    <div class="column right" style="margin-top: 50px;">
+      <img src="images/messaging.jpg" style="width: 700px; height: 400px;">
+      <a href="html/guestHomepage.html"><img src="images/loginGuest.png" style="margin-left: 100px;"></a>
     </div>
   </div>
 </body>
