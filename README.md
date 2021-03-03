@@ -16,6 +16,15 @@ in both directories.
 - Ensure pages are accessible
 - Integrating front-end and back-end 
 
-## Issues:
-- A lot of In-line CSS styling. Will need to either remove, or move to main stylesheet.
-- Difference in pages being queried 
+## Versions:
+
+---- v1.1:
+  - Issues:
+    - Needs to add 'Create' button to to createEvent view.
+    - Adding 'Logout' button the user/ guest pages.
+    - Needs to create a Chat for users
+
+---- v1.0:
+  - Issues:
+    - A lot of In-line CSS styling. Will need to either remove, or move to main stylesheet.
+    - Difference in pages being queried 
