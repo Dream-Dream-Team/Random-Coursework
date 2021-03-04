@@ -29,6 +29,7 @@
       <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
     </div>
 
+    <form action="POST">
     <div class="column left">
       <div class="inputPlaceholders" style="padding-top:50px; margin-left: 150px;">
         <form action="POST">
@@ -114,17 +115,9 @@
             <div id="people-container">
               <form>
                 <h3>Person 1:</h3>
-                <p>
-                  <label>First name</label><br>
-                  <input type="text" name="people[1][first_name]" style="font-size:20px;">
-                </p>
-                <p>
-                  <label>Last name</label><br>
-                  <input type="text" name="people[1][last_name]" style="font-size:20px;">
-                </p>
-                <p>
-                  <label>Email</label><br>
-                  <input type="email" name="people[1][email]" style="font-size:20px;">
+                <p>d
+                  <label>Username</label><br>
+                  <input type="text" name="people[1][username]" style="font-size:20px;">
                 </p>
               </form>
             </div>
@@ -141,18 +134,8 @@
                                 <form>
                                   <h3>Person ${i}:</h3>
                                   <p>
-                                      <label>First name</label><br>
-                                      <input type="text" name="people[${i}][first_name]" style="font-size:20px;">
-                                  </p>
-
-                                  <p>
-                                      <label>Last name</label><br>
-                                      <input type="text" name="people[${i}][last_name]" style="font-size:20px;">
-                                  </p>
-
-                                  <p>
-                                      <label>Email</label><br>
-                                      <input type="email" name="people[${i}][email]" style="font-size:20px;">
+                                      <label>Username</label><br>
+                                      <input type="text" name="people[${i}][username]" style="font-size:20px;">
                                   </p>
                                 </form>`;
 
@@ -213,6 +196,7 @@
         </div>
       </div>
       <input type="button" onclick="location.href='../html/createdEvent.html';" value="Create" style="font-size: 40px;color: black;background-color: orange;font-family: Garamond, serif;">
-  </div>
+    </div>
+  </form>
 </body>
 </html>
