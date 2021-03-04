@@ -7,12 +7,12 @@
     .column {
       float: left;
     }
-  
+
     /* Set width length for the left, right and middle columns */
     .left {
       width: 50%;
     }
-  
+
     .right {
       width: 50%;
     }
@@ -22,10 +22,9 @@
 <body>
     <div class="topbar">
       <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-      <a href="../html/createdEvent.html"><img src="../images/createButton.png" style="width:200px;height:100px;padding-right:50px;" ></a>
       <h1> CREATE AN EVENT </h1>
     </div>
-    
+
     <div class="sidenav">
       <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
     </div>
@@ -38,18 +37,6 @@
           <h2> End (dd/mm/yy):<input type="date" id="eDate" name="endDate" placeholder="Enter end date"> </h2>
         </form>
       </div>
-      <div class="underlined" style="padding-top:70px; margin-left: 150px;">
-        <h2> Other options: </h2>
-        <form>
-          <h2> <input type="checkbox" id="analytics" name="analyticsCheck"> Analytics </h2>
-          <h2> <input type="checkbox" id="generalMood" name="generalMoodCheck"> General Mood </h2>
-          <h2> <input type="checkbox" id="generalMoodOT" name="generalMoodOTCheck"> General Mood Over Time </h2>
-          <h2> <input type="checkbox" id="requests" name="requestsCheck"> Requests </h2>
-        </form>
-      </div>
-    </div>
-
-    <div class="column right"> 
       <div class="underlined" style="margin-left: 100px;">
         <h1> Templates: </h1>
       </div>
@@ -59,12 +46,60 @@
           <br>
           <button type="button">Template 2</button>
           <br>
-          <button type="button">Template 3</button>
-          <br>
-          <button type="button">Create your own</button>
+          <button type="button" id="cYOButton" >Create your own</button>
+            <!-- The Modal -->
+            <div id="myModal1" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close1">&times;</span>
+                <div class="underlined" style="padding-top:70px; margin-left: 150px;">
+                  <h2> Other options: </h2>
+                  <form>
+                    <h2> <input type="checkbox" id="analytics" name="analyticsCheck"> Analytics </h2>
+                    <h2> <input type="checkbox" id="generalMood" name="generalMoodCheck"> General Mood </h2>
+                    <h2> <input type="checkbox" id="generalMoodOT" name="generalMoodOTCheck"> General Mood Over Time </h2>
+                    <h2> <input type="checkbox" id="requests" name="requestsCheck"> Requests </h2>
+                  </form>
+                </div>
+                <p>
+                  <input type="submit" name="submitButton" style="font-size:25px;">
+                </p>
+              </div>
+            </div>
+            <script>
+              // Get the modal
+              var modal1 = document.getElementById("myModal1");
+
+              // Get the button that opens the modal
+              var btn1 = document.getElementById("cYOButton");
+
+              // Get the <span> element that closes the modal
+              var span1 = document.getElementsByClassName("close1")[0];
+
+              // When the user clicks the button, open the modal
+              btn1.onclick = function() {
+                modal1.style.display = "block";
+              }
+
+              // When the user clicks on <span> (x), close the modal
+              span1.onclick = function() {
+                modal1.style.display = "none";
+              }
+
+              // When the user clicks anywhere outside of the modal, close it
+              window.onclick = function(event) {
+                if (event.target == modal) {
+                  modal1.style.display = "none";
+                }
+              }
+              </script>
           <br>
         </form>
+        <button type="button" style="font-weight: bold; background-color: mediumseagreen;">SELECT</button>
       </div>
+    </div>
+
+    <div class="column right">
       <div class="underlined" style="margin-left: 100px;">
         <h1> Attendees: </h1>
       </div>
@@ -98,7 +133,7 @@
               <input type="submit" name="submitButton" style="font-size:25px;">
             </p>
           </div>
-      
+
           <script>
             let i = 2;
             document.getElementById('add-new-person').onclick = function () {
@@ -109,12 +144,12 @@
                                       <label>First name</label><br>
                                       <input type="text" name="people[${i}][first_name]" style="font-size:20px;">
                                   </p>
-          
+
                                   <p>
                                       <label>Last name</label><br>
                                       <input type="text" name="people[${i}][last_name]" style="font-size:20px;">
                                   </p>
-          
+
                                   <p>
                                       <label>Email</label><br>
                                       <input type="email" name="people[${i}][email]" style="font-size:20px;">
@@ -157,20 +192,11 @@
           }
         </script>
         <br>
-        <button onclick="myFunction()">Create token</button><br>
-        <input name="sequence" id="demo" type="text">
-        <script>
-          var seq = 0;
-
-          function myFunction() {
-            seq = seq + 1;
-            number = '0000'.substr(String(seq).length) + seq
-            document.getElementById("demo").value = number;
-          }
-        </script>
+        <h4> Create Token:<input id="token" name="eventToken" placeholder="Enter token"></h4>
         <br>
         <button type="button">Anyone Can Attend!</button>
         <br>
+        <button type="button" style="font-weight: bold; background-color: mediumseagreen;">SELECT</button>
         <div class="help" style="width: 40px; margin-top: 50px; margin-left: 350px;">
           <div class="question">?</div>
           <div class="popup">
@@ -185,6 +211,8 @@
             </div>
           </div>
         </div>
+      </div>
+      <input type="button" onclick="location.href='../html/createdEvent.html';" value="Create" style="font-size: 40px;color: black;background-color: orange;font-family: Garamond, serif;">
   </div>
 </body>
 </html>

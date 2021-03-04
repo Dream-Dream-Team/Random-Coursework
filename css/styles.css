@@ -201,6 +201,11 @@ h3 {
   font-family: Garamond, serif;
 }
 
+h4 {
+  font-size: 30px;
+  font-family: Garamond, serif;
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -319,4 +324,11 @@ h3 {
 
 .help .popup .popup2 p:nth-child(5) {
   padding: 20px 0 0 10px;
+}
+
+.logoutButton button{
+  font-size: 40px;
+  color: black;
+  background-color: orange;
+  font-family: Garamond, serif;
 }

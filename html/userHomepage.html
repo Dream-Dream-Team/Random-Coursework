@@ -6,7 +6,7 @@
     .column {
       float: left;
     }
-  
+
     /* Set width length for the left and right columns */
     .left {
       width: 50%;
@@ -30,7 +30,7 @@
     <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
     <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
   </div>
-  
+
   <div class="column left">
     <div class="underlined" style="margin-left: 200px; margin-top: 250px; text-align: center;">
       <h1> My Events </h1>
@@ -50,18 +50,21 @@
       </div>
     </div>
   </div>
-  
+
   <div class="column right">
     <div class="underlined" style="margin-left: 150px; margin-top: 50px; text-align: center;">
       <h1> Join Event </h1>
       <input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
       <br>
-      <a href="attendeeEventHomepage.html"><img src="../images/joinButton.png"
-          style="width:180px;height:70px;padding-bottom:150px;"></a>
-      <br>
-      <h1> Create an Event </h1>
-      <a href="createAnEvent.html"><img src="../images/createButton.png"
-          style="width:180px;height:70px;padding-bottom:200px;"></a>
+      <div class="button">
+        <button type="button" onclick="location.href='attendeeEventHomepage.html';">Join</button>
+        <br>
+        <h1> Create an Event </h1>
+        <button type="button" onclick="location.href='createAnEvent.html';">Create</button>
+      </div>
+    </div>
+    <div class="logoutButton">
+      <button type="button" onclick="location.href='../index.html';">Logout</button>
     </div>
   </div>
 </body>
