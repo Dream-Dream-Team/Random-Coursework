@@ -74,6 +74,10 @@ router.get('/login', (request, response) => {
     response.render('login');
 });
 
+router.get('/chat', (request, response) => {
+    response.render('chat');
+});
+
 router.get('/createEvent', (request, response) => {
     
    // Create event page:
