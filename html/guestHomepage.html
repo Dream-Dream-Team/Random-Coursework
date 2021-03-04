@@ -3,6 +3,20 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="../css/styles.css">
+  <style>
+    .column {
+      float: left;
+    }
+
+    /* Set width length for the left and right columns */
+    .left {
+      width: 50%;
+    }
+
+    .right {
+      width: 50%;
+    }
+  </style>
 </head>
 
 <body>
@@ -14,22 +28,28 @@
     <a href="helpPage.html">Get help</a>
   </div>
   <div class="homepage">
-    <div class="centered" style="margin-top: 100px;">
-      <div class="underlined">
-        <h1> Join event </h1>
+    <div class="column left">
+      <div class="underlined" style="margin-left: 200px; margin-top: 150px; text-align: center;">
+        <h1> Public Events </h1>
       </div>
-      <form>
-        <input type="text" id="username" name="newUserUsername" placeholder="Create username">
-        <br>
-        <input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
-        <br>
-        <input type="password" id="pwd" name="password" placeholder="Enter password">
-        <br>
-        <a href="attendeeEventHomepage.html"><img src="../images/joinButton.png"
-            style="width:180px;height:70px;padding-bottom:150px;"></a>
-        <br>
-      </form>
     </div>
+
+    <div class="column right">
+      <div class="underlined" style="margin-left: 150px; margin-top: 200px; text-align: center;">
+        <h1> Join event </h1>
+        <form>
+          <input type="text" id="username" name="newUserUsername" placeholder="Create username">
+          <br>
+          <input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
+          <br>
+          <div class="button">
+            <button type="button" onclick="location.href='guestAttendeeView.html';">Join</button>
+          </div>
+          <br>
+        </form>
+      </div>
+    </div>
+
   </div>
 </body>
 
