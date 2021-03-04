@@ -332,3 +332,8 @@ h4 {
   background-color: orange;
   font-family: Garamond, serif;
 }
+
+.eventBox{
+  font-size: 30px;
+  background-color: lightgrey;
+}
