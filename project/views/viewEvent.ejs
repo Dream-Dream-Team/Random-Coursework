@@ -203,8 +203,9 @@
             <form action="/modifyEvent" method="POST">
               <input type="hidden" name="event_id" value="<%=event._id%>">
               <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure you wish to delete this event?')">
-              <input type="submit" name="start" value="Begin" onclick="return confirm('Do you wish to start the event now?')">
+              <input type="submit" name="start" value="Begin" onclick="eventStart()">
             </form>
+
             <a href="/home">Return home</a>
         </div>
 

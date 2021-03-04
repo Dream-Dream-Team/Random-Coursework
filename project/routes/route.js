@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const signUpTemplate = require('../models/SignUpSchema');
 const eventTemplate = require('../models/EventSchema');
+const guestTemplate = require('../models/GuestSchema');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-
 const moment = require('moment');
 
 const multer = require('multer');
@@ -28,7 +28,6 @@ const upload = multer({
         fieldSize: 1024 * 1024 * 3,
     },
 });
-
 
 router.use(session({
     secret: 'key',
@@ -57,7 +56,16 @@ const Event = mongoose.model('Event', eventSchema);
 
 router.get('/', (request, response) => {
     if(request.session.cust_log == "true") {
-        response.render('event', {username: request.session.user.username});
+        Event.find({hostID: request.session.user._id}, function(err, events) {
+            Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                    response.render('event', {
+                        username: request.session.user.username,
+                        eventsList: events,
+                        joinedEvents: joinedEvent,
+                        moment: moment
+                    })
+            })
+        })
     }else {
         response.render('index');
     }
@@ -75,6 +83,55 @@ router.get('/guest', (request, response) => {
         });
     })
 })
+
+router.post('/logout', async(request, response) => {
+    if(request.session) {
+        request.session.destroy();
+        response.render('home');
+    }  
+})
+
+router.post('/guestLogin', async (request, response) => {
+    const viewEvent = request.body.view_event;
+    console.log(request.body.event_name);
+    if(viewEvent == "View event") {
+        const eventName2 = request.body.event_name;
+        Event.find({eventName: eventName2}, function(err, events) {
+            response.render('viewEventGuest', {
+                eventDetails: events,
+                moment: moment
+            })
+        })
+    }
+    
+    const guestLogin = request.body.guest_login;
+    console.log(guestLogin);
+    if(guestLogin == "guestLogin"){
+        const usernameExists = await signUpTemplate.findOne({
+            username: request.body.username
+        });
+        if(usernameExists) return response.status(400).send('This account username exists.');
+    
+        const tokenExists = await eventTemplate.findOne({
+            eventToken: request.body.token
+        });
+        if(!tokenExists) return response.status(400).send('No such token exists!');
+    
+        const guestUser = new guestTemplate({
+            username: request.body.username,
+            eventToken: request.body.token,
+            publicEventName: request.body.checkbox
+        })
+    
+        guestUser.save().then(date => {
+            // response.render('guestHomepage');
+            response.json(data)
+            console.log('A guest account has logged in.');
+        }).catch(error => {
+            response.json(error)
+        });
+    }
+});
 
 router.post('/register', async (request, response) => {
     const usernameExists = await signUpTemplate.findOne({
@@ -108,14 +165,24 @@ router.post('/login', async (request, response) => {
     if(!hashPassword) return response.status(400).send('Invalid password');
 
     request.session.cust_log = "true";
+    request.session.loggedIn=true;
     request.session.user = user;
+
+    const timeNow = moment();
+
+    const eventTimes =  await eventTemplate.find({
+        participantsList: {$in: [request.session.user.username]}
+    });
+
+    // console.log(eventTimes.startDate);
 
     Event.find({hostID: request.session.user._id}, function(err, events) {
         Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
             response.render('event', {
                 username: request.session.user.username,
                 eventsList: events,
-                joinedEvents: joinedEvent
+                joinedEvents: joinedEvent,
+                moment: moment
             })
         }).sort({active: -1})
     })
@@ -230,7 +297,6 @@ router.post('/modifyEvent', (request, response) => {
     if(startButton == "Begin") { // Button clicked corresponds to deleting the event
         eventTemplate.findOneAndUpdate({_id: id}, {$set : {active: true}}, {new: true}, function(err, doc) {
             if(err) throw err;
-            console.log("hello");
 
             Event.find({hostID: request.session.user._id}, function(err, events) {
                 Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
@@ -242,28 +308,10 @@ router.post('/modifyEvent', (request, response) => {
                 }).sort({active: -1})
             })
         })
+
+        // socket.
     } 
 });
-
-router.get('/', (request, response) => {
-    Event.find({hostID: request.session.user._id}, function(err, events) {
-        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
-            response.render('event', {
-                username: request.session.user.username,
-                eventsList: events,
-                joinedEvents: joinedEvent
-            })
-        })
-    })
-})
-
-router.get('/guestEvents', (request, response) => {
-    Event.find({public: true}, function(err, publicEvents) {
-        response.render('guest', {
-            publicEventsList: publicEvents,
-        })
-    })
-})
 
 router.get('/home', (request, response) => {
     Event.find({hostID: request.session.user._id}, function(err, events) {
@@ -271,7 +319,8 @@ router.get('/home', (request, response) => {
             response.render('event', {
                 username: request.session.user.username,
                 eventsList: events,
-                joinedEvents: joinedEvent
+                joinedEvents: joinedEvent,
+                moment: moment
             })
         }).sort({active: -1})
     })
@@ -281,42 +330,16 @@ router.post('/feedback/:event_id', async (request, response) => {
     const eventID = request.body.event_id;
     console.log(eventID);
 
-    // Attempting to clicking on an event icon that has not begun
-    // const eventNotStarted = eventTemplate.findOne({$and: [{_id: eventID}, {active: false}]});
-    // if(eventNotStarted){
-    //     Event.find({_id: eventID}, function(err, events) {
-    //         if(err) throw err;
-    //         response.render('attendeeEventHomepage', {
-    //             feedbackEvent: events
-    //         });
-    //     }) 
-    //     // response.render('index');
-    // }else {
-    //     Event.find({_id: eventID}, function(err, events) {
-    //         response.render('attendeeEventHomepage', {
-    //             feedbackEvent: events
-    //         });
-    //     }) 
-    // }
-    const event = Event.find({_id: eventID}, function(err, events) {
-        response.render('attendeeEventHomepage', {
-            feedbackEvent: events
-        });
-    }) 
-    console.log(event.eventName);
+    const eventIDObject = mongoose.Types.ObjectId(eventID);
+    console.log(eventIDObject);
+
+        Event.find({_id: eventIDObject.valueOf()}, function(err, events) {
+            if(err) throw err;
+            response.render('attendeeEventHomepage', {
+                feedbackEvent: events
+            });
+        }) 
 })
-
-// router.get('/viewEvent/:event_id', async (request, response) => {
-//     const eventID = request.params.event_id;
-//     console.log(eventID);
-
-//     Event.find({$and: [{_id: eventID}, {hostID: request.session.user._id}]}, function(err, events) {
-//         response.render('viewEvent', {
-//             eventDetails: events,
-//             moment: moment
-//         })
-//     })
-// })
 
 router.post('/viewEvent/:event_id', (request, response) => {
     const eventName2 = request.body.event_name;
@@ -338,23 +361,22 @@ router.post('/viewEventGuest', (request, response) => {
     })
 });
 
-router.post('/startEvent', (request, response) => {
-    const id = request.body.event_id; // contains the event ID of event to be deleted
-    console.log(id);
-    const button = request.body.delete;
-    if(button == "Begin") { // Button clicked corresponds to deleting the event
-        eventTemplate.findOneAndUpdate({_id: id}, {$set : {live: "true"}}, function(err, doc) {
-            if(err) throw err;
-            console.log("hello");
+// router.post('/startEvent', (request, response) => {
+//     const id = request.body.event_id; // contains the event ID of event to be deleted
+//     console.log(id);
+//     const button = request.body.delete;
+//     if(button == "Begin") { // Button clicked corresponds to deleting the event
+//         eventTemplate.findOneAndUpdate({_id: id}, {$set : {live: "true"}}, function(err, doc) {
+//             if(err) throw err;
 
-            Event.find({hostID: request.session.user._id}, function(err, events) {
-                response.render('event', {
-                    username: request.session.user.username,
-                    eventsList: events,
-                })
-            })
-        })
-    } 
-})
+//             Event.find({hostID: request.session.user._id}, function(err, events) {
+//                 response.render('event', {
+//                     username: request.session.user.username,
+//                     eventsList: events,
+//                 })
+//             })
+//         })
+//     } 
+// })
 
 module.exports = router;

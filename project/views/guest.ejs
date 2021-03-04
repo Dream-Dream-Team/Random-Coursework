@@ -54,25 +54,65 @@
 		.popup-input{
 			height: 30px
 		}
+		.login-form {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.login-form h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+		.login-form input[type="password"],
+		.login-form input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+		.login-form input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color:grey;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
 		</style>
 	<body>
 
 		<div class="event-form">
-			<h1>Hello Guest</h1>
 			<h2>Public events</h2>
 
             <%if (publicEventsList.length > 0) { %>
             <%publicEventsList.forEach(publicEvent => {%>
-				<form action="/viewEventGuest" method="POST">
+
+				<form action="/guestLogin" method="POST">
+					<form>
 					<h3><%= publicEvent.eventName %></h3><img src="/uploads/images/<%=publicEvent.img%>" style="width: 60px; height: 60px;">
 					<input type="hidden" name="event_name" value="<%=publicEvent.eventName%>">
+					<input type="checkbox" name="checkbox"" value="<%=publicEvent.eventName%>">
 					<input type="submit" name="view_event" value="View event">
-				</form>
+					</form>
             <%})%>
             <% }else  {%>
                 <p>There are no public events available to join.</p>
             <% } %>
 
+		</div>
+
+		<div class="login-form">
+			<h1>Guest Login</h1>
+				<input type="text" name="username" placeholder="Create username" required>
+				<input type="password" name="token" placeholder="Enter Token">
+				<input type="submit" name="guest_login" value="guestLogin" class="btn btn-primary">
+			
+			</form>
 		</div>
 	</body>
 </html>

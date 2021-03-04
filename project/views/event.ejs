@@ -100,48 +100,14 @@
 			height: 70px;
 		}
 		</style>
+		</head>
+
 	<body>
-
-		<div class="popup">
-			<div class="popup-content">
-				<div class="popup-input">
-					<button type="button" id="addBtn">+ New attendee</button>
-					<h5>Attendee 1</h5>
-					<input type="text" name="attendeeName[1][username]" id="aName" placeholder="Username">
-				</div>
-				
-				<p id="attendeesAdded"></p>
-
-				<script>
-				let i = 1;
-
-				var addBtn = document.getElementById('addBtn').addEventListener('click', function() {
-					var usernameEntered = document.getElementById('aName').value;
-					document.getElementById('attendeesAdded').innerHTML = usernameEntered;
-
-				let template = `
-				<h5>Attendee ${i}:</h5>
-				<input type="text" name="attendeeName[${i}][username]" id="aName" placeholder="Username">`;
-
-				let container = document.getElementById('popup-content');
-				let div = document.createElement('div');
-				div.innerHTML = template;
-				container.appendChild(div);
-				
-				i++;
-				})
-				</script>
-				<div class="close">
-					<input type="submit" value="Close">
-				</div>
-			</div>
-		</div>
-
 		<div class="event-form">
 			<div class="sidenav">
 				<a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
 				<%joinedEvents.forEach(joinedEvent => {%>
-					<% if(joinedEvent.active) {%>
+					<% if(moment() >= moment(joinedEvent.startDate) && moment() < moment(joinedEvent.endDate)) {%>
 						<form action="/feedback/<%=joinedEvent._id%>" method="POST">
 							<input type="image" src="/uploads/images/<%=joinedEvent.img%>" 
 							style="width: 75px; height: 75px; margin-left: 10px; margin-bottom: 5px;" id="circle_active">
@@ -163,8 +129,8 @@
 				<input type="file" name="image" id="image">
 				<input type="text" name="eventName" id="ename" placeholder="Event Name" required>
 				<input type="number" name="participants" placeholder="No. of participants" min="0" required><br>
-                <label for="startDate">Start:</label><input type="date" name="startDate" required>
-                <label for="endDate">End:</label><input type="date" name="endDate" required>
+                <label for="startDate">Start:</label><input type="datetime-local" name="startDate" required>
+                <label for="endDate">End:</label><input type="datetime-local" name="endDate" required>
                 <label for="public">Anyone can attend:</label><input type ="checkbox" id="public" value="true" name="public">
 				<label for="analytics">Analytics</label><input type="checkbox" value="true" name="analytics">
                 <label for="generalMood">General Mood</label><input type="checkbox" value="true" name="generalMood">
@@ -187,31 +153,9 @@
 							tokenInput.disabled = false;
 						}
 					}
-				</script>
-				<script>
-					var seq = 0;
-
-					function myFunction() {
-						seq = seq +1;
-						number = '0000'.substr(String(seq).length) + seq
-						document.getElementById("demo").value = number;
-					}
+			 		});
 				</script>
 				<input type="submit" id="button" value="Create">
-
-				<script> 
-				var btn = document.getElementById('attendees');
-				btn.addEventListener('click', function() {
-					document.querySelector('.popup').style.display = 'flex';
-					document.querySelector('.popup-content').style.display = 'flex';
-				});
-
-				document.querySelector('.close').addEventListener('click', function() {
-					document.querySelector('.popup').style.display = 'none';
-					document.querySelector('.popup-content').style.display = 'none';
-				})
-				</script>
-
 			</form>
 
 			<h2>Join event</h2>
@@ -221,13 +165,16 @@
 			</form>
 
 			<h1>My events</h1>
+			<form action="/logout" method="POST">
+				<input type="submit" name="logout" value="Log out">
+			</form>
 
 			<%if (eventsList.length > 0) { %>
 				<%eventsList.forEach(event => {%>
 						<h3><%= event.eventName %></h3><img src="/uploads/images/<%=event.img%>" style="width: 40px; height: 40px;" id="circle_inactive">
 						<form action="/viewEvent/<%=event._id%>" method="POST">
 							<input type="hidden" name="event_name" value="<%= event.eventName%>">
-							<input type="submit" name="view_event" value="View event">
+							<input type="submit" name="view_event" value="View event" onclick="buttonClicked()">
 						</form>
 				<%})%>
 			<% }else  {%>

@@ -26,9 +26,6 @@
 <body>
   <div class="topbar">
     <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-    <%feedbackEvent.forEach(event => {%>
-      <h1> <%=event.eventName%></h1>
-    <%})%>
   </div>
   
   <div class="sidenav">
@@ -41,6 +38,9 @@
 
   <div class="column left" style="text-align: center;"> 
     <h1> Smiley faces:</h1>
+    <%feedbackEvent.forEach(event => {%>
+      <h1> <%=event.eventName%></h1>
+    <%})%>
     <button onclick="mood()"> Show template moods </button><br>
     <div id="smiley">
       <h3> Mood 1</h3>
