@@ -11,15 +11,11 @@
 
         /* Set width length for the left, right and middle columns */
         .left {
-            width: 33%;
-        }
-
-        .middle {
-            width: 34%;
+            width: 50%;
         }
 
         .right {
-            width: 33%;
+            width: 50%;
         }
     </style>
 </head>
@@ -61,7 +57,7 @@
         <img src="../images/smiley.jpeg" style="width:300px;height:250px;margin-left: 100px;"></a>
     </div>
 
-    <div class="column middle" style="text-align: center;">
+    <div class="column right" style="text-align: center;">
         <img src="../images/voting-poll.png" style="width:250px;height:250px;"></a><br>
         <div class="underlined">
             <h1 style="margin-left: 75px;"> Voting polls:</h1>
@@ -80,37 +76,7 @@
         </button>
     </div>
 
-    <div class="column right" style="text-align: center;">
-        <div class="underlined">
-            <h1 style="margin-left: 20px;"> Provide feedback:</h1>
-        </div>
-        <textarea rows="4" cols="50" name="comment" form="usrform"> Enter comment here...</textarea><br>
-        <button onclick="showContent()"> Show own comments </button>
-        <input type="checkbox" name="anonymous" value="Anonymous" style="border-left:0px;margin-left:100px;">
-        <label for="anonymous"> Anonymous</label>
-        <button style="background-color: aquamarine;">
-            <i class="fa fa-paper-plane-o icon-white"></i>
-            <span>Vote</span>
-        </button>
-        <div id="comment">
-            <h3> Published comment</h3>
-            <h3> Published comment</h3>
-            <h3> Published comment</h3>
-            <h3> Published comment</h3>
-            <h3> Published comment</h3>
-        </div>
-    </div>
-
     <script>
-        function showContent() {
-            var x = document.getElementById("comment");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
         function mood() {
             var x = document.getElementById("smiley");
             if (x.style.display === "none") {
