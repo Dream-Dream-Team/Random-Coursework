@@ -270,7 +270,7 @@ h4 {
 }
 
 .help .popup, .help .popup2 {
-  width: 500px;
+  width: 400px;
   height: 0px;
   text-align: left;
   overflow: hidden;
@@ -281,12 +281,12 @@ h4 {
 }
 
 .help .popup {
-  left: -260px;
+  left: -170px;
   top: 10px;
 }
 
 .help .popup2 {
-  height: 220px;
+  height: 200px;
 }
 
 .help .popup2 h4 {
@@ -297,7 +297,7 @@ h4 {
 
 .help:hover .popup {
   opacity: 1;
-  height: 270px;
+  height: 150px;
 }
 
 .help .tell-me p:first-child {
