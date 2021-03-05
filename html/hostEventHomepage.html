@@ -10,16 +10,70 @@
     }
 
     /* Set width length for the left, right and middle columns */
-    .left {
+    .l {
       width: 40%;
     }
 
-    .middle {
+    .m {
       width: 30%;
     }
 
-    .right {
+    .r {
       width: 30%;
+    }
+
+    .checked {
+      color: orange;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Three column layout */
+    .side {
+      float: left;
+      width: 15%;
+      margin-top:10px;
+    }
+
+    .middle {
+      margin-top:10px;
+      float: left;
+      width: 70%;
+    }
+
+    /* Place text to the right */
+    .right {
+      text-align: right;
+    }
+
+    /* The bar container */
+    .bar-container {
+      width: 100%;
+      background-color: #f1f1f1;
+      text-align: center;
+      color: white;
+    }
+
+    /* Individual bars */
+    .bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
+    .bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+    .bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+    .bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+    .bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+    /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+    @media (max-width: 400px) {
+      .side, .middle {
+        width: 100%;
+      }
+      .right {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -42,7 +96,7 @@
                 border-radius: 50px; background-color: white;font-size: larger;"> ? </button>
   </div>
 
-  <div class="column left" style="text-align: right;">
+  <div class="column l" style="text-align: right;">
     <div class="underlined"> <h1 style="margin-left: 140px;"> Comments & Questions:</h1></div>
     <div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
         border-radius: 5px; width: 415px; margin-left: 150px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
@@ -113,48 +167,84 @@
     <button onclick="commentFunc()" id="myBtn" style="margin-top: 10px;">Read more</button>
   </div>
 
-  <div class="column middle" style="text-align: center;">
+  <div class="column m" style="text-align: center;">
     <div class="underlined"> <h1 style="margin-left: 75px;"> Overall mood: </h1></div>
     <img src="../images/mood.png" style="width: 250px;height: 200px;"></a>
     <div class="underlined">
-      <h1 style="margin-left: 75px;"> Smiley faces: </h1>
+      <h1 style="margin-left: 75px;"> Ratings: </h1>
     </div>
-    <h4 style="text-align: left;margin-left: 100px;"> Recent smiley faces: </h4>
-    <div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-            border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-      <h3> </h3>
-    </div>
-    <div
-      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-                border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-      <h3> </h3>
-    </div>
-    <button style="background-color: rgb(255, 145, 0); text-align: left; margin-right: 100px;">
-      <i class="fa fa-lightbulb-o icon-white"></i>
-      <span>Create</span>
-    </button>
-    <button style="background-color: rgb(204, 127, 255);">
-      <i class="fa fa-comment icon-white"></i>
-      <span>Publish</span>
-    </button>
-    <span id="voteDot"></span>
-    </button>
-    <span id="all"> <div
-      style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-                border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-      <h3> </h3>
+    <span class="heading">User Rating</span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <p>8.1 average based on 254 reviews.</p>
+    <hr style="border:3px solid #f1f1f1; width: 9cm; margin-left: 2cm;">
+    <div class="row">
+      <div class="side">
+        <div>5 star</div>
       </div>
-      <div
-        style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-                      border-radius: 5px; width: 200px; margin-left: 100px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-        <h3> </h3>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-5"></div>
+        </div>
       </div>
-    </span>
-    <br>
-    <button onclick="voteFunc()" id="voteBtn" style="margin-top: 10px;">Read more</button>
+      <div class="side right">
+        <div>150</div>
+      </div>
+      <div class="side">
+        <div>4 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-4"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>63</div>
+      </div>
+      <div class="side">
+        <div>3 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-3"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>15</div>
+      </div>
+      <div class="side">
+        <div>2 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-2"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>6</div>
+      </div>
+      <div class="side">
+        <div>1 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-1"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>20</div>
+      </div>
+    </div>
   </div>
 
-  <div class="column right" style="text-align: center;">
+  <div class="column r" style="text-align: center;">
     <img src="../images/hostPoll.png" style="width:250px;height:250px;margin-top: 40px;"></a><br>
     <div class="underlined">
       <h1 style="margin-left: 90px;"> Voting polls: </h1>
