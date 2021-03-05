@@ -5,41 +5,54 @@
     <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+        .column {
+            float: left;
+        }
+
+        /* Set width length for the left, right and middle columns */
+        .l {
+            width: 50%;
+        }
+
+        .r {
+            width: 50%;
+        }
+
         .rate {
-        float: left;
-        height: 46px;
-        padding: 0 10px;
-    }
-    .rate:not(:checked) > input {
-        position:absolute;
-        top:-9999px;
-    }
-    .rate:not(:checked) > label {
-        float:right;
-        width:1em;
-        overflow:hidden;
-        white-space:nowrap;
-        cursor:pointer;
-        font-size:30px;
-        color:#ccc;
-    }
-    .rate:not(:checked) > label:before {
-        content: '★ ';
-    }
-    .rate > input:checked ~ label {
-        color: #ffc700;    
-    }
-    .rate:not(:checked) > label:hover,
-    .rate:not(:checked) > label:hover ~ label {
-        color: #deb217;  
-    }
-    .rate > input:checked + label:hover,
-    .rate > input:checked + label:hover ~ label,
-    .rate > input:checked ~ label:hover,
-    .rate > input:checked ~ label:hover ~ label,
-    .rate > label:hover ~ input:checked ~ label {
-        color: #c59b08;
-    }
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+        .rate:not(:checked) > input {
+            position:absolute;
+            top:-9999px;
+        }
+        .rate:not(:checked) > label {
+            float:right;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+            color:#ccc;
+        }
+        .rate:not(:checked) > label:before {
+            content: '★ ';
+        }
+        .rate > input:checked ~ label {
+            color: #ffc700;    
+        }
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+            color: #deb217;  
+        }
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+            color: #c59b08;
+        }
     </style>
 </head>
 
@@ -51,17 +64,50 @@
 
     <div class="sidenav">
         <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
-        <button onclick="location.href='helpPage.html';" type="button" style="width: 60px; height: 60px; 
-                    margin-left: 25px; border: 2px solid black;
-                    border-radius: 50px; background-color: white;font-size: larger;"> ? </button>
-        
     </div>
 
-    <div style="text-align: center;">
-        <div class="underlined" style="width: 50%; margin-left: 25%;">
+    
+
+    <div class="column l" style="text-align: center;">
+        <div class="underlined">
+            <h1 style="margin-left: 140px;"> Comments & Questions:</h1>
+        </div>
+        <div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+            border-radius: 5px; width: 415px; margin-left: 170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+            <h3> This is a comment</h3>
+        </div>
+        <div
+            style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                border-radius: 5px; width: 415px; margin-left:170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+            <h3> This is a comment</h3>
+        </div>
+        <div
+            style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                    border-radius: 5px; width: 415px; margin-left:170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+            <h3> This is a comment</h3>
+        </div>
+        <div
+            style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                    border-radius: 5px; width: 415px; margin-left:170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+            <h3> This is a comment</h3>
+        </div>
+        <span id="dots"></span>
+        <span id="more">
+            <div
+                style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
+                        border-radius: 5px; width: 415px; margin-left:170px; padding: 1px;">
+                <h3> This is a comment</h3>
+            </div>
+        </span>
+        <br>
+        <button onclick="commentFunc()" id="myBtn">Read more</button>
+    </div>
+
+    <div style="text-align: center;" class="column r">
+        <div class="underlined" style="width: 75%; margin-left: 20%;">
             <h1> Ratings:</h1>
         </div>
-        <p> Select number of stars based on your current mood right now: </p><br>
+        <p style="margin-left: 3cm;"> Select number of stars based on your current mood right now: </p><br>
         <div class="rate" style="margin-left: 40%;">
             <input type="radio" id="star1" name="rate" value="1" />
             <label for="star1" title="text">1 star</label>
@@ -94,7 +140,39 @@
                 </button>
             </div>
         </div>
+        <div class="help" style="margin-left: 400px;margin-top: 170px;">
+            <div class="question">?</div>
+            <div class="popup">
+                <h3>Attendee event help page</h3>
+                <p>Here we explain how to use each feature...</p><br><br>
+                <div class="tell-me">
+                    <p>Tell me more!</p>
+                    <div class="popup2">
+                        <h4>Sub-levels</h4>
+                        <p><a href="../html/helpPage.html" target="_blank">Click here</a> if more help is needed. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        function commentFunc() {
+            var dots = document.getElementById("dots");
+            var moreText = document.getElementById("more");
+            var btnText = document.getElementById("myBtn");
+
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btnText.innerHTML = "Read more";
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read less";
+                moreText.style.display = "inline";
+            }
+        }
+    </script>
 </body>
 
 </html>
