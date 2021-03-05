@@ -47,6 +47,10 @@ const eventTemplate = new mongoose.Schema({
     },
     eventToken:{
         type: String
+    },
+    active:{
+        type: Boolean,
+        default: false
     }
 })
 

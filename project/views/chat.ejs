@@ -1,34 +1,46 @@
-
-<html>
-    <head>
-        <title>Anonymouse Real-time chat</title>
-        <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"  rel="stylesheet"  id="bootstrap-css">
-        <!------ Include the above in your HEAD tag ---------->
-        <link  href="/css/style.css"  type="text/css"  rel="stylesheet"/>
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+        crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>ChatCord App</title>
+</head>
 <body>
-<div  class="chat_window">
-    <div  class="top_menu">
-    <div  class="buttons">
-    <div  class="button close"></div>
-    <div  class="button minimize"></div>
-    <div  class="button maximize"></div>
-</div>
-    <div  class="title">Chat</div>
-</div>
-    <ul id="messages"  class="messages"></ul>
-<div  class="bottom_wrapper clearfix">
-<i  id="typing"></i>
-    <form  id="form">
-        <div  class="message_input_wrapper">
-        <input  id="message"  class="message_input"  placeholder="Type your message here..."  />
-        </div>
-        <button  class="send_message">Send</button>
-    </form>
-</div>
-</div>
-<script  src="/js/socket.js"></script>
-<script  src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script  src="https://cdn.jsdelivr.net/gh/rexeze/formatTimeStamp/src/index.min.js"></script>
-<script  src="/js/chat.js"></script>
+    <div class="join-container">
+        <header class="join-header">
+            <h1><i class="fas fa-smile"></i> ChatCord</h1>
+        </header>
+        <main class="join-main">
+            <form action="chat.html">
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="Enter username..."
+                        required
+                    />
+                </div>
+                <div class="form-control">
+                    <label for="room">Room</label>
+                    <select name="room" id="room">
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="PHP">PHP</option>
+                        <option value="C#">C#</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="Java">Java</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Join Chat</button>
+            </form>
+        </main>
+    </div>
 </body>
