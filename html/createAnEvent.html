@@ -27,9 +27,6 @@
 
     <div class="sidenav">
       <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
-      <button onclick="location.href='helpPage.html';" type="button" aria-label="Help button" id="help_btn" class="question"
-        style="width: 60px; height: 60px; margin-left: 25px; border: 2px solid black;
-                  border-radius: 50px; background-color: white;font-size: larger;"> ? </button>
     </div>
 
     <form action="POST">
@@ -46,11 +43,11 @@
       </div>
       <div class="button" style="padding-bottom:90px;">
         <form action="POST">
-          <button type="button">Template 1</button>
+          <button type="submit">Template 1</button>
           <br>
-          <button type="button">Template 2</button>
+          <button type="submit">Template 2</button>
           <br>
-          <button type="button" id="cYOButton" >Create your own</button>
+          <button type="submit" id="cYOButton" >Create your own</button>
             <!-- The Modal -->
             <div id="myModal1" class="modal">
               <!-- Modal content -->
@@ -99,7 +96,7 @@
               </script>
           <br>
         </form>
-        <button type="button" style="font-weight: bold; background-color: mediumseagreen;">SELECT</button>
+        <button type="submit" style="font-weight: bold; background-color: mediumseagreen;">SELECT</button>
       </div>
     </div>
 
@@ -178,17 +175,30 @@
           }
         </script>
         <h4> Create token: <input id="token" name="eventToken" placeholder="Enter token"></h4>
-        <button type="button">Anyone Can Attend!</button>
+        <button type="submit">Anyone Can Attend!</button>
         <br>
         <h4> 
           Max no. of participants:
           <textarea rows="1" cols="3" name="comment" form="POST"> </textarea>
           <br>
         </h4>
-        <button type="button" style="font-weight: bold; background-color: mediumseagreen;">SELECT</button>
-        
+        <button type="submit" style="font-weight: bold; background-color: mediumseagreen;">SELECT</button>
       </div>
-      <input type="button" onclick="location.href='../html/createdEvent.html';" value="Create" style="font-size: 40px;color: black;background-color: orange;font-family: Garamond, serif;">
+      <input type="submit" onclick="location.href='../html/createdEvent.html';" value="Create" style="font-size: 40px;color: black;background-color: orange;font-family: Garamond, serif; margin-left: 50%;">
+      <div class="help" style="margin-left: 350px;margin-top: 70px;">
+        <div class="question">?</div>
+        <div class="popup">
+          <h3>Attendee event help page</h3>
+          <p>Here we explain how to use each feature...</p><br><br>
+          <div class="tell-me">
+            <p>Tell me more!</p>
+            <div class="popup2">
+              <h4>Sub-levels</h4>
+              <p><a href="../html/helpPage.html" target="_blank">Click here</a> if more help is needed. </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </form>
 </body>
