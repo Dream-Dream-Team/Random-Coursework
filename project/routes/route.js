@@ -7,6 +7,16 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 
+
+ /* Requiring http and socketio modules */
+ const http = require('http');
+ const socketio = require('socket.io');
+
+ /* Setting up socketio chat server */
+ const chatServer = http.createServer(router);
+ const io = socketio(server);
+
+
 const moment = require('moment');
 
 const multer = require('multer');
@@ -74,14 +84,73 @@ router.get('/login', (request, response) => {
     response.render('login');
 });
 
+
+/* Chat Functions below: */
+
+const admin = 'Admin';
+
+// Run when client connects
+io.on('connection', socket => {
+    socket.on('joinRoom', ({ username, room }) => {
+      const user = userJoin(socket.id, username, room);
+  
+      socket.join(user.room);
+  
+      // Welcome current user
+      socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+  
+      // Broadcast when a user connects
+      socket.broadcast
+        .to(user.room)
+        .emit(
+          'message',
+          formatMessage(botName, `${user.username} has joined the chat`)
+        );
+  
+      // Send users and room info
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
+    });
+  
+    // Listen for chatMessage
+    socket.on('chatMessage', msg => {
+      const user = getCurrentUser(socket.id);
+  
+      io.to(user.room).emit('message', formatMessage(user.username, msg));
+    });
+  
+    // Runs when client disconnects
+    socket.on('disconnect', () => {
+      const user = userLeave(socket.id);
+  
+      if (user) {
+        io.to(user.room).emit(
+          'message',
+          formatMessage(botName, `${user.username} has left the chat`)
+        );
+  
+        // Send users and room info
+        io.to(user.room).emit('roomUsers', {
+          room: user.room,
+          users: getRoomUsers(user.room)
+        });
+      }
+    });
+  });
+
+
+
 router.get('/chat', (request, response) => {
     response.render('chat');
 });
 
+
+
+/* Chat Ends here */
+
 router.get('/createEvent', (request, response) => {
-    
-   // Create event page:
-   // - Needs user info
 
    response.render('createEvent', {
     username: request.session.user.username
