@@ -45,7 +45,7 @@
         <h1> Templates: </h1>
       </div>
       <div class="button" style="padding-bottom:90px;">
-        <form>
+        <form action="POST">
           <button type="button">Template 1</button>
           <br>
           <button type="button">Template 2</button>
@@ -116,7 +116,7 @@
           <div class="modal-content">
             <span class="close">&times;</span>
             <div id="people-container">
-              <form>
+              <form action="POST">
                 <h3>Person 1:</h3>
                 <p>
                   <label>Username</label><br>
@@ -134,7 +134,7 @@
             let i = 2;
             document.getElementById('add-new-person').onclick = function () {
               let template = `
-                                <form>
+                                <form action=POST>
                                   <h3>Person ${i}:</h3>
                                   <p>
                                       <label>Username</label><br>
