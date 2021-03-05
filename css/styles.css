@@ -337,3 +337,49 @@ h4 {
 .help .popup .popup2 p:nth-child(5) {
   padding: 20px 0 0 10px;
 }
+
+.block {
+  display: inline-block;
+  width: 125px;
+  height: 55px;
+  background-color: white;
+  border: 3px solid black;
+}
+
+.input-block {
+    margin-bottom: 40px;
+}
+
+.round-process {
+    width: 380px;
+    height: 10px;
+    color: black;
+    font-size: 20px;
+    outline: none;
+    background: none;
+}
+
+.input-wrap {
+    position: relative;
+    /*    width: 200px;*/
+    /*    text-align: center;*/
+    display: inline-block;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 53px;
+    position: absolute;
+    top: 0px;
+    left: 300px;
+    background-color: black;
+}
+
+.vertical-left {
+  width: 1px;
+  height: 53px;
+  position: absolute;
+  top: 0px;
+  left: 100px;
+  background-color: black;
+}
