@@ -4,20 +4,6 @@
 <head>
     <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .column {
-            float: left;
-        }
-
-        /* Set width length for the left, right and middle columns */
-        .left {
-            width: 50%;
-        }
-
-        .right {
-            width: 50%;
-        }
-    </style>
 </head>
 
 <body>
@@ -34,16 +20,25 @@
         
     </div>
 
-    <div class="column left" style="text-align: center;">
+    <div style="text-align: center;">
         <div class="underlined">
-            <h1 style="margin-left: 100px;"> Smiley faces:</h1>
+            <h1 style="margin-left: 100px;"> Ratings:</h1>
         </div>
-        <button onclick="mood()"> Show template moods </button><br>
-        <div id="smiley">
-            <h3> Mood 1</h3>
-            <h3> Mood 2</h3>
-            <h3> Mood 3</h3>
-        </div><br>
+        <label for="simley">Choose a rating between 1 to 10 based on your mood right now:</label><br>
+        <select id="smiley">
+            <option value="">--Please choose an option--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
         <input type="checkbox" name="anonymous" value="Anonymous">
         <label for="anonymous"> Anonymous</label>
         <button style="background-color: aquamarine;">
@@ -53,45 +48,6 @@
         <br>
         <img src="../images/smiley.jpeg" style="width:300px;height:250px;margin-left: 100px;"></a>
     </div>
-
-    <div class="column right" style="text-align: center;">
-        <img src="../images/voting-poll.png" style="width:250px;height:250px;"></a><br>
-        <div class="underlined">
-            <h1 style="margin-left: 75px;"> Voting polls:</h1>
-        </div>
-        <button onclick="vote()"> Show participated polls </button><br>
-        <div id="poll">
-            <h3> Poll 1</h3>
-            <h3> Poll 2</h3>
-            <h3> Poll 3</h3>
-        </div><br>
-        <input type="checkbox" name="anonymous" value="Anonymous">
-        <label for="anonymous"> Anonymous</label>
-        <button style="background-color: aquamarine;">
-            <i class="fa fa-paper-plane-o icon-white"></i>
-            <span>Vote</span>
-        </button>
-    </div>
-
-    <script>
-        function mood() {
-            var x = document.getElementById("smiley");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        function vote() {
-            var x = document.getElementById("poll");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script>
 </body>
 
 </html>
