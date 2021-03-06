@@ -1,21 +1,22 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const path = require('path');
 
 const routes = require('./routes/route');
 
-// Database
-dotenv.config()
+// // Database
+// dotenv.config()
 
-mongoose.connect(process.env.DB_CONNECT, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-}, () => 
-    console.log('Database is running ...')
-);
+const connect = require("./dbconnect");
+
+// mongoose.connect(process.env.DB_CONNECT, {
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true
+// }, () => 
+//     console.log('Database is running ...')
+// );
 
 // Views
 app.set('views', path.join(__dirname, 'views'));
