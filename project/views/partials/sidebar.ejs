@@ -1,7 +1,28 @@
-<div class="sidenav">
-    <a href="/"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-</div>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" href="css/styles.css" type="text/css">
+	</head>
+	<body>
+        <div class="sidenav">
+            <a href="/"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
+            <% events.forEach(joinedEvent => {%>
+                <% if(moment() >= moment(joinedEvent.startDate) && moment() < moment(joinedEvent.endDate)) {%>
+                    <form action="/feedback/<%=joinedEvent._id%>" method="POST">
+                        <input type="image" src="/uploads/images/<%=joinedEvent.img%>" 
+                        style="width: 38px; height: 38px; margin-left: 10px; margin-bottom: 10px;" id="circle_active">
+                        <input type="hidden" name="eventName" value="<%=joinedEvent.eventName%>">
+                    </form>
+                <%} else {%>
+                    <form action="/feedback/<%=joinedEvent._id%>" method="POST">
+                        <input type="image" img src="/uploads/images/<%=joinedEvent.img%>" 
+                        style="width: 38px; height: 38px; margin-left: 10px; margin-bottom: 5px;" id="circle_inactive">
+                        <input type="hidden" name="event_id" value="<%=joinedEvent._id%>">
+                    </form>
+                <%}%>
+            <%})%>
+        </div>
+    </body>
+</html>

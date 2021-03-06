@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>This is the created event page</title>
+  <link rel="stylesheet" href="../css/styles.css" type="text/css">
+</head>
+
+<body>
+    <div class="topbar">
+      <a href="/home"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+      <h1> SUMMARY </h1>
+    </div>
+    <!-- Includes the Side  bar -->
+	<%- include('partials/sidebar', {events: joinedEvents}) %>
+    
+    <div class="main">
+        <%eventDetails.forEach(event => {%>
+            <div class="split left">
+                <u><h2><%= event.eventName %></h2></u>
+                <h2>Your icon =  <img src="/uploads/images/<%=event.img%>" style="width: 60px; height: 60px;" id="circle"></h2>
+                <h2>Your start date = <%= moment(event.startDate).format('Do MMM, YYYY, hh:mm a'); %></h2>
+                <h2>Your end date = <%= moment(event.endDate).format('Do MMM, YYYY, hh:mm a'); %></h2>
+                <h2>Your other options = </h3>
+                    <% if(event.public == true) {%>
+                        <h2>✔️Public</h2>
+                    <%} else {%>
+                        <h2>✔️Private</h2>
+                     <%}%>
+                    <% if(event.analytics == true) {%>
+                        <h2>✔️Analytics</h2>
+                    <%}%>
+                    <% if(event.generalMood == true) {%>
+                        <h2>✔️General Mood</h2>
+                    <%}%>
+                    <% if(event.generalMoodOverTime == true) {%>
+                        <h2>✔️General Mood over time</h2>
+                    <%}%>
+                    <% if(event.requests == true) {%>
+                        <h2>✔️Requests</h2>
+                    <%}%>
+            </div>
+            <div class="split right">
+                <h2>Your templates = </h2>
+                <h2><% %></h2>
+                <%if (event.public == true) { %>
+                    <h2>Your attendees or token = No event token (public event)</h2>
+                    <h2>No. of participants = <%= event.participants%></h2>
+                  <%}else { %>
+                    <h2>Your attendees or token = <%= event.eventToken %></h2>
+                    <h2>No. of participants = <%= event.participants%></h2>
+                <%}%>
+                <div class="button">
+                <button type="submit" onclick="location.href='/home';">Back to Homepage</button>
+                </div>
+                <div class="help" style="margin-left: 300px;margin-top: 70px;">
+                <div class="question">?</div>
+                <div class="popup">
+                    <h3>Attendee event help page</h3>
+                    <p>Here we explain how to use each feature...</p><br><br>
+                    <div class="tell-me">
+                    <p>Tell me more!</p>
+                    <div class="popup2">
+                        <h4>Sub-levels</h4>
+                        <p><a href="../html/helpPage.html" target="_blank">Click here</a> if more help is needed. </p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+        <%})%>
+    </div>
+</body>
+</html>

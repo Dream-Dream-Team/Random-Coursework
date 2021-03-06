@@ -186,6 +186,52 @@ input {
   text-align: center;
 }
 
+.underlined input[type="submit"] {
+  height: 50px;
+  width: 120px;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 30px;
+}
+
+.underlined input[name="Join"] {
+  font-size: 30px;
+  padding: 5px 10px;
+  border-radius: 30px;
+  margin-top: 15px;
+}
+
+#circle {
+  background-size: cover;
+  border-radius: 50% 50% 50% 50%;
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
+  margin-left: 50px;
+}
+
+#circle_active {
+  background-size: cover;
+  border-radius: 50% 50% 50% 50%;
+  border: 1.7px solid transparent;
+  border-color: red;
+  width: 70px;
+  height: 70px;
+}
+
+#circle_inactive {
+  background-size: cover;
+  border-radius: 50% 50% 50% 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.box {
+  display: flex;
+  align-items:center;
+  margin-left: 140px;
+}
+
 h1 {
   font-size: 40px;
   font-family: Garamond, serif;
@@ -239,4 +285,142 @@ h3 {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.logoutButton button{
+  font-size: 40px;
+  color: black;
+  background-color: orange;
+  font-family: Garamond, serif;
+}
+
+.eventBox{
+  font-size: 30px;
+  background-color: lightgrey;
+}
+
+.help .question {
+  height: 40px;
+  width: 40px;
+  background: #ccc;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.help .popup, .help .popup2 {
+  width: 400px;
+  height: 0px;
+  text-align: left;
+  overflow: hidden;
+  position: relative;
+  background: #eee;
+  opacity: 0;
+  transition: 1s;
+}
+
+.help .popup {
+  left: -170px;
+  top: 10px;
+}
+
+.help .popup2 {
+  height: 200px;
+}
+
+.help .popup2 h4 {
+  font-size: 18px;
+  padding: 10px;
+  margin-top: 0;
+}
+
+.help:hover .popup {
+  opacity: 1;
+  height: 150px;
+}
+
+.help .tell-me p:first-child {
+  color: #317eac;
+  cursor: pointer;
+}
+
+.tell-me {
+  width: 150px;
+}
+
+.help .tell-me:hover .popup2 {
+  top: -110px;
+  opacity: 1;
+}
+
+.help .popup h3 {
+  margin: 0;
+  padding: 10px 0 0 10px;
+  height: 30px;
+  background: #555;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.help .popup p {
+  font-size: 16px;
+  padding: 10px;
+  margin: 0;
+}
+
+.help .popup .popup2 .sub-levels {
+  padding: 0 0 10px 140px;
+}
+
+.help .popup .popup2 p:nth-child(5) {
+  padding: 20px 0 0 10px;
+}
+
+.block {
+  display: inline-block;
+  width: 125px;
+  height: 55px;
+  background-color: white;
+  border: 3px solid black;
+}
+
+.input-block {
+    margin-bottom: 40px;
+}
+
+.round-process {
+    width: 380px;
+    height: 10px;
+    color: black;
+    font-size: 20px;
+    outline: none;
+    background: none;
+}
+
+.input-wrap {
+    position: relative;
+    /*    width: 200px;*/
+    /*    text-align: center;*/
+    display: inline-block;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 53px;
+    position: absolute;
+    top: 0px;
+    left: 300px;
+    background-color: black;
+}
+
+.vertical-left {
+  width: 1px;
+  height: 53px;
+  position: absolute;
+  top: 0px;
+  left: 100px;
+  background-color: black;
 }

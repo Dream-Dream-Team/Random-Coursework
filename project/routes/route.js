@@ -13,8 +13,8 @@ const crypto = require('crypto');
  const socketio = require('socket.io');
 
  /* Setting up socketio chat server */
- const chatServer = http.createServer(router);
- const io = socketio(server);
+//  const chatServer = http.createServer(router);
+//  const io = socketio(server);
 
 
 const moment = require('moment');
@@ -56,6 +56,7 @@ const eventSchema = {
     endDate: Date,
     public: Boolean,
     hostID: String,
+    eventToken: String,
     analytics: Boolean,
     generalMood: Boolean,
     generalMoodOverTime: Boolean,
@@ -66,10 +67,14 @@ const Event = mongoose.model('Event', eventSchema);
 router.get('/', (request, response) => {
     if(request.session.cust_log == "true") {
         Event.find({hostID: request.session.user._id}, function(err, events) {
-                response.render('event', {
-                    username: request.session.user.username,
-                    eventsList: events
-                })
+            Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                    response.render('event', {
+                        username: request.session.user.username,
+                        eventsList: events,
+                        joinedEvents: joinedEvent,
+                        moment: moment
+                    })
+            })
         })
     }else {
         response.render('index');
@@ -84,61 +89,68 @@ router.get('/login', (request, response) => {
     response.render('login');
 });
 
+router.post('/logout', (request, response) => {
+    if(request.session) {
+        request.session.destroy();
+        response.render('index');
+    }  
+})
+
 
 /* Chat Functions below: */
 
-const admin = 'Admin';
+// const admin = 'Admin';
 
-// Run when client connects
-io.on('connection', socket => {
-    socket.on('joinRoom', ({ username, room }) => {
-      const user = userJoin(socket.id, username, room);
+// // Run when client connects
+// io.on('connection', socket => {
+//     socket.on('joinRoom', ({ username, room }) => {
+//       const user = userJoin(socket.id, username, room);
   
-      socket.join(user.room);
+//       socket.join(user.room);
   
-      // Welcome current user
-      socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+//       // Welcome current user
+//       socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
   
-      // Broadcast when a user connects
-      socket.broadcast
-        .to(user.room)
-        .emit(
-          'message',
-          formatMessage(botName, `${user.username} has joined the chat`)
-        );
+//       // Broadcast when a user connects
+//       socket.broadcast
+//         .to(user.room)
+//         .emit(
+//           'message',
+//           formatMessage(botName, `${user.username} has joined the chat`)
+//         );
   
-      // Send users and room info
-      io.to(user.room).emit('roomUsers', {
-        room: user.room,
-        users: getRoomUsers(user.room)
-      });
-    });
+//       // Send users and room info
+//       io.to(user.room).emit('roomUsers', {
+//         room: user.room,
+//         users: getRoomUsers(user.room)
+//       });
+//     });
   
-    // Listen for chatMessage
-    socket.on('chatMessage', msg => {
-      const user = getCurrentUser(socket.id);
+//     // Listen for chatMessage
+//     socket.on('chatMessage', msg => {
+//       const user = getCurrentUser(socket.id);
   
-      io.to(user.room).emit('message', formatMessage(user.username, msg));
-    });
+//       io.to(user.room).emit('message', formatMessage(user.username, msg));
+//     });
   
-    // Runs when client disconnects
-    socket.on('disconnect', () => {
-      const user = userLeave(socket.id);
+//     // Runs when client disconnects
+//     socket.on('disconnect', () => {
+//       const user = userLeave(socket.id);
   
-      if (user) {
-        io.to(user.room).emit(
-          'message',
-          formatMessage(botName, `${user.username} has left the chat`)
-        );
+//       if (user) {
+//         io.to(user.room).emit(
+//           'message',
+//           formatMessage(botName, `${user.username} has left the chat`)
+//         );
   
-        // Send users and room info
-        io.to(user.room).emit('roomUsers', {
-          room: user.room,
-          users: getRoomUsers(user.room)
-        });
-      }
-    });
-  });
+//         // Send users and room info
+//         io.to(user.room).emit('roomUsers', {
+//           room: user.room,
+//           users: getRoomUsers(user.room)
+//         });
+//       }
+//     });
+//   });
 
 
 
@@ -152,10 +164,16 @@ router.get('/chat', (request, response) => {
 
 router.get('/createEvent', (request, response) => {
 
-   response.render('createEvent', {
-    username: request.session.user.username
-});
-    
+    Event.find({hostID: request.session.user._id}, function(err, events) {
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+            response.render('createEvent', {
+                username: request.session.user.username,
+                eventsList: events,
+                joinedEvents: joinedEvent,
+                moment: moment
+            })
+        }).sort({active: -1})
+    }) 
 });
 
 
@@ -178,18 +196,28 @@ router.post('/register', async (request, response) => {
     const hashedPassword = await bcrypt.hash(request.body.password, salt);
 
     const signUpUser = new signUpTemplate({
-        fullName: request.body.fullName,
+        email: request.body.email,
         username: request.body.username,
         password: hashedPassword
     });
 
+    request.session.cust_log = "true";
+    request.session.user = signUpUser;
+
     signUpUser.save().then(date => {
-        response.json(data)
-        response.render('login');
-        console.log('Account created');
+        Event.find({hostID: request.session.user._id}, function(err, events) {
+            Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                response.render('event', {
+                    username: request.session.user.username,
+                    eventsList: events,
+                    joinedEvents: joinedEvent,
+                    moment: moment
+                })
+            }).sort({active: -1})
+        })   
     }).catch(error => {
         response.json(error)
-    });
+    });    
 });
 
 router.post('/login', async (request, response) => {
@@ -205,19 +233,18 @@ router.post('/login', async (request, response) => {
     // response.render('event', {username: request.session.user.username});
 
     Event.find({hostID: request.session.user._id}, function(err, events) {
-        //  Event.find({$and: [{public: true}, {hostID: {$ne: request.session.user._uid}}]}, function(err, publicEvents) {
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
             response.render('event', {
                 username: request.session.user.username,
                 eventsList: events,
-                // publicEventsList: publicEvents
+                joinedEvents: joinedEvent,
+                moment: moment
             })
-        // })
+        }).sort({active: -1})
     })
 });
 
 router.post('/addEvent', upload.single('image'), async (request, response) => {
-    console.log(request.file);
-
     const token = crypto.randomBytes(3).toString('hex'); // Generating the event token
 
     const checkEventExists = await eventTemplate.findOne({
@@ -226,10 +253,15 @@ router.post('/addEvent', upload.single('image'), async (request, response) => {
     });
     if(checkEventExists) return response.status(400).send('This event name already exists!');
 
+    const checkUniqueToken = await eventTemplate.findOne({
+        eventToken: request.body.createToken
+    })
+    if(checkUniqueToken) return response.status(400).send('This event token already exists!');
+
     const event = new eventTemplate({
         hostID: request.session.user._id,
         img: request.file.filename,
-        eventToken: token,
+        eventToken: request.body.createToken,
         eventName: request.body.eventName,
         participants: request.body.participants,
         public: request.body.public,
@@ -250,11 +282,15 @@ router.post('/addEvent', upload.single('image'), async (request, response) => {
     event.save().then(date => {
         const eventName2 = request.body.eventName;
         Event.find({$and: [{eventName: eventName2}, {hostID: request.session.user._id}]}, function(err, events) {
-        response.render('viewEvent', {
-            eventDetails: events,
-            moment: moment
+            Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                response.render('createdEvent', {
+                    username: request.session.user.username,
+                    eventDetails: events,
+                    joinedEvents: joinedEvent,
+                    moment: moment
+                })
+            }).sort({active: -1})
         })
-    })
     }).catch(error => {
         response.json(error)
     });
@@ -294,7 +330,16 @@ router.post('/joinEvent', async (request, response) => {
         {$push : { participantsList: request.session.user.username}}, {new: true}, function(err, doc) {
             if(err) throw err;
 
-            response.status(200).send('You have joined an event');
+            Event.find({hostID: request.session.user._id}, function(err, events) {
+                Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                    response.render('event', {
+                        username: request.session.user.username,
+                        eventsList: events,
+                        joinedEvents: joinedEvent,
+                        moment: moment
+                    })
+                }).sort({active: -1})
+            })
         });
 })
 
@@ -323,7 +368,6 @@ router.post('/modifyEvent', (request, response) => {
     if(startButton == "Begin") { // Button clicked corresponds to deleting the event
         eventTemplate.findOneAndUpdate({_id: id}, {$set : {active: true}}, {new: true}, function(err, doc) {
             if(err) throw err;
-            console.log("hello");
 
             Event.find({hostID: request.session.user._id}, function(err, events) {
                 Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
@@ -364,7 +408,8 @@ router.get('/home', (request, response) => {
             response.render('event', {
                 username: request.session.user.username,
                 eventsList: events,
-                joinedEvents: joinedEvent
+                joinedEvents: joinedEvent,
+                moment: moment
             })
         }).sort({active: -1})
     })
@@ -414,9 +459,13 @@ router.post('/feedback/:event_id', async (request, response) => {
 router.post('/viewEvent/:event_id', (request, response) => {
     const eventName2 = request.body.event_name;
     Event.find({$and: [{eventName: eventName2}, {hostID: request.session.user._id}]}, function(err, events) {
-        response.render('viewEvent', {
-            eventDetails: events,
-            moment: moment
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+            response.render('createdEvent', {
+                username: request.session.user.username,
+                eventDetails: events,
+                joinedEvents: joinedEvent,
+                moment: moment
+            })
         })
     })
 });

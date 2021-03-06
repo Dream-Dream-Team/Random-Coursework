@@ -8,32 +8,36 @@
 	<body>
 		
 		<div class="topbar">
-			<a href="/"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+			<a href="/home"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
 		</div>
 
-
         <!-- Includes the Side  bar -->
-		<%- include('partials/sidebar') %>
+			<%- include('partials/sidebar', {events: joinedEvents}) %>
 
-		  <div class="main">
+		<div class="main">
 			<div class="split left">
 			  <div class="centered">
 				<div class="underlined" style="width:40vw;height:70px;padding-bottom:800px;">
 				  
 				  <!-- MY EVENTS HERE: -->
 				  <h1> My Events </h1>
+				  <h2>你好 <%= username %></h2>
 
 					<%if (eventsList.length > 0) { %>
 						<%eventsList.forEach(event => {%>
-							<form action="/viewEvent" method="POST">
-								<h3><%= event.eventName %></h3><img src="/uploads/images/<%=event.img%>" style="width: 60px; height: 60px;">
+							<form action="/viewEvent/<%=event._id%>" method="POST">
+								<div class="box">
+								<img src="/uploads/images/<%=event.img%>" style="width: 70px; height: 70px;" id="circle">
+								<h3><%= event.eventName %></h3>
+							</div>
 								<input type="hidden" name="event_name" value="<%=event.eventName%>">
 								<input type="submit" name="view_event" value="View event">
 							</form>
 						<%})%>
 					<% }else  {%>
 						<h3>You currently do not have any events created!</h3>
-						<a href="/">Create an event</a>
+
+						<a href="/createEvent">Create an event</a>
 					<% } %>
 				</div>
 			  </div>
@@ -42,97 +46,26 @@
 			<div class="split right">
 			  <div class="centered">
 				<div class="underlined">
-
-
-
-				  <!-- JOIN EVENT HERE:	 -->
 				  <h1> Join Event </h1>
-				  <!-- <input type="number" id="attendeeToken" name="token" placeholder="Enter Token"> -->
-
 				  <form action="/joinEvent" method="POST">
 					<input type="text" name="eventToken" placeholder="Token" required>
-					<input type="submit" value="Join">
+					<input type="submit" name="Join" value="Join">
 				  </form>
 				  
-
-
-
 
 				  <!-- CREATE EVENT HERE: -->
 				  <h1> Create an Event </h1>
 				  <a href="/createEvent"><img src="../images/createButton.png" style="width:180px;height:70px;padding-bottom:200px;"></a>
+				  <h1> Sign out</h1>
+				  	<form action="/logout" method="POST">
+						<div class="logoutButton">
+							<button type="submit" type="submit" onclick="return confirm('Are you sure you want to log out? :(');">Logout</button>
+						</div>
+					</form>
 				</div>
 			  </div>
 			</div>
-		  </div>
-
-
-
-
-		<!-- Functionality -->
-
-
-		<div class="event-form">
-			<!-- <h1>Hello <%= username%></h1>
-			<h2>Create event</h2>
-			<form action="/addEvent" method="POST" id="add_event" enctype="multipart/form-data">
-
-				<input type="file" name="image" id="image">
-				<input type="text" name="eventName" id="ename" placeholder="Event Name" required>
-				<input type="number" name="participants" placeholder="No. of participants" required><br>
-                <label for="startDate">Start:</label><input type="date" name="startDate" required>
-                <label for="endDate">End:</label><input type="date" name="endDate" required>
-                <label for="public">Anyone can attend:</label><input type ="checkbox" id="public" value="true" name="public">
-				<label for="analytics">Analytics</label><input type="checkbox" value="true" name="analytics">
-                <label for="generalMood">General Mood</label><input type="checkbox" value="true" name="generalMood">
-                <label for="generalMoodOverTime">General Mood Over Time</label><input type="checkbox" value="true" name="generalMoodOverTime">
-                <label for="requests">Requests</label><input type="checkbox" value="true" name="requests">
-
-				<button type="button" id="attendees">Select attendees</button>
-				<button type="button" id="createToken" onclick="myFunction()">Create token</button>
-				<input id="demo" name="createToken" type="text">
-				<script>
-					var public = document.getElementById('public');
-					var tokenbtn = document.getElementById('createToken');
-					var tokenInput = document.getElementById('demo');
-					public.onchange = function() {
-						if(this.checked) {
-							tokenbtn.disabled = true;
-							tokenInput.disabled = true;
-						}else {
-							tokenbtn.disabled = false;
-							tokenInput.disabled = false;
-						}
-					}
-				</script>
-				<script>
-					var seq = 0;
-
-					function myFunction() {
-						seq = seq +1;
-						number = '0000'.substr(String(seq).length) + seq
-						document.getElementById("demo").value = number;
-					}
-				</script>
-				<input type="submit" id="button" value="Create">
-
-				<script> 
-				var btn = document.getElementById('attendees');
-				btn.addEventListener('click', function() {
-					document.querySelector('.popup').style.display = 'flex';
-					document.querySelector('.popup-content').style.display = 'flex';
-				});
-
-				document.querySelector('.close').addEventListener('click', function() {
-					document.querySelector('.popup').style.display = 'none';
-					document.querySelector('.popup-content').style.display = 'none';
-				})
-				</script>
-			
-				<a href="/hostEvents">View my events</a><br></br><a href="/joinedEvents">View joined events</a>
-			</form> -->
-
-			
+		</div>
 		</div>
 	</body>
 </html>
