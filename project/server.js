@@ -9,7 +9,8 @@ const routes = require('./routes/route');
 // // Database
 // dotenv.config()
 
-const connect = require("./dbconnect");
+let connectdb = require("./dbconnect");
+console.log(connectdb);
 
 // mongoose.connect(process.env.DB_CONNECT, {
 //     useUnifiedTopology: true,
@@ -31,6 +32,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use('/', routes);
 
+
+console.log("THE CONNECT VAR1 :" + connectdb);
 
 // Chat Stuff ::: :::::::::: :::::::::::: : :::::::::::::: 
 const http = require('http');
@@ -97,9 +100,9 @@ io.on('connection', socket => {
     const user = getCurrentUser(socket.id);
 
     io.to(user.room).emit('message', formatMessage(user.username, msg));
-
+    console.log("THE CONNECT VAR:" + connectdb);
     //////////////save chat to the database
-    connect.then(db => {
+    connectdb.then(db => {
       console.log("Connected to the Database.");
     
     

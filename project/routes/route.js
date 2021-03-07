@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const ObjectID = require('mongodb').ObjectID
 
-const connect = require("../dbconnect");
+const connectdb = require("../dbconnect");
 
 const moment = require('moment');
 
@@ -399,11 +399,11 @@ router.post('/viewEventG', (request, response) => {
 // Chat STUFF ::::::::::::::::::::::::::::::::::::
 const Chats = require("../models/EventChatSchema");
     
-router.get('/chat/:id' ,(req, res, next) => {
+router.get('/feedback/chat/:id' ,(req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
 
-  connect.then(db => {
+  connectdb.then(db => {
     let data = Chats.find({ EventID: mongoose.Types.ObjectId(req.params.id) },
     (error, result) =>
         res.json(result) );

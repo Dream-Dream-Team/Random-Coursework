@@ -8,8 +8,6 @@ const connect = mongoose.connect(process.env.DB_CONNECT, {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useNewUrlParser: true
-}, () => 
-    console.log('Database is running ...')
-);
+});
 
 module.exports = connect;
