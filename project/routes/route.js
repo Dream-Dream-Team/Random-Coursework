@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const ObjectID = require('mongodb').ObjectID
 
-const connectdb = require("./../dbconnect");
+const connect = require("../dbconnect");
 
 const moment = require('moment');
 
@@ -403,7 +403,7 @@ router.get('/chat/:id' ,(req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
 
-  connectdb.then(db => {
+  connect.then(db => {
     let data = Chats.find({ EventID: mongoose.Types.ObjectId(req.params.id) },
     (error, result) =>
         res.json(result) );
