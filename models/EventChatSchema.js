@@ -4,12 +4,13 @@ const Schema = mongoose.Schema;
 const chatSchema = new Schema(
   {
     EventID: {
-      type: Schema.Types.ObjectId, ref: 'events'
+      type: Schema.Types.ObjectId   //, ref: 'events'
     },
     Messages: [
-      {
-         type: Object 
-      }
+      { type: Object }
+    ],
+    SentimentOverTime: [
+      { type: Object } 
     ],
     TotalSentiment: {
       type: Number
@@ -17,9 +18,6 @@ const chatSchema = new Schema(
     AmountOfMessages: {
       type: Number
     },
-    TotalSentiment: {
-      type: Number
-    }
   },
   {
     timestamps: true
