@@ -13,7 +13,7 @@
                     <form action="/feedback/<%=joinedEvent._id%>" method="POST">
                         <input type="image" src="/uploads/images/<%=joinedEvent.img%>" 
                         style="width: 38px; height: 38px; margin-left: 10px; margin-bottom: 10px;" id="circle_active">
-                        <input type="hidden" name="eventName" value="<%=joinedEvent.eventName%>">
+                        <input type="hidden" name="event_id" value="<%=joinedEvent._id%>">
                     </form>
                 <%} else {%>
                     <form action="/feedback/<%=joinedEvent._id%>" method="POST">

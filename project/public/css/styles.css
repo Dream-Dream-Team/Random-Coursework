@@ -201,13 +201,41 @@ input {
   margin-top: 15px;
 }
 
-#circle {
+#circle_my_events_active{
   background-size: cover;
   border-radius: 50% 50% 50% 50%;
   width: 70px;
   height: 70px;
+  border: 2.7px solid transparent;
+  border-color: red;
   margin-right: 10px;
   margin-left: 50px;
+}
+
+#circle_my_events_inactive{
+  background-size: cover;
+  border-radius: 50% 50% 50% 50%;
+  width: 70px;
+  height: 70px;
+  border: 1.9px solid transparent;
+  margin-right: 10px;
+  margin-left: 50px;
+}
+
+.darkClass
+{
+    background-color: grey;
+    filter:alpha(opacity=50); /* IE */
+    opacity: 0.5; /* Safari, Opera */
+    -moz-opacity:0.50; /* FireFox */
+    z-index: 20;
+    height: 100%;
+    width: 100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    position:absolute;
+    top: 120px;
+    left: 105px;
 }
 
 #circle_active {

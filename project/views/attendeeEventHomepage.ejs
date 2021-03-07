@@ -4,91 +4,155 @@
   <link rel="stylesheet" href="../css/styles.css" type="text/css"> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-    .column {
-    float: left;
+    .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
     }
-
-    /* Set width length for the left, right and middle columns */
-    .left {
-    width: 33%;
+    .rate:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
     }
-
-    .middle {
-    width: 34%;
+    .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
     }
-    
-    .right {
-    width: 33%;
+    .rate:not(:checked) > label:before {
+        content: '★ ';
+    }
+    .rate > input:checked ~ label {
+        color: #ffc700;    
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;  
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <a href="/home"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-  </div>
-  
-  <div class="sidenav">
-    <a href="/home"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-    <a href="#"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
-  </div>
-
-  <div class="column left" style="text-align: center;"> 
-    <h1> Smiley faces:</h1>
-    <%feedbackEvent.forEach(event => {%>
+  <%feedbackEvent.forEach(event => {%>
+    <div class="topbar">
+    <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
       <h1> <%=event.eventName%></h1>
-    <%})%>
-    <button onclick="mood()"> Show template moods </button><br>
-    <div id="smiley">
-      <h3> Mood 1</h3>
-      <h3> Mood 2</h3>
-      <h3> Mood 3</h3>
-    </div><br>
-    <input type="checkbox" name="anonymous" value="Anonymous">
-    <label for="anonymous"> Anonymous</label>
-    <button style="background-color: aquamarine;">
-      <i class="fa fa-paper-plane-o icon-white"></i>
-      <span>Submit</span>
-    </button>
-    <a href="../html/attendeeEventHomepage.html"><img src="../images/smiley.jpeg" style="width:300px;height:250px;"></a>
-  </div>
-
-  <div class="column middle" style="text-align: center;">
-    <a href="../html/attendeeEventHomepage.html"><img src="../images/voting-poll.png" style="width:250px;height:250px;"></a><br>
-    <h1> Voting polls:</h1><br>
-    <button onclick="vote()"> Show voting polls </button><br>
-    <div id="poll">
-      <h3> Poll 1</h3>
-      <h3> Poll 2</h3>
-      <h3> Poll 3</h3>
-    </div><br>
-    <input type="checkbox" name="anonymous" value="Anonymous">
-    <label for="anonymous"> Anonymous</label>
-    <button style="background-color: aquamarine;">
-      <i class="fa fa-paper-plane-o icon-white"></i>
-      <span>Submit</span>
-    </button>
-  </div>
+    </div>
   
-  <div class="column right" style="text-align: center;">
-    <h1> Provide feedback:</h1>
-    <textarea rows="4" cols="50" name="comment" form="usrform" > Enter comment here...</textarea><br>
-    <button onclick="showContent()"> Show hidden content </button>
-    <input type="checkbox" name="anonymous" value="Anonymous" style="border-left:0px;margin-left:100px;">
-    <label for="anonymous"> Anonymous</label>
-    <button style="background-color: aquamarine;">
-      <i class="fa fa-paper-plane-o icon-white"></i>
-      <span>Submit</span>
-    </button>
-    <div id="comment">
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
-      <h3> Published comment</h3>
+  <!-- Includes the Side  bar -->
+  <%- include('partials/sidebar', {events: joinedEvents}) %>
+
+  <% if(moment() >= moment(event.startDate) && moment() < moment(event.endDate)) {%>
+    <div style="text-align: center;"> 
+    <div class="underlined" style="width: 50%; margin-left: 25%;"> <h1> Ratings:</h1></div>
+    <p> Select number of stars based on your current mood right now: </p><br>
+    <div class="rate" style="margin-left: 40%;">
+      <input type="radio" id="star1" name="rate" value="1" />
+      <label for="star1" title="text">1 star</label>
+      <input type="radio" id="star2" name="rate" value="2" />
+      <label for="star2" title="text">2 stars</label>
+      <input type="radio" id="star3" name="rate" value="3" />
+      <label for="star3" title="text">3 stars</label>
+      <input type="radio" id="star4" name="rate" value="4" />
+      <label for="star4" title="text">4 stars</label>
+      <input type="radio" id="star5" name="rate" value="5" />
+      <label for="star5" title="text">5 stars</label>
+      <input type="radio" id="star6" name="rate" value="6" />
+      <label for="star6" title="text">6 stars</label>
+      <input type="radio" id="star7" name="rate" value="7" />
+      <label for="star7" title="text">7 stars</label>
+      <input type="radio" id="star8" name="rate" value="8" />
+      <label for="star8" title="text">8 stars</label>
+      <input type="radio" id="star9" name="rate" value="9" />
+      <label for="star29" title="text">9 stars</label>
+      <input type="radio" id="star10" name="rate" value="10" />
+      <label for="star10" title="text">10 stars</label>
+      <br>
+      <div style="margin-top: 35px;">
+        <br>
+        <input type="checkbox" name="anonymous" value="Anonymous">
+        <label for="anonymous"> Anonymous</label>
+        <button style="background-color: aquamarine;">
+          <i class="fa fa-paper-plane-o icon-white"></i>
+          <span>Send</span>
+        </button>
+      </div>
+    </div>
+    <div class="underlined" style="width: 50%; margin-left: 25%; margin-top: 80px;">
+      <br>
+      <h1> Provide feedback:</h1>
+    </div>
+    <textarea rows="4" cols="50" name="comment" form="POST"> Enter comment here...</textarea><br>
+    <%} else {%>
+      <div id="darkLayer" class="darkClass"></div>
+      <div style="text-align: center;" id="darkClass"> 
+        <div class="underlined" style="width: 50%; margin-left: 25%;"> <h1> This event is offline.</h1></div>
+        <div class="rate" style="margin-left: 40%;">
+          <input type="radio" id="star1" name="rate" value="1" disabled/>
+          <label for="star1" title="text">1 star</label>
+          <input type="radio" id="star2" name="rate" value="2" disabled/>
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" disabled/>
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" disabled/>
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star5" name="rate" value="5" disabled/>
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star6" name="rate" value="6" disabled/>
+          <label for="star6" title="text">6 stars</label>
+          <input type="radio" id="star7" name="rate" value="7" disabled/>
+          <label for="star7" title="text">7 stars</label>
+          <input type="radio" id="star8" name="rate" value="8" disabled/>
+          <label for="star8" title="text">8 stars</label>
+          <input type="radio" id="star9" name="rate" value="9" disabled/>
+          <label for="star29" title="text">9 stars</label>
+          <input type="radio" id="star10" name="rate" value="10" disabled/>
+          <label for="star10" title="text">10 stars</label>
+          <br>
+          <div style="margin-top: 35px;">
+            <br>
+            <input type="checkbox" id="anonymous" name="anonymous" value="Anonymous">
+            <label for="anonymous"> Anonymous</label>
+            <button style="background-color: aquamarine;">
+              <i class="fa fa-paper-plane-o icon-white"></i>
+              <span>Send</span>
+            </button>
+          </div>
+        </div>
+        <div class="underlined" style="width: 50%; margin-left: 25%; margin-top: 80px;">
+          <br>
+          <h1></h1>
+        </div>
+        <textarea rows="4" id="textArea" cols="50" name="comment" form="POST"> Enter comment here...</textarea><br>
+        <script>
+            document.getElementById('textArea').disabled = true;
+            document.getElementById('anonymous').disabled = true;
+        </script>
+        <%}%>
+    <%})%>
+    <div class="help" style="margin-left: 690px;margin-top: 70px;">
+      <div class="question">?</div>
+      <div class="popup">
+        <h3>Attendee event help page</h3>
+        <p>Here we explain how to use each feature...</p><br><br>
+        <div class="tell-me">
+          <p>Tell me more!</p>
+          <div class="popup2">
+            <h4>Sub-levels</h4>
+            <p><a href="../html/helpPage.html" target="_blank">Click here</a> if more help is needed. </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -104,15 +168,6 @@
 
     function mood() {
         var x = document.getElementById("smiley");
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-      }
-    
-    function vote() {
-        var x = document.getElementById("poll");
         if (x.style.display === "none") {
           x.style.display = "block";
         } else {

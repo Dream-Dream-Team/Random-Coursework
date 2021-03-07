@@ -1,33 +1,87 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
 
-		<link rel="stylesheet" href="css/styles.css" type="text/css">
-	</head>
-	<body>
-		<!-- Includes the Top Navigation bar -->
-		<%- include('partials/topnav') %>
-	
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/styles.css">
+  <style>
+    .column {
+      float: left;
+    }
 
-		<div class="homepage">
-			<div class="centered">
-			  <div class="underlined">
-				<h1> Join event </h1>
-			  </div>
-			  <form>
-				<input type="text" id="username" name="newUserUsername" placeholder="Enter username">
-				<br>
-				<input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
-				<br>
-				<input type="password" id="pwd" name="password" placeholder="Enter password">
-				<br>
-				<a href="attendeeEventHomepage.html"><img src="../images/joinButton.png"
-					style="width:180px;height:70px;padding-bottom:150px;"></a>
-				<br>
-			  </form>
-			</div>
-		  </div>
-		
-	</body>
+    /* Set width length for the left and right columns */
+    .left {
+      width: 50%;
+    }
+
+    .right {
+      width: 50%;
+    }
+
+    .box {
+      background-color: white;
+      width: 400px;
+      height: 300px;
+      border: 3px solid black;
+      padding: 50px;
+      margin: 20px;
+      margin-left: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Includes the Top Navigation bar -->
+  <%- include('partials/topnav') %>
+
+  <div class="homepage">
+    <div class="column left">
+      <div class="underlined" style="margin-left: 150px; margin-top: 100px; text-align: center;">
+        <h1> Public Events </h1>
+
+		<div class="scrollable" style="overflow-y: scroll; height:600px;">
+			<%if (publicEventsList.length > 0) { %>
+				<%publicEventsList.forEach(publicEvent => {%>
+					<% if(moment() >= moment(publicEvent.startDate) && moment() < moment(publicEvent.endDate)) {%>
+						<form action="/viewEventG" method="POST">
+							<h3><%= publicEvent.eventName %></h3><img src="/uploads/images/<%=publicEvent.img%>" style="width: 60px; height: 60px;" id="circle_my_events_active">
+							<input type="hidden" name="event_id" value="<%=publicEvent._id%>">
+							<input type="checkbox" name="checkbox"" value="<%=publicEvent.eventName%>">
+							<input type="submit" name="view_event" value="View event">
+						</form>
+					<%} else {%>
+						<form action="/viewEventG" method="POST">
+							<h3><%= publicEvent.eventName %></h3><img src="/uploads/images/<%=publicEvent.img%>" style="width: 60px; height: 60px;">
+							<input type="hidden" name="event_id" value="<%=publicEvent._id%>">
+							<input type="checkbox" name="checkbox"" value="<%=publicEvent.eventName%>">
+							<input type="submit" name="view_event" value="View event">
+						</form>
+					<%}%>
+				<%})%>
+			<% }else  {%>
+				<p>There are no public events available to join.</p>
+			<% } %>
+		</div>
+      </div>
+      
+    </div>
+    
+    <div class="column right">
+      <div class="underlined" style="margin-left: 150px; margin-right:50px; margin-top: 100px; text-align: center;">
+        <h1> Join event </h1>
+        <form action="POST">
+          <input type="text" id="username" name="newUserUsername" placeholder="Create username">
+          <br>
+          <input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
+          <br>
+          <div class="button">
+            <button type="button" onclick="location.href='guestAttendeeView.html';">Join</button>
+          </div>
+          <br>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</body>
+
 </html>

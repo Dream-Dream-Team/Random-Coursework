@@ -22,23 +22,36 @@
 				  <!-- MY EVENTS HERE: -->
 				  <h1> My Events </h1>
 				  <h2>你好 <%= username %></h2>
+					
+				  	<div class="scrollable" style="overflow-y: scroll; height:620px;">
+						<%if (eventsList.length > 0) { %>
+							<%eventsList.forEach(event => {%>
+								<% if(moment() >= moment(event.startDate) && moment() < moment(event.endDate)) {%>
+									<form action="/viewEvent/<%=event._id%>" method="POST">
+										<div class="box">
+										<img src="/uploads/images/<%=event.img%>" style="width: 70px; height: 70px;" id="circle_my_events_active">
+										<h3><%= event.eventName %></h3>
+										</div>
+										<input type="hidden" name="event_name" value="<%=event.eventName%>">
+										<input type="submit" style="border-color: red;" name="view_event" value="View event">
+									</form>
+								<%} else {%>
+									<form action="/viewEvent/<%=event._id%>" method="POST">
+										<div class="box">
+										<img src="/uploads/images/<%=event.img%>" style="width: 70px; height: 70px;" id="circle_my_events_inactive">
+										<h3><%= event.eventName %></h3>
+										</div>
+										<input type="hidden" name="event_name" value="<%=event.eventName%>">
+										<input type="submit" name="view_event" value="View event">
+									</form>
+								<%}%>
+							<%})%>
+						<% }else  {%>
+							<h3>You currently do not have any events created!</h3>
 
-					<%if (eventsList.length > 0) { %>
-						<%eventsList.forEach(event => {%>
-							<form action="/viewEvent/<%=event._id%>" method="POST">
-								<div class="box">
-								<img src="/uploads/images/<%=event.img%>" style="width: 70px; height: 70px;" id="circle">
-								<h3><%= event.eventName %></h3>
-							</div>
-								<input type="hidden" name="event_name" value="<%=event.eventName%>">
-								<input type="submit" name="view_event" value="View event">
-							</form>
-						<%})%>
-					<% }else  {%>
-						<h3>You currently do not have any events created!</h3>
-
-						<a href="/createEvent">Create an event</a>
-					<% } %>
+							<a href="/createEvent">Create an event</a>
+						<% } %>
+					</div>
 				</div>
 			  </div>
 			</div>
@@ -55,7 +68,7 @@
 
 				  <!-- CREATE EVENT HERE: -->
 				  <h1> Create an Event </h1>
-				  <a href="/createEvent"><img src="../images/createButton.png" style="width:180px;height:70px;padding-bottom:200px;"></a>
+				  <a href="/createEvent"><img src="../images/createButton.png" style="width:180px;height:70px;padding-bottom:30px;"></a>
 				  <h1> Sign out</h1>
 				  	<form action="/logout" method="POST">
 						<div class="logoutButton">
