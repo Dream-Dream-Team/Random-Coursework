@@ -8,15 +8,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const ObjectID = require('mongodb').ObjectID
 
-
- /* Requiring http and socketio modules */
- const http = require('http');
- const socketio = require('socket.io');
-
- /* Setting up socketio chat server */
-//  const chatServer = http.createServer(router);
-//  const io = socketio(server);
-
+const connectdb = require("./../dbconnect");
 
 const moment = require('moment');
 
@@ -96,69 +88,6 @@ router.post('/logout', (request, response) => {
         response.render('index');
     }  
 })
-
-
-/* Chat Functions below: */
-
-// const admin = 'Admin';
-
-// // Run when client connects
-// io.on('connection', socket => {
-//     socket.on('joinRoom', ({ username, room }) => {
-//       const user = userJoin(socket.id, username, room);
-  
-//       socket.join(user.room);
-  
-//       // Welcome current user
-//       socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
-  
-//       // Broadcast when a user connects
-//       socket.broadcast
-//         .to(user.room)
-//         .emit(
-//           'message',
-//           formatMessage(botName, `${user.username} has joined the chat`)
-//         );
-  
-//       // Send users and room info
-//       io.to(user.room).emit('roomUsers', {
-//         room: user.room,
-//         users: getRoomUsers(user.room)
-//       });
-//     });
-  
-//     // Listen for chatMessage
-//     socket.on('chatMessage', msg => {
-//       const user = getCurrentUser(socket.id);
-  
-//       io.to(user.room).emit('message', formatMessage(user.username, msg));
-//     });
-  
-//     // Runs when client disconnects
-//     socket.on('disconnect', () => {
-//       const user = userLeave(socket.id);
-  
-//       if (user) {
-//         io.to(user.room).emit(
-//           'message',
-//           formatMessage(botName, `${user.username} has left the chat`)
-//         );
-  
-//         // Send users and room info
-//         io.to(user.room).emit('roomUsers', {
-//           room: user.room,
-//           users: getRoomUsers(user.room)
-//         });
-//       }
-//     });
-//   });
-
-
-
-router.get('/chat', (request, response) => {
-    response.render('chat');
-});
-
 
 
 /* Chat Ends here */
@@ -426,6 +355,7 @@ router.post('/feedback/:event_id', async (request, response) => {
         Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
             if(err) throw err;
             response.render('attendeeEventHomepage', {
+                user: req.session.user,
                 feedbackEvent: events,
                 joinedEvents: joinedEvent,
                 moment: moment
@@ -460,6 +390,34 @@ router.post('/viewEventG', (request, response) => {
             moment: moment
         })
     })
+});
+
+
+
+
+// Chat STUFF ::::::::::::::::::::::::::::::::::::
+const Chats = require("../models/EventChatSchema");
+
+router.get('', ()=> {
+    render('index');
+});
+
+router.get('/chat/:id' ,(req, res, next) => {
+  res.setHeader("Content-Type", "application/json");
+  res.statusCode = 200;
+
+  connectdb.then(db => {
+    let data = Chats.find({ EventID: mongoose.Types.ObjectId(req.params.id) },
+    (error, result) =>
+        res.json(result) );
+    // Chats.find({}).then(chat => {
+    //   res.json(chat);
+    // });
+  });
+});
+
+router.get('/chat/' ,(req, res, next) => {
+    console.log('LOFLAOSL');
 });
 
 module.exports = router;

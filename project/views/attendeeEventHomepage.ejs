@@ -54,6 +54,11 @@
 
   <% if(moment() >= moment(event.startDate) && moment() < moment(event.endDate)) {%>
     <div style="text-align: center;"> 
+
+    <!-- Chat box -->
+    <%- include('partials/chat', {username: user ,event: event}) %> 
+
+
     <div class="underlined" style="width: 50%; margin-left: 25%;"> <h1> Ratings:</h1></div>
     <p> Select number of stars based on your current mood right now: </p><br>
     <div class="rate" style="margin-left: 40%;">
@@ -97,6 +102,8 @@
       <div id="darkLayer" class="darkClass"></div>
       <div style="text-align: center;" id="darkClass"> 
         <div class="underlined" style="width: 50%; margin-left: 25%;"> <h1> This event is offline.</h1></div>
+        
+
         <div class="rate" style="margin-left: 40%;">
           <input type="radio" id="star1" name="rate" value="1" disabled/>
           <label for="star1" title="text">1 star</label>
@@ -134,6 +141,10 @@
           <h1></h1>
         </div>
         <textarea rows="4" id="textArea" cols="50" name="comment" form="POST"> Enter comment here...</textarea><br>
+
+        <!-- Chat box -->
+        <%- include('partials/chat', {username: req.session.user ,event: event}) %> 
+
         <script>
             document.getElementById('textArea').disabled = true;
             document.getElementById('anonymous').disabled = true;
