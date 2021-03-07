@@ -9,6 +9,7 @@
 		
 		<div class="topbar">
 			<a href="/home"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+			<h1> Welcome <%= username%></h1>
 		</div>
 
         <!-- Includes the Side  bar -->
@@ -21,7 +22,6 @@
 				  
 				  <!-- MY EVENTS HERE: -->
 				  <h1> My Events </h1>
-				  <h2>你好 <%= username %></h2>
 					
 				  	<div class="scrollable" style="overflow-y: scroll; height:620px;">
 						<%if (eventsList.length > 0) { %>
