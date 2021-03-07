@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const Chats = require("../models/EventChatSchema");
 
 const router = express.Router();
+router.get('', ()=> {
+    render('index');
+});
 
 router.get('/chat/:id' ,(req, res, next) => {
   res.setHeader("Content-Type", "application/json");
