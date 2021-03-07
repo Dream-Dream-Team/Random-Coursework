@@ -149,6 +149,7 @@ router.post('/login', async (request, response) => {
 
     request.session.cust_log = "true";
     request.session.user = user;
+    // response.locals.user = request.session.user;
     console.log(request.session.user._id);
     // response.render('event', {username: request.session.user.username});
 
@@ -355,7 +356,7 @@ router.post('/feedback/:event_id', async (request, response) => {
         Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
             if(err) throw err;
             response.render('attendeeEventHomepage', {
-                user: req.session.user,
+                username: request.session.user.username,
                 feedbackEvent: events,
                 joinedEvents: joinedEvent,
                 moment: moment
@@ -397,11 +398,7 @@ router.post('/viewEventG', (request, response) => {
 
 // Chat STUFF ::::::::::::::::::::::::::::::::::::
 const Chats = require("../models/EventChatSchema");
-
-router.get('', ()=> {
-    render('index');
-});
-
+    
 router.get('/chat/:id' ,(req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;

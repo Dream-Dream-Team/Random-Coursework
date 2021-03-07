@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "bad-words": "^3.0.4",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.3",
@@ -18,6 +19,7 @@
     "mongoose": "^5.11.15",
     "multer": "^1.4.2",
     "multer-gridfs-storage": "^4.2.0",
+    "natural": "^4.0.0",
     "objectid": "^3.2.1",
     "path": "^0.12.7",
     "socket.io": "^2.2.0",

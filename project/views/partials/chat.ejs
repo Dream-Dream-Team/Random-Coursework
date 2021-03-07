@@ -16,12 +16,13 @@
   <body>
     <div class="chat-container">
       <header class="chat-header">
-        <h1> Chat Demo</h1>
+        <div id="currentUsername" style="display: none;" ><%=username2%></div>
+        <div id="currentEventName" style="display: none;" ><%=events.eventName%></div>
         <a href="/" id="leave-btn" class="btn">Leave Room</a>
       </header>
       <main class="chat-main">
         <div class="chat-sidebar">
-          <h3><i class="fas fa-comments"></i> Room Name:</h3>
+          <h3><i class="fas fa-comments"></i> Event Name:</h3>
           <h2 id="room-name"></h2>
           <h3><i class="fas fa-users"></i> Users</h3>
           <ul id="users"></ul>
@@ -48,6 +49,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>

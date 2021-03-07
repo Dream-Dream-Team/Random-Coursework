@@ -455,7 +455,7 @@ h3 {
 
 
 /* CHAT STUFFF */
-/* @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 :root {
 	--dark-color-a: #f29e50;
@@ -465,37 +465,38 @@ h3 {
 	--error-color: #d9534f;
 }
 
-* {
+/* * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-}
+} */
 
-body {
+/* body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
+	background: var(--light-color);
 	margin: 20px;
-}
+} */
 
-ul {
+/* ul {
 	list-style: none;
 }
 
 a {
 	text-decoration: none;
-}
+} */
 
-.btn {
+/* .btn {
 	cursor: pointer;
 	padding: 5px 15px;
-	/* background: var(--light-color); */
-	/* color: var(--dark-color-a); */
-	/* border: 0; */
-	/* font-size: 17px; */
+	background: var(--light-color);
+	color: var(--dark-color-a);
+	border: 0;
+	font-size: 17px;
 } */
 
 /* Chat Page */
-/* 
+
 .chat-container {
 	max-width: 1100px;
 	background: #fff;
@@ -645,7 +646,6 @@ a {
 	}
 }
 
-
 .bold-text {
 	font-size: 17px;
 	font-weight: 900;
@@ -658,4 +658,4 @@ a {
 	color: #777;
 	font-size: 15px;
 	opacity: 0.7;
-} */
+}

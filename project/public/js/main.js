@@ -3,15 +3,30 @@ const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
+// Getting the useranme and room
+const username = document.getElementById('currentUsername').innerText;
+const room = document.getElementById('currentEventName').innerText;
+
+// Getting eventID
+let url = window.location.href;
+console.log(url);
+const EventID = url.substr(url.lastIndexOf("/")+1);
+console.log("The Current Event ID:" + EventID);
 
 // Get username and room from URL
 // const { username, room } = Qs.parse(location.search, {
 //   ignoreQueryPrefix: true,
 // });
 
-const currentUser = username;
-const room = event.eventName;
-const EventID = event.eventID;
+console.log(username);
+console.log("The Current User is:" + username);
+console.log("The current room name is:" + room);
+
+// const currentUser = username;
+// const room = event.eventName;
+// const EventID = event.eventID;
+
+
 
 const socket = io();
 

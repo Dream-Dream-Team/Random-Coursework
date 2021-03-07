@@ -53,12 +53,11 @@
   <%- include('partials/sidebar', {events: joinedEvents}) %>
 
   <% if(moment() >= moment(event.startDate) && moment() < moment(event.endDate)) {%>
-    <div style="text-align: center;"> 
+    
+    <h1>The username logged in is (just username): <%= username%></h1>
 
     <!-- Chat box -->
-    <%- include('partials/chat', {username: user ,event: event}) %> 
-
-
+    <%- include('partials/chat', {username2: username ,events: event}) %> 
     <div class="underlined" style="width: 50%; margin-left: 25%;"> <h1> Ratings:</h1></div>
     <p> Select number of stars based on your current mood right now: </p><br>
     <div class="rate" style="margin-left: 40%;">
