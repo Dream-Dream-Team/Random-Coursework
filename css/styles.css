@@ -383,3 +383,78 @@ h4 {
   left: 100px;
   background-color: black;
 }
+
+button,input,select,textarea,optgroup{
+  font:inherit;margin:0
+}
+
+html{
+  -ms-text-size-adjust:100%;-webkit-text-size-adjust:100%
+}
+body{
+  margin:0
+}
+
+body{
+  font-family:Verdana,sans-serif;
+  font-size:15px;line-height:1.5
+}
+html{
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family:"Segoe UI",Arial,sans-serif;
+  font-weight:400;margin:10px 0
+}
+
+.index-wide{
+  letter-spacing:4px
+}
+
+.index-button{
+  border:none;
+  display:inline-block;
+  padding:8px 16px;
+  vertical-align:middle;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background-color:inherit;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap
+}
+
+.index-sidebar{
+  height:100%;
+  width:200px;
+  background-color:#fff;
+  position:fixed!important;
+  z-index:1;
+  overflow:auto
+}
+
+.index-bar-item{
+  width:100%;
+  display:block;
+  padding:8px 16px;
+  text-align:left;
+  border:none;
+  white-space:normal;
+  float:none;
+  outline:0
+}
+
+.index-xlarge{
+  font-size:24px!important
+}
+
+.index-teal,.index-hover-teal:hover{
+  color:#fff!important;
+  background-color:#009688!important
+}
+
+.index-black,.index-hover-black:hover{
+  color:#fff!important;background-color:#000!important
+}
