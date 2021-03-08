@@ -241,87 +241,6 @@ h4 {
   background-color: lightgrey;
 }
 
-
-.help .question {
-  height: 40px;
-  width: 40px;
-  background: #ccc;
-  font-size: 32px;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.help .popup, .help .popup2 {
-  width: 400px;
-  height: 0px;
-  text-align: left;
-  overflow: hidden;
-  position: relative;
-  background: #eee;
-  opacity: 0;
-  transition: 1s;
-}
-
-.help .popup {
-  left: -170px;
-  top: 10px;
-}
-
-.help .popup2 {
-  height: 100px;
-}
-
-.help .popup2 h4 {
-  font-size: 18px;
-  padding: 10px;
-  margin-top: 0;
-}
-
-.help:hover .popup {
-  opacity: 1;
-  height: 180px;
-}
-
-.help .tell-me p:first-child {
-  color: #317eac;
-  cursor: pointer;
-}
-
-.tell-me {
-  width: 150px;
-}
-
-.help .tell-me:hover .popup2 {
-  top: -180px;
-  opacity: 1;
-}
-
-.help .popup h3 {
-  margin: 0;
-  padding: 10px 0 0 10px;
-  height: 30px;
-  background: #555;
-  color: #fff;
-  font-weight: 400;
-  font-size: 18px;
-}
-
-.help .popup p {
-  font-size: 16px;
-  padding: 10px;
-  margin: 0;
-}
-
-.help .popup .popup2 .sub-levels {
-  padding: 0 0 10px 140px;
-}
-
-.help .popup .popup2 p:nth-child(5) {
-  padding: 20px 0 0 10px;
-}
-
 .block {
   display: inline-block;
   width: 125px;
@@ -441,4 +360,84 @@ h1,h2,h3,h4,h5,h6{
 
 .index-black,.index-hover-black:hover{
   color:#fff!important;background-color:#000!important
+}
+
+.help .question {
+  height: 40px;
+  width: 40px;
+  background: #ccc;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.help .popup, .help .popup2 {
+  width: 500px;
+  height: 0px;
+  text-align: left;
+  overflow: hidden;
+  position: relative;
+  background: #eee;
+  opacity: 0;
+  transition: 1s;
+}
+
+.help .popup {
+  left: -260px;
+  top: 10px;
+}
+
+.help .popup2 {
+  height: 220px;
+}
+
+.help .popup2 h4 {
+  font-size: 18px;
+  padding: 10px;
+  margin-top: 0;
+}
+
+.help:hover .popup {
+  opacity: 1;
+  height: 170px;
+}
+
+.help .tell-me p:first-child {
+  color: #317eac;
+  cursor: pointer;
+}
+
+.tell-me {
+  width: 150px;
+}
+
+.help .tell-me:hover .popup2 {
+  top: -130px;
+  opacity: 1;
+}
+
+.help .popup h3 {
+  margin: 0;
+  padding: 10px 0 0 10px;
+  height: 30px;
+  background: #555;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.help .popup p {
+  font-size: 16px;
+  padding: 10px;
+  margin: 0;
+}
+
+.help .popup .popup2 .sub-levels {
+  padding: 0 0 10px 140px;
+}
+
+.help .popup .popup2 p:nth-child(5) {
+  padding: 20px 0 0 10px;
 }
