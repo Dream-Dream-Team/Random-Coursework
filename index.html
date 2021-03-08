@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>This is the homepage</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="css/styles.css" type="text/css">
   <style>
     .column {
@@ -27,6 +28,20 @@
     <a href="html/helpPage.html">Get help</a>
   </div>
 
+  <nav class="w3-sidebar w3-black w3-animate-top w3-xxlarge" style="display:none;padding-top:150px" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-black w3-xxlarge w3-padding w3-display-topright"
+      style="padding:6px 24px">
+      <i class="fa fa-remove"></i>
+    </a>
+    <div class="w3-bar-block w3-center">
+      <a href="index.html" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Home</a>
+      <a href="html/aboutUs.html" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Lab 1</a>
+      <a href="html/register.html" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Lab 2</a>
+      <a href="html/login.html" class="w3-bar-item w3-button w3-text-grey w3-hover-black">Lab 3</a>
+      <a href="html/helpPage.html" class="w3-bar-item w3-button w3-text-grey w3-hover-black">About me</a>
+    </div>
+  </nav>
+
   <div class="homepage">
     <div class="column left">
       <h1> REAL TIME MESSAGING APP</h1>
@@ -41,5 +56,18 @@
       <a href="html/guestHomepage.html"><img src="images/loginGuest.png" style="margin-left: 100px;"></a>
     </div>
   </div>
+
+  <script>
+    // Open and close sidebar
+    function w3_open() {
+      document.getElementById("mySidebar").style.width = "100%";
+      document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+  </script>
+  
 </body>
 </html>
