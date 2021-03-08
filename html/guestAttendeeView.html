@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <title>Guest Attendee View</title>
     <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
@@ -54,6 +53,16 @@
         .rate > label:hover ~ input:checked ~ label {
             color: #c59b08;
         }
+
+        .guest-div {
+            text-align: center;
+            background-color: rgb(233, 229, 229);
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 5px; width: 415px; 
+            margin-left:170px; 
+            margin-top: 10px; 
+            padding: 1px;
+        }
     </style>
 </head>
 
@@ -67,47 +76,19 @@
         <a href="../index.html"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
     </div>
 
-    
-
     <div class="column l" style="text-align: center;">
-        <div class="underlined">
-            <h1 style="margin-left: 140px;"> Comments & Questions:</h1>
-        </div>
-        <div style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-            border-radius: 5px; width: 415px; margin-left: 170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-            <h3> This is a comment</h3>
-        </div>
-        <div
-            style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-                border-radius: 5px; width: 415px; margin-left:170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-            <h3> This is a comment</h3>
-        </div>
-        <div
-            style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-                    border-radius: 5px; width: 415px; margin-left:170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-            <h3> This is a comment</h3>
-        </div>
-        <div
-            style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-                    border-radius: 5px; width: 415px; margin-left:170px; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-            <h3> This is a comment</h3>
-        </div>
+        <div class="underlined"><h1 style="margin-left: 140px;"> Comments & Questions:</h1></div>
+        <div class="guest-div" style="margin-bottom: 10px;"><h3> This is a comment</h3></div>
+        <div class="guest-div" style="margin-bottom: 10px;"><h3> This is a comment</h3></div>
+        <div class="guest-div" style="margin-bottom: 10px;"><h3> This is a comment</h3></div>
+        <div class="guest-div" style="margin-bottom: 10px;"><h3> This is a comment</h3></div>
         <span id="dots"></span>
-        <span id="more">
-            <div
-                style="text-align: center; background-color: rgb(233, 229, 229);border: 2px solid rgb(0, 0, 0);
-                        border-radius: 5px; width: 415px; margin-left:170px; padding: 1px;">
-                <h3> This is a comment</h3>
-            </div>
-        </span>
-        <br>
+        <span id="more"><div class="guest-div"><h3> This is a comment</h3></div></span><br>
         <button onclick="commentFunc()" id="myBtn">Read more</button>
     </div>
 
     <div style="text-align: center;" class="column r">
-        <div class="underlined" style="width: 75%; margin-left: 20%;">
-            <h1> Ratings:</h1>
-        </div>
+        <div class="underlined" style="width: 75%; margin-left: 20%;"><h1> Ratings:</h1></div>
         <p style="margin-left: 3cm;"> Select number of stars based on your current mood right now: </p><br>
         <div class="rate" style="margin-left: 40%;">
             <input type="radio" id="star1" name="rate" value="1" />
@@ -131,8 +112,7 @@
             <input type="radio" id="star10" name="rate" value="10" />
             <label for="star10" title="text">10 stars</label>
             <br>
-            <div style="margin-top: 35px;">
-                <br>
+            <div style="margin-top: 35px;"><br>
                 <input type="checkbox" name="anonymous" value="Anonymous">
                 <label for="anonymous"> Anonymous</label>
                 <button style="background-color: aquamarine;">

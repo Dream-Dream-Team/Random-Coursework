@@ -241,6 +241,7 @@ h4 {
   background-color: lightgrey;
 }
 
+
 .help .question {
   height: 40px;
   width: 40px;
@@ -269,7 +270,7 @@ h4 {
 }
 
 .help .popup2 {
-  height: 200px;
+  height: 100px;
 }
 
 .help .popup2 h4 {
@@ -280,7 +281,7 @@ h4 {
 
 .help:hover .popup {
   opacity: 1;
-  height: 150px;
+  height: 180px;
 }
 
 .help .tell-me p:first-child {
@@ -293,7 +294,7 @@ h4 {
 }
 
 .help .tell-me:hover .popup2 {
-  top: -110px;
+  top: -180px;
   opacity: 1;
 }
 
@@ -330,7 +331,7 @@ h4 {
 }
 
 .input-block {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .round-process {
