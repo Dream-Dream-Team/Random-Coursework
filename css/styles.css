@@ -40,25 +40,8 @@
   font-size: 40px;
 }
 
-/* Split the screen in half (index)*/
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 75px;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-
-/* Control the left side (index)*/
-.left {
-  left: 120px;
-}
-
-/* Control the right side (index)*/
-.right {
-  right: 0;
+.index-h1-h2 {
+  text-align: center;
 }
 
 /* If you want the content centered horizontally and vertically (index, login, register)*/
