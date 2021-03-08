@@ -143,6 +143,7 @@ document.getElementById('leave-btn').addEventListener('click', () => {
 (() => {
   fetch("/chat/" + EventID)
     .then(data => {
+      console.log(" The data:" + data);
       return data.json();
     })
     .then(json => {

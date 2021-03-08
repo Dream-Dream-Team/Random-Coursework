@@ -404,9 +404,12 @@ router.get('/feedback/chat/:id' ,(req, res, next) => {
   res.statusCode = 200;
 
   connectdb.then(db => {
-    let data = Chats.find({ EventID: mongoose.Types.ObjectId(req.params.id) },
-    (error, result) =>
-        res.json(result) );
+    console.log("The ID: " + req.params.id);
+    let data = Chats.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
+    (error, result) => {
+        console.log(result);
+        res.json(result);
+    })
     // Chats.find({}).then(chat => {
     //   res.json(chat);
     // });

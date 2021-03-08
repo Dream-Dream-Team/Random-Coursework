@@ -98,6 +98,7 @@ io.on('connection', socket => {
   // Listen for chatMessage
   socket.on('chatMessage', msg => {
     const user = getCurrentUser(socket.id);
+    console.log("The Room" + user.room);
 
     io.to(user.room).emit('message', formatMessage(user.username, msg));
     console.log("THE CONNECT VAR:" + connectdb);
@@ -107,20 +108,20 @@ io.on('connection', socket => {
     
     
       /* TEST - PLEASE REMOVE THIS*/
-      const eventID = '4edd40c86762e0fb12000003';
-      let chatMessage = { username: 'PitchForkSam' , text: (msg), time: moment().format('h:mm a') , sentiment: 0}
+      const eventID = '6041543c6b03db4d68dbbcb7';
       
-
       const search = mongoose.Types.ObjectId(eventID);
       console.log(search)
-
-
+      
+      
       Chat.findOne({'EventID' : search}, (err, res) => {
         if(res){
-
+          
           let sentence = tokenizer.tokenize(msg);
           let score = analyzer.getSentiment(sentence);
           console.log(score);
+
+          let chatMessage = { username: user.username , text: (msg), time: moment().format('h:mm a') , sentiment: score}
 
           let result = Chat.findOneAndUpdate(
             {'EventID' : search} ,
@@ -138,13 +139,15 @@ io.on('connection', socket => {
              }
           );
         } else {
+          let sentence = tokenizer.tokenize(msg);
+          let score = analyzer.getSentiment(sentence);
+          console.log(score);
+
+          let chatMessage = { username: user.username , text: (msg), time: moment().format('h:mm a') , sentiment: score};
           let newEventChat = new Chat();
           newEventChat.EventID = mongoose.Types.ObjectId(eventID);
           newEventChat.Messages.push(chatMessage);
 
-          let sentence = tokenizer.tokenize(msg);
-          let score = analyzer.getSentiment(sentence);
-          console.log(score);
 
 
           let msgSentimentObj = {sentiment: score , time: moment().format('YYYY-MM-DD h:mm:ss a')};
