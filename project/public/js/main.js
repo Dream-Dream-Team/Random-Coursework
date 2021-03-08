@@ -141,7 +141,7 @@ document.getElementById('leave-btn').addEventListener('click', () => {
 // const EventID = '4edd40c86762e0fb12000003';
 // fetching initial chat messages from the database
 (() => {
-  fetch("/chat/" + EventID)
+  fetch("/feedback/chat/" + EventID)
     .then(data => {
       console.log(" The data:" + data);
       return data.json();

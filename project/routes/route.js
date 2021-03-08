@@ -394,8 +394,6 @@ router.post('/viewEventG', (request, response) => {
 });
 
 
-
-
 // Chat STUFF ::::::::::::::::::::::::::::::::::::
 const Chats = require("../models/EventChatSchema");
     
@@ -416,8 +414,5 @@ router.get('/feedback/chat/:id' ,(req, res, next) => {
   });
 });
 
-router.get('/chat/' ,(req, res, next) => {
-    console.log('LOFLAOSL');
-});
 
 module.exports = router;
