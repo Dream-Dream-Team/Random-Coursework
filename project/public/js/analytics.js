@@ -6,6 +6,7 @@ let sentimentOverTime = response.SentimentOverTime;
 let messages;
 let data;
 let sentiments;
+
 for (let message in response.Messages){
     messages.push([message.text, message.sentiment]);
 }
