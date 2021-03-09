@@ -434,4 +434,21 @@ router.get('/chat/' ,(req, res, next) => {
     console.log('LOFLAOSL');
 });
 
+router.get('/feedback/sentiment/:id' ,(req, res, next) => {
+    res.setHeader("Content-Type", "application/json");
+    res.statusCode = 200;
+  
+    connectdb.then(db => {
+    //   console.log("The ID: " + req.params.id);
+      let data = Chats.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
+      (error, result) => {
+          res.json(result.SentimentOverTime);
+      })
+    });
+  });
+
+router.get('/chat/' ,(req, res, next) => {
+    console.log('LOFLAOSL');
+});
+
 module.exports = router;

@@ -178,3 +178,14 @@ document.getElementById('leave-btn').addEventListener('click', () => {
       console.log(json.Messages);
     });
 })();
+
+(() => {
+  fetch("/feedback/sentiment/" + EventID)
+    .then(data => {
+      // console.log(" The data:" + data.json());
+      return data.json();
+    })
+    .then(json => {
+      console.log('HI');
+    });
+})();
