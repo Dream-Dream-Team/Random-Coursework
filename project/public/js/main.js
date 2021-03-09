@@ -19,7 +19,7 @@ console.log("The Current Event ID:" + EventID);
 // });
 
 console.log(username);
-console.log("The Current User is:" + username);
+console.log("The Current User is:" + username)
 console.log("The current room name is:" + room);
 
 // const currentUser = username;
@@ -150,7 +150,7 @@ document.getElementById('leave-btn').addEventListener('click', () => {
     })
     .then(json => {
         json.Messages.forEach(message => {
-          outputMessage(message);
+          formatMessage(outputMessage(message));
         });
         // let li = document.createElement("li");
         // let span = document.createElement("span");

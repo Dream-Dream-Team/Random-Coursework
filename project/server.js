@@ -118,13 +118,17 @@ io.on('connection', socket => {
       
       
       Chat.findOne({'EventID' : search}, (err, res) => {
+        var Filter = require('bad-words'),
+        clean = new Filter();
         if(res){
           
           let sentence = tokenizer.tokenize(msg);
           let score = analyzer.getSentiment(sentence);
           console.log(score);
 
-          let chatMessage = { username: user.username , text: (msg), time: moment().format('h:mm a') , sentiment: score}
+
+
+          let chatMessage = { username: user.username , text: clean.clean(msg), time: moment().format('h:mm a') , sentiment: score}
 
           let result = Chat.findOneAndUpdate(
             {'EventID' : search} ,
@@ -146,7 +150,7 @@ io.on('connection', socket => {
           let score = analyzer.getSentiment(sentence);
           console.log(score);
 
-          let chatMessage = { username: user.username , text: (msg), time: moment().format('h:mm a') , sentiment: score};
+          let chatMessage = { username: user.username , text: clean.clean(msg), time: moment().format('h:mm a') , sentiment: score};
           let newEventChat = new Chat();
           newEventChat.EventID = mongoose.Types.ObjectId(eventID);
           newEventChat.Messages.push(chatMessage);
