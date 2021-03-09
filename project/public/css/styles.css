@@ -486,15 +486,14 @@ a {
 	text-decoration: none;
 } */
 
-.btn {
+/* .btn {
 	cursor: pointer;
-	padding: 8px 15px;
-	/* background: var(--light-color); */
+	padding: 5px 15px;
+	background: var(--light-color);
 	color: var(--dark-color-a);
-	/* border:2px; */
-  text-decoration: none;
+	border: 0;
 	font-size: 17px;
-}
+} */
 
 /* Chat Page */
 
