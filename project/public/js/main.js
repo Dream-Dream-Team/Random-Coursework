@@ -28,6 +28,8 @@ console.log("The current room name is:" + room);
 
 
 
+
+
 const socket = io();
 
 // Join chatroom
@@ -138,30 +140,31 @@ document.getElementById('leave-btn').addEventListener('click', () => {
 });
 
 /* TEST - PLEASE REMOVE THIS*/
-// const EventID = '4edd40c86762e0fb12000003';
+// const EventID = '6041543c6b03db4d68dbbcb7';
 // fetching initial chat messages from the database
 (() => {
-  fetch("/chat/" + EventID)
+  fetch("/feedback/chat/" + EventID)
     .then(data => {
-      console.log(" The data:" + data);
+      // console.log(" The data:" + data.json());
       return data.json();
     })
     .then(json => {
-      json.map(data => {
+        json.Messages.forEach(message => {
+          outputMessage(message);
+        });
         // let li = document.createElement("li");
         // let span = document.createElement("span");
         // messages.appendChild(li).append(data.message);
         // messages
         //   .appendChild(span)
         //   .append("by " + data.sender + ": " + formatTimeAgo(data.createdAt));
-        console.log(data);
-        data.Messages.forEach(message => {
-          console.log(message);
-          outputMessage(message);
-        })
+        // console.log(data);
+        // data.Messages.forEach(message => {
+        //   console.log(message);
+        //   outputMessage(message);
+        // })
       
-      });
       console.log('hey');
-      console.log(json);
+      console.log(json.Messages);
     });
 })();
