@@ -4,7 +4,7 @@ const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 
 // Getting the useranme and room
-const username = document.getElementById('currentUsername').innerText;
+const username = document.getElementById('currentUsername').innerText || "guest" + getRandomInt(1000000);
 const room = document.getElementById('currentEventName').innerText;
 
 // Getting eventID
