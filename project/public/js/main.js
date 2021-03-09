@@ -142,7 +142,7 @@ document.getElementById('leave-btn').addEventListener('click', () => {
 // fetching initial chat messages from the database
 console.log("HEY WELCOME TO:" + EventID);
 (() => {
-  fetch("/feedback/chat/" + EventID)
+  fetch("/chat/" + EventID)
     .then(data => {
       // console.log(data.json());
       return data.json();
