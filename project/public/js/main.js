@@ -93,11 +93,33 @@ function outputMessage(message) {
 
 
   /* NEEDS TO CHANGE THIS */
-  if(message.username === "Admin"){
-    p.classList.add('bold-text'); 
+  if(message.username.toLowerCase() == "chadbot"){
+    console.log("RECEIVED BOT APPROVAL");
+  }
+
+  if(message.username == "ChadBot"){
+    p.classList.add('meta'); 
     p.innerText = message.username;
-    p.innerHTML += ` <i class='fa fa-check-circle'> </i> `
+    // p.innerHTML += ` <i class='fa fa-check-circle'> </i> `
+    p.innerHTML += ` <i class="fas fa-robot"> </i> `
+    div.style = "border: 4px solid rgba(232, 2, 14, 0.3);"
   } else {
+    let eventHost = 0;
+    fetch("/feedback/user/" + EventID)
+    .then(data => {
+      // console.log(" The data:" + data.json());
+      return data.json();
+    })
+    .then(json => {
+      if(json != null){
+        eventHost = json.hostName;
+      }
+    });
+
+    if(eventHost != null && message.username.toLowerCase() == eventHost){
+      p.innerHTML += ` <i class="fas fa-robot"> </i> `
+      div.style = "border: 4px solid rgba(232, 2, 14, 0.3);"
+    }
     p.classList.add('meta');
     p.innerText = message.username;
   }
@@ -150,20 +172,8 @@ document.getElementById('leave-btn').addEventListener('click', () => {
     })
     .then(json => {
         json.Messages.forEach(message => {
-          formatMessage(outputMessage(message));
+          outputMessage(message);
         });
-        // let li = document.createElement("li");
-        // let span = document.createElement("span");
-        // messages.appendChild(li).append(data.message);
-        // messages
-        //   .appendChild(span)
-        //   .append("by " + data.sender + ": " + formatTimeAgo(data.createdAt));
-        // console.log(data);
-        // data.Messages.forEach(message => {
-        //   console.log(message);
-        //   outputMessage(message);
-        // })
-      
       console.log('hey');
       console.log(json.Messages);
     });

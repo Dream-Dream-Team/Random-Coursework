@@ -54,8 +54,6 @@
 
   <% if(moment() >= moment(event.startDate) && moment() < moment(event.endDate)) {%>
     
-    <h1>The username logged in is (just username): <%= username%></h1>
-
     <!-- Chat box -->
     <%- include('partials/chat', {username2: username ,events: event}) %> 
     

@@ -67,7 +67,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 
-const botName = 'ChadBot ';
+const botName = "ChadBot";
 
 // Run when client connects
 io.on('connection', socket => {
@@ -77,7 +77,7 @@ io.on('connection', socket => {
     socket.join(user.room);
 
     // Welcome current user
-    socket.emit('message', formatMessage(botName, `Hi ${user.username}! Welcome to the chat Room.`));
+    socket.emit('message', formatMessage(botName, `Hi ${user.username}! Please provide feedback here.`));
     // socket.emit('joined', 'Welcome to the chat Room.');
 
     // Broadcast when a user connects
