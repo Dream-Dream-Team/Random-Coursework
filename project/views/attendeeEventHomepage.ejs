@@ -54,13 +54,12 @@
 
   <% if(moment() >= moment(event.startDate) && moment() < moment(event.endDate)) {%>
     
-    <h1>The username logged in is (just username): <%= username%></h1>
+    <!-- <h1>The username logged in is (just username): <%= username%></h1> -->
 
     <!-- Chat box -->
     <%- include('partials/chat', {username2: username ,events: event}) %> 
-    
     <div class="underlined" style="width: 50%; margin-left: 25%;"> <h1> Ratings:</h1></div>
-    <p> Select number of stars based on your current mood right now: </p><br>
+    <p clas="centered"> Select number of stars based on your current mood right now: </p><br>
     <div class="rate" style="margin-left: 40%;">
       <input type="radio" id="star1" name="rate" value="1" />
       <label for="star1" title="text">1 star</label>

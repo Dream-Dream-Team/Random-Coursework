@@ -74,7 +74,7 @@ chatForm.addEventListener('submit', (e) => {
   }
 
   // Emit message to server
-  socket.emit('chatMessage', msg);
+  socket.emit('chatMessage', (msg, EventID));
 
   // Clear input
   e.target.elements.msg.value = '';
@@ -140,28 +140,17 @@ document.getElementById('leave-btn').addEventListener('click', () => {
 /* TEST - PLEASE REMOVE THIS*/
 // const EventID = '4edd40c86762e0fb12000003';
 // fetching initial chat messages from the database
+console.log("HEY WELCOME TO:" + EventID);
 (() => {
   fetch("/feedback/chat/" + EventID)
     .then(data => {
-      console.log(" The data:" + data);
+      // console.log(data.json());
       return data.json();
     })
     .then(json => {
-      json.map(data => {
-        // let li = document.createElement("li");
-        // let span = document.createElement("span");
-        // messages.appendChild(li).append(data.message);
-        // messages
-        //   .appendChild(span)
-        //   .append("by " + data.sender + ": " + formatTimeAgo(data.createdAt));
-        console.log(data);
-        data.Messages.forEach(message => {
-          console.log(message);
-          outputMessage(message);
-        })
-      
+      console.log(json.Messages);
+      json.Messages.forEach(message => {
+        outputMessage(message);
       });
-      console.log('hey');
-      console.log(json);
     });
 })();
