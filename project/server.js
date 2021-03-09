@@ -96,7 +96,9 @@ io.on('connection', socket => {
   });
 
   // Listen for chatMessage
-  socket.on('chatMessage', msg => {
+  socket.on('chatMessage', ({message, currentEvent}) => {
+    let msg = message;
+    let eventID = currentEvent;
     const user = getCurrentUser(socket.id);
     console.log("The Room" + user.room);
 
@@ -108,7 +110,8 @@ io.on('connection', socket => {
     
     
       /* TEST - PLEASE REMOVE THIS*/
-      const eventID = '6041543c6b03db4d68dbbcb7';
+      console.log("Connect to THIS EVENT:" + eventID);
+      // const eventID = '6041543c6b03db4d68dbbcb7';
       
       const search = mongoose.Types.ObjectId(eventID);
       console.log(search)
