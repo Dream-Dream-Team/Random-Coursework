@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const signUpTemplate = require('../models/SignUpSchema');
 const eventTemplate = require('../models/EventSchema');
+const ratingTemplate = require('../models/RatingSchema');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
@@ -366,35 +367,201 @@ router.post('/feedback/:event_id', async (request, response) => {
     }) 
 })
 
+router.post('/guestFeedback', async (request, response) => {
+    const eventID = request.body.eventID;
+
+    var objectID = new ObjectID(eventID);
+
+    // append a user's username to the list of participants of the existing event
+    eventTemplate.findOneAndUpdate({_id: objectID}, 
+        {$push : { participantsList: request.body.guestUsername}}, {new: true}, function(err, doc) {
+            if(err) throw err;
+            
+            response.render('guestAttendeeView', {
+                username: request.body.guestUsername,
+                eventID: eventID,
+                event: doc,
+                moment: moment
+            });
+    });
+})
+  
+
+// router.post('/guestFeedback', async (request, response) => {
+//     const guestEventName = request.body.guestEventName;
+//     console.log(request.body.guestToken);
+//     console.log(guestEventName);
+//     console.log(request.body.guestUsername);
+    
+//     if(request.body.guestToken == "" && request.body.guestEventName == "") {
+//         return response.status(400).send('You must enter a field for one of token/event name!');
+//     }
+
+//     if(request.body.guestToken) {
+//         const checkExists = await eventTemplate.findOne({eventToken: request.body.guestToken});
+//         if(!checkExists) return response.status(400).send('Event does not exist token');
+
+//         // check if participant count is not exceeded
+//         const event = await eventTemplate.findOne({eventToken: request.body.eventToken});
+//         var numParticipants = event.participantsList.length;
+//         var maxParticipants = event.participants;
+        
+//         if(numParticipants + 1 > maxParticipants) return response.status(400).send('Maximum capacity to this event has reached');
+
+//         // // append a user's username to the list of participants of the existing event
+//         eventTemplate.findOneAndUpdate({eventToken: request.body.guestToken}, 
+//             {$push : { participantsList: request.body.guestUsername}}, {new: true}, function(err, doc) {
+//                 if(err) throw err;
+
+//                 Event.find({eventName: guestEventName}, function(err, events) {
+//                     if(err) throw err;
+//                     response.render('guestAttendeeView', {
+//                         username: request.body.guestUsername,
+//                         feedbackEvent: events,
+//                         moment: moment
+//                     });
+//                 }) 
+
+//                 // Event.find({_id: objectID}, function(err, events) {
+//                 //     Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+//                 //         if(err) throw err;
+//                 //         response.render('attendeeEventHomepage', {
+//                 //             username: request.session.user.username,
+//                 //             feedbackEvent: events,
+//                 //             joinedEvents: joinedEvent,
+//                 //             moment: moment
+//                 //         });
+            
+//                 //     })
+//                 // }) 
+//         });
+//     }else if(request.body.guestEventName){
+//         const checkExists = await eventTemplate.findOne({eventName: request.body.guestEventName});
+//         if(!checkExists) return response.status(400).send('Event does not exist');
+
+//         // check if participant count is not exceeded
+//         const event = await eventTemplate.findOne({$and : [{eventName: request.body.guestEventName}, {public: true}]});
+//         var numParticipants = event.participantsList.length;
+//         var maxParticipants = event.participants;
+        
+//         if(numParticipants + 1 > maxParticipants) return response.status(400).send('Maximum capacity to this event has reached');
+
+//         const checkStart = await eventTemplate.findOne({eventName: request.body.guestEventName});
+//         console.log(moment());
+//         console.log(moment(checkStart.startDate));
+//         if(moment() < moment(checkStart.startDate)) {
+//             return response.status(400).send('Event has not begun yet!');
+//         }
+
+//         // // append a user's username to the list of participants of the existing event
+//         eventTemplate.findOneAndUpdate({$and : [{eventName: request.body.guestEventName}, {public: true}]}, 
+//             {$push : { participantsList: request.body.guestUsername}}, {new: true}, function(err, doc) {
+//                 if(err) throw err;
+
+//                 Event.find({eventName: request.body.guestEventName}, function(err, events) {
+//                     if(err) throw err;
+//                     response.render('guestAttendeeView', {
+//                         username: request.body.guestUsername,
+//                         event: doc,
+//                         moment: moment
+//                     });
+//                 }) 
+//         });
+//     }
+// })
+
 router.post('/viewEvent/:event_id', (request, response) => {
-    const eventName2 = request.body.event_name;
-    Event.find({$and: [{eventName: eventName2}, {hostID: request.session.user._id}]}, function(err, events) {
+    const eventID = request.body.event_id;
+    console.log(eventID);
+    var objectID = new ObjectID(eventID);
+    Event.find({$and: [{_id: objectID}, {hostID: request.session.user._id}]}, function(err, events) {
         Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
             response.render('createdEvent', {
                 username: request.session.user.username,
                 eventDetails: events,
                 joinedEvents: joinedEvent,
-                moment: moment
+                moment: moment,
+                guest: false
             })
         })
     })
 });
 
-router.post('/viewEventG', (request, response) => {
+router.post('/viewHostEvent/:event_id', (request, response) => {
     const eventID = request.body.event_id;
-    const idObject = new ObjectID(eventID);
-    console.log(idObject);
-    Event.find({_id: idObject}, function(err, events) {
-        response.render('createdEvent', {
-            eventDetails: events,
-            joinedEvents: joinedEvent,
-            moment: moment
+    var objectID = new ObjectID(eventID);
+    
+    Event.find({$and: [{_id: objectID}, {hostID: request.session.user._id}]}, function(err, events) {
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+            response.render('hostEventHomepage', {
+                username: request.session.user.username,
+                feedbackEvent: events,
+                joinedEvents: joinedEvent,
+                moment: moment,
+                guest: false
+            })
         })
     })
 });
 
+router.post('/ratings/:event_id', async (request, response) => {
+    const eventID = mongoose.Types.ObjectId(request.body.event_id);
+    console.log(eventID);
+    console.log(request.body.rate);
+    const username = request.session.user.username;
 
+    if(request.body.anonymous) {
+        username = "Anonymous"
+    }
 
+    ratingTemplate.findOne({'EventID': eventID}, (err, res) => {
+        if(res) {
+            let rating = {username: username , rating: request.body.rate, time: moment().format('h:mm a')};
+            let newAverage = (Number(res.TotalRating) + Number(request.body.rate)) / (res.Rating.length + 1)
+
+            ratingTemplate.findOneAndUpdate(
+                {'EventID' : eventID} ,
+                {
+                $set: {
+                    AmountOfRatings: res.Rating.length + 1,
+                    TotalRating: Number(res.TotalRating) + Number(request.body.rate),
+                    AverageRating: newAverage
+                },
+                $push: { 
+                    Rating: rating,
+                }
+                }, {new: true}, (err, res) => {
+                // console.log(" Result: " + res);
+                }
+            );
+            console.log(rating);
+        }else {
+            console.log("SUP BITCHES WOAH")
+            let rating = {username: request.session.user.username , rating: request.body.rate, time: moment().format('h:mm a')};
+            let newRating = new ratingTemplate();
+            newRating.EventID = mongoose.Types.ObjectId(request.body.event_id);
+            newRating.Rating.push(rating);
+            
+            newRating.AmountOfRatings = 1,
+            newRating.TotalRating = request.body.rate,
+            newRating.AverageRating = request.body.rate,
+            newRating.save();
+        }
+
+        Event.find({_id: eventID}, function(err, events) {
+            Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+                if(err) throw err;
+                response.render('attendeeEventHomepage', {
+                    username: request.session.user.username,
+                    feedbackEvent: events,
+                    joinedEvents: joinedEvent,
+                    moment: moment
+                });
+    
+            })
+        }) 
+    })
+})
 
 // Chat STUFF ::::::::::::::::::::::::::::::::::::
 const Chats = require("../models/EventChatSchema");
@@ -434,18 +601,18 @@ router.get('/chat/' ,(req, res, next) => {
     console.log('LOFLAOSL');
 });
 
-router.get('/feedback/sentiment/:id' ,(req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.statusCode = 200;
+// router.get('/feedback/sentiment/:id' ,(req, res, next) => {
+//     res.setHeader("Content-Type", "application/json");
+//     res.statusCode = 200;
   
-    connectdb.then(db => {
-    //   console.log("The ID: " + req.params.id);
-      let data = Chats.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
-      (error, result) => {
-          res.json(result.SentimentOverTime);
-      })
-    });
-  });
+//     connectdb.then(db => {
+//     //   console.log("The ID: " + req.params.id);
+//       let data = Chats.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
+//       (error, result) => {
+//           res.json(result.SentimentOverTime);
+//       })
+//     });
+//   });
 
 router.get('/chat/' ,(req, res, next) => {
     console.log('LOFLAOSL');

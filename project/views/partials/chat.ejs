@@ -31,7 +31,8 @@
       </main>
       <div class="chat-form-container">
         <form id="chat-form">
-          <input
+          <% if(guest == false) {%>
+            <input
             id="msg"
             type="text"
             placeholder="Enter Message"
@@ -39,6 +40,9 @@
             autocomplete="off"
           />
           <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+          <%} else {%>
+            <h4>Guest accounts are unable to chat.</h4>
+          <%}%>
         </form>
       </div>
     </div>

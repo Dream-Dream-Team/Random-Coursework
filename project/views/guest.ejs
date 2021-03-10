@@ -42,19 +42,22 @@
 			<%if (publicEventsList.length > 0) { %>
 				<%publicEventsList.forEach(publicEvent => {%>
 					<% if(moment() >= moment(publicEvent.startDate) && moment() < moment(publicEvent.endDate)) {%>
-						<form action="/viewEventG" method="POST">
-							<h3><%= publicEvent.eventName %></h3><img src="/uploads/images/<%=publicEvent.img%>" style="width: 60px; height: 60px;" id="circle_my_events_active">
+						<form action="/guestFeedback" method="POST">
+              <div class="boxlol">
+                <input type="radio" name="eventID" value="<%=publicEvent._id%>">
+                <img src="/uploads/images/<%=publicEvent.img%>" style="width: 70px; height: 70px;" id="circle_my_events_active">
+                <h3><%= publicEvent.eventName %></h3>
+                </div>
 							<input type="hidden" name="event_id" value="<%=publicEvent._id%>">
-							<input type="checkbox" name="checkbox"" value="<%=publicEvent.eventName%>">
-							<input type="submit" name="view_event" value="View event">
-						</form>
-					<%} else {%>
-						<form action="/viewEventG" method="POST">
-							<h3><%= publicEvent.eventName %></h3><img src="/uploads/images/<%=publicEvent.img%>" style="width: 60px; height: 60px;">
+					<%} else if(moment() <= moment(publicEvent.startDate)){%>
+						<!-- <form action="/viewEventGuest" method="POST">
+              <div class="boxlol">
+                <img src="/uploads/images/<%=publicEvent.img%>" style="width: 70px; height: 70px;" id="circle_my_events_inactive">
+                <h3><%= publicEvent.eventName %></h3>
+              </div>
 							<input type="hidden" name="event_id" value="<%=publicEvent._id%>">
-							<input type="checkbox" name="checkbox"" value="<%=publicEvent.eventName%>">
 							<input type="submit" name="view_event" value="View event">
-						</form>
+						</form> -->
 					<%}%>
 				<%})%>
 			<% }else  {%>
@@ -68,18 +71,46 @@
     <div class="column right">
       <div class="underlined" style="margin-left: 150px; margin-right:50px; margin-top: 100px; text-align: center;">
         <h1> Join event </h1>
-        <form action="POST">
-          <input type="text" id="username" name="newUserUsername" placeholder="Create username">
+          <input type="text" id="guestUsername" name="guestUsername" placeholder="Enter username" required>
           <br>
-          <input type="number" id="attendeeToken" name="token" placeholder="Enter Token">
+          <br>
+          <input type="text" id="guestToken" name="guestToken" placeholder="Token (for private events)">
+          <!-- <br>OR...<br> -->
+          <!-- <input type="text" id="guestEventName" name="guestEventName" placeholder="Enter public event name"> -->
+          <br>
           <br>
           <div class="button">
-            <button type="button" onclick="location.href='guestAttendeeView.html';">Join</button>
+            <button type="submit" name="joinGuestEvent">Join</button>
           </div>
           <br>
         </form>
       </div>
     </div>
+
+    <script>
+        const privateEvent = document.getElementById('guestToken');
+        const publicEvent = document.getElementById('guestEventName');
+
+        privateEvent.addEventListener('input', evt => {
+          const value = privateEvent.value;
+
+          if(value) {
+            publicEvent.disabled = true;
+          }else {
+            publicEvent.disabled = false;
+          }
+        })
+
+        publicEvent.addEventListener('input', evt => {
+          const value = publicEvent.value;
+
+          if(value) {
+            privateEvent.disabled = true;
+          }else {
+            privateEvent.disabled = false;
+          }
+        })
+    </script>
 
   </div>
 </body>

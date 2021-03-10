@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Host Event Homepage</title>
+  <link rel="stylesheet" href="../css/styles.css" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .column {
+      float: left;
+    }
+
+    /* Set width length for the left, right and middle columns */
+    .l {
+    margin-left: 110px;
+      width: 43%;
+    }
+
+    .m {
+      width: 25%;
+    }
+
+    .r {
+      width: 25%;
+    }
+
+    .checked {
+      color: orange;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Three column layout */
+    .side {
+      float: left;
+      width: 15%;
+      margin-top:10px;
+    }
+
+    .middle {
+      margin-top:10px;
+      float: left;
+      width: 70%;
+    }
+
+    /* Place text to the right */
+    .right {
+      text-align: right;
+    }
+
+    /* The bar container */
+    .bar-container {
+      width: 100%;
+      background-color: #f1f1f1;
+      text-align: center;
+      color: white;
+    }
+
+    /* Individual bars */
+    .bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
+    .bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+    .bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+    .bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+    .bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+    /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+    @media (max-width: 400px) {
+      .side, .middle {
+        width: 100%;
+      }
+      .right {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<%feedbackEvent.forEach(event => {%>
+  <div class="topbar">
+    <a href="../index.html"><img src="../images/logo.png" style="width:70px;height:70px;"></a>
+    <div class="column center"> <h1 style="margin-left: 600px;"> <%= event.eventName%> </h1> </div>
+  </div>
+
+  <%- include('partials/sidebar', {events: joinedEvents}) %>
+
+  <div class="column l" style="text-align: center;">
+    <div class="underlined"> <h1 style="margin-left: 200px;"> Chat:</h1></div>
+    <%- include('partials/chat', {username2: username ,events: event, guest: false}) %> 
+  </div>
+
+  <div class="column m" style="text-align: center;">
+    <div class="underlined"> <h1 style="margin-left: 75px;"> Overall mood: </h1></div>
+    <img src="../images/mood.png" style="width: 250px;height: 200px;"></a>
+    <div class="underlined">
+      <h1 style="margin-left: 75px;"> Ratings: </h1>
+    </div>
+    <span class="heading">User Rating</span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <p>8.1 average based on 254 reviews.</p>
+    <hr style="border:3px solid #f1f1f1; width: 9cm; margin-left: 2cm;">
+    <div class="row">
+      <div class="side">
+        <div>5 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-5"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>150</div>
+      </div>
+      <div class="side">
+        <div>4 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-4"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>63</div>
+      </div>
+      <div class="side">
+        <div>3 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-3"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>15</div>
+      </div>
+      <div class="side">
+        <div>2 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-2"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>6</div>
+      </div>
+      <div class="side">
+        <div>1 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-1"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>20</div>
+      </div>
+    </div>
+    <div class="help" style="width: 40px; margin-top: 50px; margin-left: 190px;">
+      <div class="question">?</div>
+      <div class="popup">
+        <h3>Host event help</h3>
+        <p>Here we explain how to use each feature...</p><br><br>
+        <div class="tell-me">
+          <p>Tell me more!</p>
+          <div class="popup2">
+            <h4>Just in case more info is needed</h4>
+            <p><a href="../html/helpPage.html" target="_blank">Click here</a> if more help is needed. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column r" style="text-align: center;">
+    <img src="../images/hostPoll.png" style="width:250px;height:250px;margin-top: 40px;"></a><br>
+    
+    <form action="/endEvent", method="POST">
+        <div class="button" style="margin-top: 2cm;">
+        <input type="hidden" name="event_id" value="<%event._id%>">
+        <button type="submit" onclick="return confirm('Are you sure you wish to end this meeting?')">End meeting</button>
+        </div>
+    </form>
+  </div>
+  <%})%>
+
+  <script>
+    function commentFunc() {
+      var dots = document.getElementById("dots");
+      var moreText = document.getElementById("more");
+      var btnText = document.getElementById("myBtn");
+
+      if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.innerHTML = "Read more";
+        moreText.style.display = "none";
+      } else {
+        dots.style.display = "none";
+        btnText.innerHTML = "Read less";
+        moreText.style.display = "inline";
+      }
+    }
+
+    function voteFunc() {
+      var dots = document.getElementById("voteDot");
+      var moreText = document.getElementById("all");
+      var btnText = document.getElementById("voteBtn");
+
+      if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.innerHTML = "Read more";
+        moreText.style.display = "none";
+      } else {
+        dots.style.display = "none";
+        btnText.innerHTML = "Read less";
+        moreText.style.display = "inline";
+      }
+    }
+
+    function pollFunc() {
+      var dots = document.getElementById("pollDot");
+      var moreText = document.getElementById("readPoll");
+      var btnText = document.getElementById("pollBtn");
+
+      if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.innerHTML = "Read more";
+        moreText.style.display = "none";
+      } else {
+        dots.style.display = "none";
+        btnText.innerHTML = "Read less";
+        moreText.style.display = "inline";
+      }
+    }
+  </script>
+</body>
+</html>

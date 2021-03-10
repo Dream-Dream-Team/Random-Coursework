@@ -11,7 +11,10 @@
       <h1> SUMMARY </h1>
     </div>
     <!-- Includes the Side  bar -->
-	<%- include('partials/sidebar', {events: joinedEvents}) %>
+    <% if(guest == false) {%>
+        <%- include('partials/sidebar', {events: joinedEvents}) %>
+    <%} else {%>
+    <%}%>
     
     <div class="main">
         <%eventDetails.forEach(event => {%>
@@ -50,7 +53,11 @@
                     <h2>No. of participants = <%= event.participants%></h2>
                 <%}%>
                 <div class="button">
-                <button type="submit" onclick="location.href='/home';">Back to Homepage</button>
+                <% if(guest == false) {%>
+                    <button type="submit" onclick="location.href='/home';">Back to Homepage</button>
+                <%} else {%>
+                    <button type="submit" onclick="location.href='/guestEvents';">Back to Homepage</button>
+                <%}%>
                 </div>
                 <div class="help" style="margin-left: 300px;margin-top: 70px;">
                 <div class="question">?</div>
