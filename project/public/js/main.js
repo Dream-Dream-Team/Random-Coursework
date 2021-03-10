@@ -187,5 +187,5 @@ document.getElementById('leave-btn').addEventListener('click', () => {
     })
     .then(json => {
       console.log();
-    })
+    });
 })();
