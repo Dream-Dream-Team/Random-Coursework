@@ -185,4 +185,7 @@ document.getElementById('leave-btn').addEventListener('click', () => {
       // console.log(" The data:" + data.json());
       return data.json();
     })
+    .then(json => {
+      console.log();
+    })
 })();

@@ -493,12 +493,15 @@ router.post('/viewHostEvent/:event_id', (request, response) => {
     
     Event.find({$and: [{_id: objectID}, {hostID: request.session.user._id}]}, function(err, events) {
         Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
-            response.render('hostEventHomepage', {
-                username: request.session.user.username,
-                feedbackEvent: events,
-                joinedEvents: joinedEvent,
-                moment: moment,
-                guest: false
+            ratingTemplate.findOne({EventID: objectID}, function(err, rating) {
+                response.render('hostEventHomepage', {
+                    username: request.session.user.username,
+                    feedbackEvent: events,
+                    joinedEvents: joinedEvent,
+                    ratings: rating,
+                    moment: moment,
+                    guest: false
+                })
             })
         })
     })
@@ -595,7 +598,21 @@ router.get('/feedback/user/:id' ,(req, res, next) => {
           res.json(result);
       })
     });
-  });
+});
+
+router.get('/feedback/rating/:id' ,(req, res, next) => {
+    res.setHeader("Content-Type", "application/json");
+    res.statusCode = 200;
+    
+        connectdb.then(db => {
+        //   console.log("The ID: " + req.params.id);
+            let data = ratingTemplate.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
+            (error, result) => {
+                console.log(result);
+                res.json(result);
+            })
+        });
+});
 
 router.get('/chat/' ,(req, res, next) => {
     console.log('LOFLAOSL');
