@@ -6,10 +6,12 @@
 <body>
 <canvas id="myChart" width="400" height="400"></canvas>
 <script>
-    var obj;
-    fetch('/feedback/chat/:id')
+    var sentiments;
+    let url = window.location.href;
+    const EventID = url.substr(url.lastIndexOf("/")+1);
+    fetch('https://random-coursework.herokuapp.com/feedback/sentiment/' + EventID)
         .then(response => response.json())
-        .then(data => obj = json.stringify(data));
+        .then(data => sentiments = JSON.parse(data));
 
     const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
     var ctx = document.getElementById("myChart").getContext("2d");
@@ -17,13 +19,13 @@
     var avg = [];
     var avgSent
     var sentArray = [];
-    for (i = 0; i < sentiments.length; i++){
+    for (var i = 0; i < sentiments.length; i++){
         avg.push(sentiments[i].sentiment);
         avgSent = arrAvg(avg);
         sentArray.push({t: sentiments[i].time, y: avgSent});
     }
 
-    console.log(avgSent);
+    //console.log(avgSent);
 
     var myChart = new Chart(ctx, {
         type: 'line',
