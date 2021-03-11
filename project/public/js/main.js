@@ -174,7 +174,6 @@ document.getElementById('leave-btn').addEventListener('click', () => {
         json.Messages.forEach(message => {
           outputMessage(message);
         });
-      console.log('hey');
       console.log(json.Messages);
     });
 })();
@@ -186,6 +185,6 @@ document.getElementById('leave-btn').addEventListener('click', () => {
       return data.json();
     })
     .then(json => {
-      console.log();
+      console.log(json);
     });
 })();

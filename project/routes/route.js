@@ -615,16 +615,16 @@ router.get('/feedback/rating/:id' ,(req, res, next) => {
 });
 
 
-router.get('/feedback/rating/:id' ,(req, res, next) => {
+router.get('/feedback/sentiment/:id' ,(req, res, next) => {
 res.setHeader("Content-Type", "application/json");
 res.statusCode = 200;
 
     connectdb.then(db => {
     //   console.log("The ID: " + req.params.id);
-        let data = ratingTemplate.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
+        let data = Chats.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
         (error, result) => {
             console.log(result);
-            res.json(result);
+            res.json(result.SentimentOverTime);
         })
     });
 });
