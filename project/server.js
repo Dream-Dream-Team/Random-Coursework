@@ -10,7 +10,7 @@ const routes = require('./routes/route');
 // dotenv.config()
 
 let connectdb = require("./dbconnect");
-console.log(connectdb);
+console.log("bruger"+ connectdb);
 
 // mongoose.connect(process.env.DB_CONNECT, {
 //     useUnifiedTopology: true,
@@ -114,7 +114,7 @@ io.on('connection', socket => {
       // const eventID = '6041543c6b03db4d68dbbcb7';
       
       const search = mongoose.Types.ObjectId(eventID);
-      console.log(search)
+      console.log("SEACR" + search)
       
       
       Chat.findOne({'EventID' : search}, (err, res) => {
@@ -124,12 +124,19 @@ io.on('connection', socket => {
           
           let sentence = tokenizer.tokenize(msg);
           let score = analyzer.getSentiment(sentence);
-          console.log(score);
+          // console.log(score);
+
+          // Needs to workout average score
 
 
 
           let chatMessage = { username: user.username , text: clean.clean(msg), time: moment().format('h:mm a') , sentiment: score}
-
+          let average;
+          Chat.findOne({'EventID' : search}).then(res => {
+            average = (res.TotalSentiment + score) / (res.Messages.length + 1);
+            console.log( "average:" + (average));
+          });
+          
           let result = Chat.findOneAndUpdate(
             {'EventID' : search} ,
              {
@@ -139,7 +146,7 @@ io.on('connection', socket => {
                },
                $push: { 
                  Messages: chatMessage,
-                 SentimentOverTime: {sentiment: score , time: moment().format('YYYY-MM-DD h:mm:ss a')}
+                 SentimentOverTime: {sentiment: average , time: moment().format('YYYY-MM-DD h:mm:ss a')}
                }
              }, (err, res) => {
                // console.log(" Result: " + res);
@@ -148,7 +155,7 @@ io.on('connection', socket => {
         } else {
           let sentence = tokenizer.tokenize(msg);
           let score = analyzer.getSentiment(sentence);
-          console.log(score);
+          console.log("Dat score" + score);
 
           let chatMessage = { username: user.username , text: clean.clean(msg), time: moment().format('h:mm a') , sentiment: score};
           let newEventChat = new Chat();
