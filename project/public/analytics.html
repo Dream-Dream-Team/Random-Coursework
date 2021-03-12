@@ -13,12 +13,12 @@
     // const EventID = url.substr(url.lastIndexOf("/")+1);
     fetch('https://random-coursework.herokuapp.com/feedback/sentiment/6041543c6b03db4d68dbbcb7')
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => JSON.parse(sentiments));
 
     const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
     var ctx = document.getElementById("myChart").getContext("2d");
 
-    /* var avg = [];
+    var avg = [];
     var avgSent
     var sentArray = [];
     for (var i = 0; i < sentiments.length; i++){
@@ -26,9 +26,7 @@
         avgSent = arrAvg(avg);
         sentArray.push({t: sentiments[i].time, y: avgSent});
     }
-
     //console.log(avgSent);
-
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -62,6 +60,44 @@
                 }]
             }
         }
-    }); */
+    });
+    var ratings;
+    fetch('https://random-coursework.herokuapp.com/feedback/rating/6041543c6b03db4d68dbbcb7')
+        .then(response => response.json())
+        .then(data => JSON.parse(ratings));
+
+
+    var barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+            datasets: [
+                {
+                    label: "Ratings",
+                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850",
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'],
+                    data: ratings//[10,20,30,40,50, 40, 30, 20, 10, 10]
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Ratings'
+            }
+        }
+    });
 </script>
 </body>
