@@ -13,7 +13,7 @@
     // const EventID = url.substr(url.lastIndexOf("/")+1);
     fetch('https://random-coursework.herokuapp.com/feedback/sentiment/6041543c6b03db4d68dbbcb7')
         .then(response => response.json())
-        .then(data => JSON.parse(sentiments));
+        .then(data => sentiments = data);
 
     const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
     var ctx = document.getElementById("myChart").getContext("2d");
