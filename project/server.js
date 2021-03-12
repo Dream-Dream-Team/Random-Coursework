@@ -128,8 +128,6 @@ io.on('connection', socket => {
 
           // Needs to workout average score
 
-
-
           let chatMessage = { username: user.username , text: clean.clean(msg), time: moment().format('h:mm a') , sentiment: score}
           let average;
           Chat.findOne({'EventID' : search}).then(res => {
