@@ -133,23 +133,23 @@ io.on('connection', socket => {
           Chat.findOne({'EventID' : search}).then(res => {
             average = (res.TotalSentiment + score) / (res.Messages.length + 1);
             console.log( "average:" + (average));
-          });
-          
-          let result = Chat.findOneAndUpdate(
-            {'EventID' : search} ,
-             {
-               $set: {
-                 AmountOfMessages: res.Messages.length + 1,
-                 TotalSentiment: res.TotalSentiment + score
-               },
-               $push: { 
-                 Messages: chatMessage,
-                 SentimentOverTime: {sentiment: average , time: moment().format('YYYY-MM-DD h:mm:ss a')}
+
+            let result = Chat.findOneAndUpdate(
+              {'EventID' : search} ,
+               {
+                 $set: {
+                   AmountOfMessages: res.Messages.length + 1,
+                   TotalSentiment: res.TotalSentiment + score
+                 },
+                 $push: { 
+                   Messages: chatMessage,
+                   SentimentOverTime: {sentiment: average , time: moment().format('YYYY-MM-DD h:mm:ss a')}
+                 }
+               }, (err, res) => {
+                 // console.log(" Result: " + res);
                }
-             }, (err, res) => {
-               // console.log(" Result: " + res);
-             }
-          );
+            );
+          });
         } else {
           let sentence = tokenizer.tokenize(msg);
           let score = analyzer.getSentiment(sentence);
