@@ -608,8 +608,10 @@ router.get('/feedback/rating/:id' ,(req, res, next) => {
         //   console.log("The ID: " + req.params.id);
             let data = ratingTemplate.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
             (error, result) => {
-                console.log(result);
-                res.json(result);
+                if(!(result == null)){
+                    console.log(result);
+                    res.json(result);
+                }
             })
         });
 });
@@ -623,14 +625,13 @@ res.statusCode = 200;
     //   console.log("The ID: " + req.params.id);
         let data = Chats.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
         (error, result) => {
-            console.log(result);
-            res.json(result.SentimentOverTime);
+            // console.log(result);
+            if(!(result == null)){
+                console.log(result);
+                res.json(result.SentimentOverTime);
+            }
         })
     });
-});
-
-router.get('/chat/' ,(req, res, next) => {
-    console.log('LOFLAOSL');
 });
 
 // router.get('/feedback/sentiment/:id' ,(req, res, next) => {
@@ -645,9 +646,5 @@ router.get('/chat/' ,(req, res, next) => {
 //       })
 //     });
 //   });
-
-router.get('/chat/' ,(req, res, next) => {
-    console.log('LOFLAOSL');
-});
 
 module.exports = router;
