@@ -493,7 +493,7 @@ router.post('/viewHostEvent/:event_id', (request, response) => {
     
     Event.find({$and: [{_id: objectID}, {hostID: request.session.user._id}]}, function(err, events) {
         Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
-            ratingTemplate.findOne({EventID: objectID}, function(err, rating) {
+            ratingTemplate.find({EventID: objectID}, function(err, rating) {
                 response.render('hostEventHomepage', {
                     username: request.session.user.username,
                     feedbackEvent: events,
