@@ -68,8 +68,8 @@ router.get('/', (request, response) => {
                         joinedEvents: joinedEvent,
                         moment: moment
                     })
-            })
-        })
+            }).sort({endDate: -1})
+        }).sort({endDate: -1})
     }else {
         response.render('index');
     }
@@ -103,8 +103,8 @@ router.get('/createEvent', (request, response) => {
                 joinedEvents: joinedEvent,
                 moment: moment
             })
-        }).sort({active: -1})
-    }) 
+        }).sort({endDate: -1})
+    }).sort({endDate: -1})
 });
 
 router.post('/register', async (request, response) => {
@@ -134,8 +134,8 @@ router.post('/register', async (request, response) => {
                     joinedEvents: joinedEvent,
                     moment: moment
                 })
-            }).sort({active: -1})
-        })   
+            }).sort({endDate: -1})
+        }).sort({endDate: -1})
     }).catch(error => {
         response.json(error)
     });    
@@ -162,8 +162,8 @@ router.post('/login', async (request, response) => {
                 joinedEvents: joinedEvent,
                 moment: moment
             })
-        }).sort({active: -1})
-    })
+        }).sort({endDate: -1})
+    }).sort({endDate: -1})
 });
 
 router.post('/guestLogin', async(request, response) => {
@@ -220,8 +220,8 @@ router.post('/addEvent', upload.single('image'), async (request, response) => {
                     joinedEvents: joinedEvent,
                     moment: moment
                 })
-            }).sort({active: -1})
-        })
+            }).sort({endDate: -1})
+        }).sort({endDate: -1})
     }).catch(error => {
         response.json(error)
     });
@@ -321,8 +321,8 @@ router.get('/', (request, response) => {
                 eventsList: events,
                 joinedEvents: joinedEvent
             })
-        })
-    })
+        }).sort({endDate: -1})
+    }).sort({endDate: -1})
 })
 
 router.get('/guestEvents', (request, response) => {
@@ -343,8 +343,8 @@ router.get('/home', (request, response) => {
                 joinedEvents: joinedEvent,
                 moment: moment
             })
-        }).sort({active: -1})
-    })
+        }).sort({endDate: -1})
+    }).sort({endDate: -1})
 })
 
 router.post('/feedback/:event_id', async (request, response) => {
@@ -503,8 +503,8 @@ router.post('/viewHostEvent/:event_id', (request, response) => {
                     guest: false
                 })
             })
-        })
-    })
+        }).sort({endDate: -1})
+    }).sort({endDate: -1})
 });
 
 router.post('/ratings/:event_id', async (request, response) => {
