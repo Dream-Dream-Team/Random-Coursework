@@ -8,12 +8,15 @@
 <body>
 <canvas id="myChart" width="400" height="400"></canvas>
 <script>
-    var sentiments;
+    let sentiments;
     // let url = window.location.href;
     // const EventID = url.substr(url.lastIndexOf("/")+1);
-    fetch('https://random-coursework.herokuapp.com/feedback/sentiment/6041543c6b03db4d68dbbcb7')
+    const response = await fetch('https://random-coursework.herokuapp.com/feedback/sentiment/6041543c6b03db4d68dbbcb7')
         .then(response => response.json())
-        .then(data => sentiments = data);
+        .then(data => {
+            console.log(data);
+            sentiment = data;
+        });
 
     const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
     var ctx = document.getElementById("myChart").getContext("2d");
