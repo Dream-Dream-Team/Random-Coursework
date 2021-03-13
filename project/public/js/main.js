@@ -114,14 +114,15 @@ function outputMessage(message) {
       if(json != null){
         eventHost = json.hostName;
       }
+      if(eventHost != null && message.username.toLowerCase() == eventHost){
+        p.innerHTML += ` <i class="fas fa-check"> </i> `
+        //div.style = "border: 4px solid;"
+      }
+      p.classList.add('meta');
+      p.innerText = message.username;
     });
 
-    if(eventHost != null && message.username.toLowerCase() == eventHost){
-      p.innerHTML += ` <i class="fas fa-robot"> </i> `
-      div.style = "border: 4px solid rgba(232, 2, 14, 0.3);"
-    }
-    p.classList.add('meta');
-    p.innerText = message.username;
+    
   }
   /* CHANGE TO SPECIFIC HOST CASE */
 
