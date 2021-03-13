@@ -38,8 +38,6 @@ let fetchEventHost = async () => {
       console.log("Json");
       eventHost = json.hostID;
       console.log(eventHost);
-      console.log(eventHost.hostID);
-
     }
     return eventHost;
   })

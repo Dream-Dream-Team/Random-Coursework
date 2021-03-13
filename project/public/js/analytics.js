@@ -1,15 +1,18 @@
+console.log("BAZINGA");
 let sentiments;
-    let eventurl = window.location.href;
-    const theEventID = eventurl.substr(eventurl.lastIndexOf("/")+1);
 
-    let fetchData = async (theurl) => {
-        let response = await fetch(theurl);
-        if(response.ok){
-            console.log(response);
-            sentiments = response.data;
-            return await response;
-        }
+let eventurl = window.location.href;
+const theEventID = eventurl.substr(eventurl.lastIndexOf("/")+1);
+
+let fetchData = async (theurl) => {
+    let response = await fetch(theurl);
+    if(response.ok){
+        sentiments = response.data;
+        console.log("Big GGG");
+        console.log(sentiments);
+        return await response;
     }
+}
     
     var ctx1 = document.getElementById("myChart1").getContext("2d");
     var ctx2 = document.getElementById("myChart2").getContext("2d");
