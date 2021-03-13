@@ -20,10 +20,10 @@
         <%eventDetails.forEach(event => {%>
             <div class="split left">
                 <u><h2><%= event.eventName %></h2></u>
-                <h2>Your icon =  <img src="/uploads/images/<%=event.img%>" style="width: 60px; height: 60px;" id="circle"></h2>
-                <h2>Your start date = <%= moment(event.startDate).format('Do MMM, YYYY, hh:mm a'); %></h2>
-                <h2>Your end date = <%= moment(event.endDate).format('Do MMM, YYYY, hh:mm a'); %></h2>
-                <h2>Your other options = </h3>
+                <h2>Your icon: <img src="/uploads/images/<%=event.img%>" style="width: 60px; height: 60px;" id="circle_my_events_inactive"></h2>
+                <h2>Your start date: <%= moment(event.startDate).format('Do MMM, YYYY, hh:mm a'); %></h2>
+                <h2>Your end date: <%= moment(event.endDate).format('Do MMM, YYYY, hh:mm a'); %></h2>
+                <h2>Your template options: </h3>
                     <% if(event.public == true) {%>
                         <h2>✔️Public</h2>
                     <%} else {%>
@@ -43,14 +43,14 @@
                     <%}%>
             </div>
             <div class="split right">
-                <h2>Your templates = </h2>
-                <h2><% %></h2>
                 <%if (event.public == true) { %>
-                    <h2>Your attendees or token = No event token (public event)</h2>
-                    <h2>No. of participants = <%= event.participants%></h2>
+                    <h2>Your attendees (joined so far): <br><%= event.participantsList%> </h2>
+                    <h2>Your token: No event token (public event)</h2>
+                    <h2>No. of participants: <%= event.participants%></h2>
                   <%}else { %>
-                    <h2>Your attendees or token = <%= event.eventToken %></h2>
-                    <h2>No. of participants = <%= event.participants%></h2>
+                    <h2>Your attendees (joined so far): <%= event.participantsList%> </h2>
+                    <h2>Your event token: <%= event.eventToken %></h2>
+                    <h2>No. of participants: <%= event.participants%></h2>
                 <%}%>
                 <div class="button">
                 <% if(guest == false) {%>

@@ -124,19 +124,12 @@
           <br>
           <div style="margin-top: 35px;">
             <br>
-            <input type="checkbox" id="anonymous" name="anonymous" value="Anonymous">
-            <label for="anonymous"> Anonymous</label>
-            <button style="background-color: aquamarine;">
-              <i class="fa fa-paper-plane-o icon-white"></i>
-              <span>Send</span>
-            </button>
           </div>
         </div>
         <div class="underlined" style="width: 50%; margin-left: 25%; margin-top: 80px;">
           <br>
           <h1></h1>
         </div>
-        <textarea rows="4" id="textArea" cols="50" name="comment" form="POST"> Enter comment here...</textarea><br>
 
         <!-- Chat box -->
     <%- include('partials/chat', {username2: username, events: event, guest: false}) %> 

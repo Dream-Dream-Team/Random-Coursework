@@ -35,6 +35,16 @@
 										<input type="hidden" name="event_id" value="<%=event._id%>">
 										<input type="submit" style="border-color: red;" name="view_event" value="View event">
 									</form>
+								<%} else if(moment() > moment(event.endDate)) {%>
+									<form action="/viewHostEvent/<%=event._id%>" method="POST">
+										<div class="boxlol">
+										<img src="/uploads/images/<%=event.img%>" style="width: 70px; height: 70px;" id="circle_my_events_inactive">
+										<h3><%= event.eventName  %></h3>
+										<p> - </p><p style="color:red;"> Finished</p>
+										</div>
+										<input type="hidden" name="event_id" value="<%=event._id%>">
+										<input type="submit" name="view_event" value="View results">
+									</form>
 								<%} else {%>
 									<form action="/viewEvent/<%=event._id%>" method="POST">
 										<div class="boxlol">

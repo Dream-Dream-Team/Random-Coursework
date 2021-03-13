@@ -42,7 +42,7 @@
 			<%if (publicEventsList.length > 0) { %>
 				<%publicEventsList.forEach(publicEvent => {%>
 					<% if(moment() >= moment(publicEvent.startDate) && moment() < moment(publicEvent.endDate)) {%>
-						<form action="/guestFeedback" method="POST">
+						<form action="/guestFeedback/<%=publicEvent._id%>" method="POST">
               <div class="boxlol">
                 <input type="radio" name="eventID" value="<%=publicEvent._id%>">
                 <img src="/uploads/images/<%=publicEvent.img%>" style="width: 70px; height: 70px;" id="circle_my_events_active">
