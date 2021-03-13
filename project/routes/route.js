@@ -527,10 +527,10 @@ router.post('/ratings/:event_id', async (request, response) => {
     const eventID = mongoose.Types.ObjectId(request.body.event_id);
     console.log(eventID);
     console.log(request.body.rate);
-    const username = request.session.user.username;
+    var username = request.session.user.username;
 
-    if(request.body.anonymous) {
-        username = "Anonymous"
+    if(request.body.anonymous == 'true') {
+        username = "Anonymous";
     }
 
     ratingTemplate.findOne({'EventID': eventID}, (err, res) => {
@@ -583,12 +583,10 @@ router.post('/ratings/:event_id', async (request, response) => {
 
 router.post('/ratingsGuest/:event_id', async (request, response) => {
     const eventID = mongoose.Types.ObjectId(request.body.event_id);
-    console.log("THE EVENT ID INSIDE RATINGS GUEST IS: " + eventID);
-    console.log(request.body.rate);
-    const username = request.session.username;
+    var username = request.session.username;
 
-    if(request.body.anonymous) {
-        username = "Anonymous"
+    if(request.body.anonymous == 'true') {
+        username = "Anonymous";
     }
 
     ratingTemplate.findOne({'EventID': eventID}, (err, res) => {
@@ -628,7 +626,7 @@ router.post('/ratingsGuest/:event_id', async (request, response) => {
             if(err) throw err;
             response.render('guestAttendeeView', {
                 username: request.session.username,
-                eventID: events._id,
+                eventID: eventID,
                 event: events,
                 moment: moment,
                 guest: true

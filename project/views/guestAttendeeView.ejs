@@ -81,8 +81,7 @@
 
         <div style="text-align: center;" class="column r">
             <div class="underlined" style="width: 75%; margin-left: 20%;"><h1> Ratings:</h1></div>
-            <h1><%=eventID%></h1>
-            <form action="/ratingsGuest/<%=event._id%>" method="POST">
+            <form action="/ratingsGuest/<%=event._id%>" method="POST" onsubmit="alert('Your rating was submitted.');">
                 <div class="rate" style="margin-left: 40%;">
                     <input type="radio" id="star1" name="rate" value="10" />
                     <label for="star1" title="text">1 star</label>
@@ -106,7 +105,7 @@
                     <label for="star10" title="text">10 stars</label>
                     <br>
                     <div style="margin-top: 35px;"><br>
-                        <input type="checkbox" name="anonymous" value="Anonymous">
+                        <input type="checkbox" name="anonymous" value="true">
                         <label for="anonymous"> Anonymous</label>
                         <button style="background-color: aquamarine;">
                             <i class="fa fa-paper-plane-o icon-white"></i>
