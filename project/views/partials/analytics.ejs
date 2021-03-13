@@ -3,8 +3,8 @@
 <canvas id="myChart2" width="500" height="500"></canvas>
 <script>
     let sentiments;
-    let url = window.location.href;
-    const EventID = url.substr(url.lastIndexOf("/")+1);
+    let eventurl = window.location.href;
+    const EventID = eventurl.substr(eventurl.lastIndexOf("/")+1);
 
     let fetchData = async (url) => {
         let response = await fetch(url);
