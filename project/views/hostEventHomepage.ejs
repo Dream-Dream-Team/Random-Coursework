@@ -105,11 +105,12 @@
     <!-- Analytics -->
     <%- include('partials/analytics') %> 
 
-    <div class="underlined"> <h1 style="margin-left: 75px;"> Overall mood: </h1></div>
+    <!-- <div class="underlined"> <h1 style="margin-left: 75px;"> Overall mood: </h1></div>
     <img src="../images/mood.png" style="width: 250px;height: 200px;"></a>
-    <div class="underlined">
-      <h1 style="margin-left: 75px;"> Ratings: </h1>
-    </div>
+    <div class="underlined"> -->
+      
+      <!-- <h1 style="margin-left: 75px;"> Ratings: </h1>
+    <!-- </div>
     <span class="heading">User Rating</span>
     <span class="fa fa-star checked"></span>
     <span class="fa fa-star checked"></span>
@@ -119,7 +120,7 @@
     <span class="fa fa-star checked"></span>
     <span class="fa fa-star checked"></span>
     <span class="fa fa-star"></span>
-    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span> -->
     <%ratings.forEach(rating => {%>
       <% if(rating) {%>
         <p><b><%= rating.AverageRating.toFixed(2)%></b> average based on <b><%= rating.AmountOfRatings%> reviews.</b></p>
@@ -184,7 +185,9 @@
       <div class="side right">
         <div>20</div>
       </div>
-    </div>
+    </div> -->
+
+
     <div class="help" style="width: 40px; margin-top: 50px; margin-left: 190px;">
       <div class="question">?</div>
       <div class="popup">
