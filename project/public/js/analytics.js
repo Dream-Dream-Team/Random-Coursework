@@ -18,7 +18,7 @@ let fetchData = async (theurl) => {
     var ctx2 = document.getElementById("myChart2").getContext("2d");
 
     //let sentURL = 'http://localhost:3000/feedback/sentiment/6046c6b9325f81002121f2fa';
-    let sentURL = 'http://random-coursework.herokuapp.com//feedback/sentiment/' +  + theEventID;
+    let sentURL = 'https://random-coursework.herokuapp.com//feedback/sentiment/' +  + theEventID;
     fetchData( sentURL
     ).then(data => {
         if(data != null){
@@ -102,7 +102,7 @@ let fetchData = async (theurl) => {
     let ratings;
 
     //let rateURL = 'http://localhost:3000/feedback/sentiment/6046c6b9325f81002121f2fa';
-    let rateURL = 'http://random-coursework.herokuapp.com//feedback/rating/' + theEventID;
+    let rateURL = 'https://random-coursework.herokuapp.com//feedback/rating/' + theEventID;
     fetchData(rateURL
     ).then(data => {
         if(data != null){
