@@ -191,6 +191,7 @@ router.post('/addEvent', upload.single('image'), async (request, response) => {
         eventToken: token,
         eventName: request.body.eventName,
         participants: request.body.participants,
+        participantsList: request.body.people,
         public: request.body.public,
         startDate: request.body.startDate,
         endDate: request.body.endDate,
@@ -218,6 +219,7 @@ router.post('/addEvent', upload.single('image'), async (request, response) => {
                     username: request.session.user.username,
                     eventDetails: events,
                     joinedEvents: joinedEvent,
+                    guest: false,
                     moment: moment
                 })
             }).sort({endDate: -1})
@@ -367,10 +369,12 @@ router.post('/feedback/:event_id', async (request, response) => {
     }) 
 })
 
-router.post('/guestFeedback', async (request, response) => {
+router.post('/guestFeedback/:event_id', async (request, response) => {
     const eventID = request.body.eventID;
 
     var objectID = new ObjectID(eventID);
+
+    request.session.username = request.body.guestUsername;
 
     // append a user's username to the list of participants of the existing event
     eventTemplate.findOneAndUpdate({_id: objectID}, 
@@ -469,11 +473,23 @@ router.post('/guestFeedback', async (request, response) => {
 //         });
 //     }
 // })
+router.post('/endEvent', (request, response) => {
+    Event.find({hostID: request.session.user._id}, function(err, events) {
+        Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
+            response.render('event', {
+                username: request.session.user.username,
+                eventsList: events,
+                joinedEvents: joinedEvent,
+                moment: moment
+            })
+        }).sort({endDate: -1})
+    }).sort({endDate: -1})
+})
 
 router.post('/viewEvent/:event_id', (request, response) => {
     const eventID = request.body.event_id;
-    console.log(eventID);
     var objectID = new ObjectID(eventID);
+
     Event.find({$and: [{_id: objectID}, {hostID: request.session.user._id}]}, function(err, events) {
         Event.find({participantsList: {$in: [request.session.user.username]}}, function(err, joinedEvent) {
             response.render('createdEvent', {
@@ -483,8 +499,8 @@ router.post('/viewEvent/:event_id', (request, response) => {
                 moment: moment,
                 guest: false
             })
-        })
-    })
+        }).sort({endDate: -1})
+    }).sort({endDate: -1})
 });
 
 router.post('/viewHostEvent/:event_id', (request, response) => {
@@ -539,7 +555,6 @@ router.post('/ratings/:event_id', async (request, response) => {
             );
             console.log(rating);
         }else {
-            console.log("SUP BITCHES WOAH")
             let rating = {username: request.session.user.username , rating: request.body.rate, time: moment().format('h:mm a')};
             let newRating = new ratingTemplate();
             newRating.EventID = mongoose.Types.ObjectId(request.body.event_id);
@@ -562,6 +577,63 @@ router.post('/ratings/:event_id', async (request, response) => {
                 });
     
             })
+        }) 
+    })
+})
+
+router.post('/ratingsGuest/:event_id', async (request, response) => {
+    const eventID = mongoose.Types.ObjectId(request.body.event_id);
+    console.log("THE EVENT ID INSIDE RATINGS GUEST IS: " + eventID);
+    console.log(request.body.rate);
+    const username = request.session.username;
+
+    if(request.body.anonymous) {
+        username = "Anonymous"
+    }
+
+    ratingTemplate.findOne({'EventID': eventID}, (err, res) => {
+        if(res) {
+            let rating = {username: username , rating: request.body.rate, time: moment().format('h:mm a')};
+            let newAverage = (Number(res.TotalRating) + Number(request.body.rate)) / (res.Rating.length + 1)
+
+            ratingTemplate.findOneAndUpdate(
+                {'EventID' : eventID} ,
+                {
+                $set: {
+                    AmountOfRatings: res.Rating.length + 1,
+                    TotalRating: Number(res.TotalRating) + Number(request.body.rate),
+                    AverageRating: newAverage
+                },
+                $push: { 
+                    Rating: rating,
+                }
+                }, {new: true}, (err, res) => {
+                // console.log(" Result: " + res);
+                }
+            );
+            console.log(rating);
+        }else {
+            let rating = {username: request.session.username , rating: request.body.rate, time: moment().format('h:mm a')};
+            let newRating = new ratingTemplate();
+            newRating.EventID = mongoose.Types.ObjectId(request.body.event_id);
+            newRating.Rating.push(rating);
+            
+            newRating.AmountOfRatings = 1,
+            newRating.TotalRating = request.body.rate,
+            newRating.AverageRating = request.body.rate,
+            newRating.save();
+        }
+
+        Event.findOne({_id: eventID}, function(err, events) {
+            if(err) throw err;
+            response.render('guestAttendeeView', {
+                username: request.session.username,
+                eventID: events._id,
+                event: events,
+                moment: moment,
+                guest: true
+            });
+    
         }) 
     })
 })

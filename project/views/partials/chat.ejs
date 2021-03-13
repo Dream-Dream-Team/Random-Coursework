@@ -32,16 +32,20 @@
       <div class="chat-form-container">
         <form id="chat-form">
           <% if(guest == false) {%>
-            <input
-            id="msg"
-            type="text"
-            placeholder="Enter Message"
-            required
-            autocomplete="off"
-          />
-          <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+            <% if(finished == true) {%>
+              <h4>Chat History</h4>
+            <%} else {%>
+              <input
+              id="msg"
+              type="text"
+              placeholder="Enter Message"
+              required
+              autocomplete="off"
+              />
+              <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+            <%}%>
           <%} else {%>
-            <h4>Guest accounts are unable to chat.</h4>
+            <h4>Guest accounts are unable to chat. You may keep track of the chat of this event.</h4>
           <%}%>
         </form>
       </div>
