@@ -6,8 +6,8 @@
     let eventurl = window.location.href;
     const EventID = eventurl.substr(eventurl.lastIndexOf("/")+1);
 
-    let fetchData = async (url) => {
-        let response = await fetch(url);
+    let fetchData = async (theurl) => {
+        let response = await fetch(theurl);
         if(response.ok){
             console.log(response);
             sentiments = response.data;
