@@ -6,101 +6,179 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.js"></script>
 </head>
 <body>
-<canvas id="myChart" width="400" height="400"></canvas>
+<canvas id="myChart1" width="500" height="500"></canvas>
+<canvas id="myChart2" width="500" height="500"></canvas>
 <script>
     let sentiments;
     // let url = window.location.href;
     // const EventID = url.substr(url.lastIndexOf("/")+1);
-    const response = await fetch('https://random-coursework.herokuapp.com/feedback/sentiment/6041543c6b03db4d68dbbcb7')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            sentiment = data;
-        });
 
-    const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
-    var ctx = document.getElementById("myChart").getContext("2d");
-
-    var avg = [];
-    var avgSent
-    var sentArray = [];
-    for (var i = 0; i < sentiments.length; i++){
-        avg.push(sentiments[i].sentiment);
-        avgSent = arrAvg(avg);
-        sentArray.push({t: sentiments[i].time, y: avgSent});
+    let fetchData = async (url) => {
+        let response = await fetch(url);
+        if(response.ok){
+            console.log(response);
+            sentiments = response.data;
+            return await response;
+        }
     }
-    //console.log(avgSent);
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Average Sentiment',
-                data: sentArray,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    distribution: 'linear'
-                }]
-            }
-        }
-    });
-    var ratings;
-    fetch('https://random-coursework.herokuapp.com/feedback/rating/6041543c6b03db4d68dbbcb7')
-        .then(response => response.json())
-        .then(data => JSON.parse(ratings));
+    
+    var ctx1 = document.getElementById("myChart1").getContext("2d");
+    var ctx2 = document.getElementById("myChart2").getContext("2d");
 
+    //let sentURL = 'http://localhost:3000/feedback/sentiment/6046c6b9325f81002121f2fa';
+    let sentURL = 'https://random-coursework.herokuapp.com//feedback/sentiment/6046c6b9325f81002121f2fa'
+    fetchData( sentURL
+    ).then(data => {
+        if(data != null){
+            data.json().then(data => {
+                sentiments = data
+            
+                const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length
 
-    var barChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-            datasets: [
-                {
-                    label: "Ratings",
-                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850",
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'],
-                    data: ratings//[10,20,30,40,50, 40, 30, 20, 10, 10]
+                var avg = [];
+                var avgSent
+                var sentArray = [];
+                let timeArray = [];
+                for (var i = 0; i < sentiments.length; i++){
+                    avg.push(sentiments[i].sentiment);
+                    avgSent = arrAvg(avg);
+                    sentArray.push({t: sentiments[i].time, y: avgSent});
+                    timeArray.push(sentiments[i].time);   
                 }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
+
+                
+
+                let dataset = {
+                    labels: timeArray,
+                    datasets: [{
+                        label: 'Average Sentiment',
+                        data: sentArray,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+
+                let options = {
+                    scales: {
+                        xAxes: [{
+                        type: "time",
+                        distribution: 'series',
+                        time: {
+                            min: timeArray[0],
+                            max: timeArray[timeArray.length-1],
+                            displayFormats: {
+                            day: 'MMM YY'
+                            }
+                        },
+                        ticks: {
+                            source: "labels"
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                        }]
                     }
-                }]
-            },
-            legend: { display: false },
-            title: {
-                display: true,
-                text: 'Ratings'
-            }
+                }
+
+                console.log(timeArray);
+                //console.log(avgSent);
+                var myChart = new Chart(ctx1, {
+                    type: 'line',
+                    data: dataset,
+                    options: options,
+                });
+            });
         }
     });
+        
+
+    let ratings;
+
+    //let rateURL = 'http://localhost:3000/feedback/sentiment/6046c6b9325f81002121f2fa';
+    let rateURL = 'https://random-coursework.herokuapp.com//feedback/rating/6046c6b9325f81002121f2fa'
+    fetchData('http://localhost:3000/feedback/rating/6046c6b9325f81002121f2fa'
+    ).then(data => {
+        if(data != null){
+            data.json().then(data => {
+                ratings = data.Rating;
+                console.log(ratings);
+
+                let ratingArray = [];
+                ratings.forEach((element) => {
+                    console.log(element.rating);
+                    ratingArray.push(parseInt(element.rating));
+                });
+
+                let finalRatings = [];
+                const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+                for( i = 1 ; i<=10; i++){
+                    console.log(i);
+                    finalRatings.push(countOccurrences(ratingArray, i));
+                }
+                console.log(ratingArray);
+                console.log(finalRatings);
+
+
+                let dataset = {
+                    labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+                    datasets: [
+                        {
+                            label: "Ratings",
+                            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850",
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'],
+                            data: finalRatings
+                        }
+                    ]
+                };
+
+                let options = {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Ratings'
+                    }
+                };
+
+                var barChart = new Chart(ctx2, {
+                    type: 'horizontalBar',
+                    data: dataset,
+                    options: options
+                });
+            });
+        }
+    });
+    
+
+
+
+    
+
 </script>
 </body>

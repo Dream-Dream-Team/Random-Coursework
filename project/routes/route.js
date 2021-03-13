@@ -618,8 +618,8 @@ router.get('/feedback/rating/:id' ,(req, res, next) => {
 
 
 router.get('/feedback/sentiment/:id' ,(req, res, next) => {
-res.setHeader("Content-Type", "application/json");
-res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.statusCode = 200;
 
     connectdb.then(db => {
     //   console.log("The ID: " + req.params.id);
