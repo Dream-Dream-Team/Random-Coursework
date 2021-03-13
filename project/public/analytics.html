@@ -11,7 +11,7 @@
 <script>
     let sentiments;
     let url = window.location.href;
-    const EventID = url.substr(url.lastIndexOf("/")+1);
+    const EventID = url.substr(url.lastIndexOf("?")+1);
 
     let fetchData = async (url) => {
         let response = await fetch(url);
