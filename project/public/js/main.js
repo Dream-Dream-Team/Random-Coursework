@@ -113,6 +113,7 @@ function outputMessage(message) {
     .then(json => {
       if(json != null){
         eventHost = json.hostName;
+        console.log(eventHost);
       }
       if(eventHost != null && message.username.toLowerCase() == eventHost){
         p.innerHTML += ` <i class="fas fa-check"> </i> `
@@ -120,14 +121,19 @@ function outputMessage(message) {
       }
       p.classList.add('meta');
       p.innerText = message.username;
+    }).then(() => {
+      p.innerHTML += `<span> ${message.time}</span>`;
+      div.appendChild(p);
+      const para = document.createElement('p');
+      para.classList.add('text');
+      
+      para.innerText = message.text;
+      div.appendChild(para);
+      document.querySelector('.chat-messages').appendChild(div);
     });
 
-    
   }
   /* CHANGE TO SPECIFIC HOST CASE */
-
-
-
   p.innerHTML += `<span> ${message.time}</span>`;
   div.appendChild(p);
   const para = document.createElement('p');
