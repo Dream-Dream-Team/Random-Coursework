@@ -662,7 +662,7 @@ router.get('/feedback/user/:id' ,(req, res, next) => {
   
     connectdb.then(db => {
     //   console.log("The ID: " + req.params.id);
-      let data = eventTemplate.findOne({ EventID: mongoose.Types.ObjectId(req.params.id) },
+      let data = eventTemplate.findOne({ _id: mongoose.Types.ObjectId(req.params.id) },
       (error, result) => {
           console.log(result);
           res.json(result);

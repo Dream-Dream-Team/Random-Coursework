@@ -26,6 +26,25 @@ console.log("The current room name is:" + room);
 // const room = event.eventName;
 // const EventID = event.eventID;
 
+let eventHost = 0;
+let fetchEventHost = async () => {
+  let host = await fetch("/feedback/user/" + EventID)
+  .then(data => {
+    // console.log(" The data:" + data.json());
+    return data.json();
+  })
+  .then(json => {
+    if(json != null){
+      console.log("Json");
+      eventHost = json.hostID;
+      console.log(eventHost);
+      console.log(eventHost.hostID);
+
+    }
+    return eventHost;
+  })
+};
+fetchEventHost().then(data => console.log(data));
 
 
 
@@ -104,34 +123,13 @@ function outputMessage(message) {
     p.innerHTML += ` <i class="fas fa-robot"> </i> `
     div.style = "border: 4px solid rgba(232, 2, 14, 0.3);"
   } else {
-    let eventHost = 0;
-    fetch("/feedback/user/" + EventID)
-    .then(data => {
-      // console.log(" The data:" + data.json());
-      return data.json();
-    })
-    .then(json => {
-      if(json != null){
-        eventHost = json.hostName;
-        console.log(eventHost);
-      }
-      if(eventHost != null && message.username.toLowerCase() == eventHost){
+    
+      if(eventHost != null && checkHostID == eventHost){
         p.innerHTML += ` <i class="fas fa-check"> </i> `
         //div.style = "border: 4px solid;"
       }
       p.classList.add('meta');
       p.innerText = message.username;
-    }).then(() => {
-      p.innerHTML += `<span> ${message.time}</span>`;
-      div.appendChild(p);
-      const para = document.createElement('p');
-      para.classList.add('text');
-      
-      para.innerText = message.text;
-      div.appendChild(para);
-      document.querySelector('.chat-messages').appendChild(div);
-    });
-
   }
   /* CHANGE TO SPECIFIC HOST CASE */
   p.innerHTML += `<span> ${message.time}</span>`;
