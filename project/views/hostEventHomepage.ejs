@@ -98,9 +98,9 @@
   <div class="column l" style="text-align: center;">
     <div class="underlined"> <h1 style="margin-left: 200px;"> Chat:</h1></div>
     <% if (moment() > moment(event.endDate)) {%>
-      <%- include('partials/chat', {username2: username ,events: event, guest: false, finished: true, checkHostID: checkHostID}) %> 
+      <%- include('partials/chat', {username2: username ,events: event, guest: false, finished: true, checkHostID: checkHostID, checkHostName: checkHostName}) %> 
     <%}else {%>
-      <%- include('partials/chat', {username2: username ,events: event, guest: false, finished: false, checkHostID: checkHostID}) %> 
+      <%- include('partials/chat', {username2: username ,events: event, guest: false, finished: false, checkHostID: checkHostID, checkHostName: checkHostName}) %> 
     <%}%>
   </div>
 
