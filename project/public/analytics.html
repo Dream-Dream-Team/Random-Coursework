@@ -19,7 +19,7 @@
     var ctx2 = document.getElementById("myChart2").getContext("2d");
 
     //let sentURL = 'http://localhost:3000/feedback/sentiment/6046c6b9325f81002121f2fa';
-    let sentURL = 'https://random-coursework.herokuapp.com/feedback/sentiment/' +  + EventID || 'https://random-coursework.herokuapp.com//feedback/sentiment/6046c6b9325f81002121f2fa';
+    let sentURL = 'https://random-coursework.herokuapp.com/feedback/sentiment/' +  + EventID || 'https://random-coursework.herokuapp.com/feedback/sentiment/6046c6b9325f81002121f2fa';
     fetchData( sentURL
     ).then(data => {
         if(data != null){
@@ -103,7 +103,7 @@
     let ratings;
 
     //let rateURL = 'http://localhost:3000/feedback/sentiment/6046c6b9325f81002121f2fa';
-    let rateURL = 'https://random-coursework.herokuapp.com//feedback/rating/' + EventID || 'https://random-coursework.herokuapp.com//feedback/rating/6046c6b9325f81002121f2fa';
+    let rateURL = 'https://random-coursework.herokuapp.com/feedback/rating/' + EventID || 'https://random-coursework.herokuapp.com/feedback/rating/6046c6b9325f81002121f2fa';
     fetchData(rateURL
     ).then(data => {
         if(data != null){
