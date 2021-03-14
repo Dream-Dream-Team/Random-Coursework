@@ -613,6 +613,7 @@ router.post('/ratings/:event_id', async (request, response) => {
 })
 
 router.post('/ratingsGuest/:event_id', async (request, response) => {
+    console.log("EVENT ID IN RATINGS GUEST IS " + request.body.event_id);
     const eventID = mongoose.Types.ObjectId(request.body.event_id);
     var username = request.session.username;
 
@@ -657,7 +658,7 @@ router.post('/ratingsGuest/:event_id', async (request, response) => {
             if(err) throw err;
             response.render('guestAttendeeView', {
                 username: request.session.username,
-                checkHostID: request.session.user._id,
+                checkHostID: "Guest",
                 eventID: eventID,
                 event: events,
                 moment: moment,

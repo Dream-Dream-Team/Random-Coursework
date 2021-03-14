@@ -73,47 +73,61 @@
     </div>
 
     <% if(moment() >= moment(event.startDate) && moment() < moment(event.endDate)) {%>
-
+        <div class="sidenav">
+            <a href="/"><img src="../images/homeButton.png" style="width:75px;height:75px;"></a>
+        </div>
+        
         <div class="column l" style="text-align: center;">
             <div class="underlined"><h1 style="margin-left: 140px;"> Comments & Questions:</h1></div>
-            <%- include('partials/chat', {username2: username ,events: event, guest: true, finished: false, checkHostID: checkHostID}) %> 
+            <div style="margin-left: 130px;">
+                <%- include('partials/chat', {username2: username ,events: event, guest: true, finished: false, checkHostID: checkHostID}) %> 
+            </div>
         </div>
 
         <div style="text-align: center;" class="column r">
             <div class="underlined" style="width: 75%; margin-left: 20%;"><h1> Ratings:</h1></div>
-            <form action="/ratingsGuest/<%=event._id%>" method="POST" onsubmit="alert('Your rating was submitted.');">
-                <div class="rate" style="margin-left: 40%;">
-                    <input type="radio" id="star1" name="rate" value="10" />
-                    <label for="star1" title="text">1 star</label>
-                    <input type="radio" id="star2" name="rate" value="9" />
-                    <label for="star2" title="text">2 stars</label>
-                    <input type="radio" id="star3" name="rate" value="8" />
-                    <label for="star3" title="text">3 stars</label>
-                    <input type="radio" id="star4" name="rate" value="7" />
-                    <label for="star4" title="text">4 stars</label>
-                    <input type="radio" id="star5" name="rate" value="6" />
-                    <label for="star5" title="text">5 stars</label>
-                    <input type="radio" id="star6" name="rate" value="5" />
-                    <label for="star6" title="text">6 stars</label>
-                    <input type="radio" id="star7" name="rate" value="4" />
-                    <label for="star7" title="text">7 stars</label>
-                    <input type="radio" id="star8" name="rate" value="3" />
-                    <label for="star8" title="text">8 stars</label>
-                    <input type="radio" id="star9" name="rate" value="2" />
-                    <label for="star29" title="text">9 stars</label>
-                    <input type="radio" id="star10" name="rate" value="1" />
-                    <label for="star10" title="text">10 stars</label>
-                    <br>
-                    <div style="margin-top: 35px;"><br>
-                        <input type="checkbox" name="anonymous" value="true">
-                        <label for="anonymous"> Anonymous</label>
-                        <button style="background-color: aquamarine;">
-                            <i class="fa fa-paper-plane-o icon-white"></i>
-                            <span>Send</span>
-                        </button>
-                    </div>
-                    <input type="hidden" name="event_id" value="<%=eventID%>">
+                <form action="/ratingsGuest/<%=event._id%>" method="POST" onsubmit="alert('Your rating was submitted.');">
+                    <div class="rate" style="margin-left: 40%;">
+                        <input type="radio" id="star1" name="rate" value="10" />
+                        <label for="star1" title="text">1 star</label>
+                        <input type="radio" id="star2" name="rate" value="9" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star3" name="rate" value="8" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star4" name="rate" value="7" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star5" name="rate" value="6" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star6" name="rate" value="5" />
+                        <label for="star6" title="text">6 stars</label>
+                        <input type="radio" id="star7" name="rate" value="4" />
+                        <label for="star7" title="text">7 stars</label>
+                        <input type="radio" id="star8" name="rate" value="3" />
+                        <label for="star8" title="text">8 stars</label>
+                        <input type="radio" id="star9" name="rate" value="2" />
+                        <label for="star29" title="text">9 stars</label>
+                        <input type="radio" id="star10" name="rate" value="1" />
+                        <label for="star10" title="text">10 stars</label>
+                        <br>
+                        <div style="margin-top: 35px;"><br>
+                            <input type="checkbox" name="anonymous" value="true">
+                            <label for="anonymous"> Anonymous</label>
+                            <button style="background-color: aquamarine;">
+                                <i class="fa fa-paper-plane-o icon-white"></i>
+                                <span>Send</span>
+                            </button>
+                        </div>
+                        <input type="hidden" name="event_id" value="<%=event._id%>">
                 </form>
+
+                <div class="underlined">
+                    <h1> Sign out</h1>
+                        <form action="/logout" method="POST">
+                          <div class="logoutButton">
+                              <button type="submit" type="submit" onclick="return confirm('Are you sure you want to log out? :(');">Logout</button>
+                          </div>
+                      </form>
+                  </div>
             </div>
     <%} else {%>
         <div class="sidenav">
@@ -162,7 +176,7 @@
             <textarea rows="4" id="textArea" cols="50" name="comment" form="POST"> Enter comment here...</textarea><br>
     <%}%>
 
-            <div class="help" style="margin-top: 200px; margin-left: 420px;">
+            <div class="help" style="margin-top: 230px; margin-left: 420px;">
                 <div class="question">?</div>
                 <div class="popup">
                     <h3>Guest attendee view help</h3>
