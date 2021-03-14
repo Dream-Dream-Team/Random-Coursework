@@ -361,6 +361,7 @@ router.post('/feedback/:event_id', async (request, response) => {
             response.render('attendeeEventHomepage', {
                 username: request.session.user.username,
                 checkHostID: request.session.user._id,
+                checkHostName: request.session.user.username,
                 feedbackEvent: events,
                 joinedEvents: joinedEvent,
                 moment: moment
@@ -397,6 +398,7 @@ router.post('/guestFeedback/:event_id', async (request, response) => {
                 response.render('guestAttendeeView', {
                     username: request.body.guestUsername,
                     checkHostID: "Guest",
+                    checkHostName: "Guest",
                     eventID: eventID,
                     event: doc,
                     moment: moment
@@ -411,6 +413,7 @@ router.post('/guestFeedback/:event_id', async (request, response) => {
                 response.render('guestAttendeeView', {
                     username: request.body.guestUsername,
                     checkHostID: "Guest",
+                    checkHostName: "Guest",
                     eventID: eventID,
                     event: doc,
                     moment: moment
@@ -542,6 +545,7 @@ router.post('/viewHostEvent/:event_id', (request, response) => {
                 response.render('hostEventHomepage', {
                     username: request.session.user.username,
                     checkHostID: request.session.user._id,
+                    checkHostName: request.session.user.username,
                     feedbackEvent: events,
                     joinedEvents: joinedEvent,
                     ratings: rating,
@@ -602,6 +606,7 @@ router.post('/ratings/:event_id', async (request, response) => {
                 response.render('attendeeEventHomepage', {
                     username: request.session.user.username,
                     checkHostID: request.session.user._id,
+                    checkHostName: request.session.user.username,
                     feedbackEvent: events,
                     joinedEvents: joinedEvent,
                     moment: moment
@@ -659,6 +664,7 @@ router.post('/ratingsGuest/:event_id', async (request, response) => {
             response.render('guestAttendeeView', {
                 username: request.session.username,
                 checkHostID: "Guest",
+                checkHostName: "Guest",
                 eventID: eventID,
                 event: events,
                 moment: moment,
