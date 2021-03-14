@@ -360,6 +360,7 @@ router.post('/feedback/:event_id', async (request, response) => {
             if(err) throw err;
             response.render('attendeeEventHomepage', {
                 username: request.session.user.username,
+                checkHostID: request.session.user._id,
                 feedbackEvent: events,
                 joinedEvents: joinedEvent,
                 moment: moment
@@ -512,6 +513,7 @@ router.post('/viewHostEvent/:event_id', (request, response) => {
             ratingTemplate.find({EventID: objectID}, function(err, rating) {
                 response.render('hostEventHomepage', {
                     username: request.session.user.username,
+                    checkHostID: request.session.user._id,
                     feedbackEvent: events,
                     joinedEvents: joinedEvent,
                     ratings: rating,
@@ -626,6 +628,7 @@ router.post('/ratingsGuest/:event_id', async (request, response) => {
             if(err) throw err;
             response.render('guestAttendeeView', {
                 username: request.session.username,
+                checkHostID: request.session.user._id,
                 eventID: eventID,
                 event: events,
                 moment: moment,
