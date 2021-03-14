@@ -224,8 +224,8 @@ input {
 
 .darkClass
 {
-    background-color: grey;
-    filter:alpha(opacity=50); /* IE */
+    background-color: black;
+    filter:alpha(opacity=90); /* IE */
     opacity: 0.5; /* Safari, Opera */
     -moz-opacity:0.50; /* FireFox */
     z-index: 20;
