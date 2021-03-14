@@ -6,7 +6,7 @@ const userList = document.getElementById('users');
 // Getting the useranme and room
 const username = document.getElementById('currentUsername').innerText || "Guest" + getRandomInt(1000000);
 const room = document.getElementById('currentEventName').innerText;
-const checkHostID = document.getElementById('EventHostID').innerText;
+const checkHostName = document.getElementById('checkHostName').innerText;
 
 // Getting eventID
 let url = window.location.href;
@@ -123,7 +123,7 @@ function outputMessage(message) {
     div.style = "border: 4px solid rgba(232, 2, 14, 0.3);"
   } else {
     
-      if(eventHost != null && checkHostID == eventHost){
+      if(checkHostName != null && message.username == checkHostName){
         p.innerHTML += ` <i class="fas fa-check"> </i> `
         //div.style = "border: 4px solid;"
       }
