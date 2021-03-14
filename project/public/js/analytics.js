@@ -67,22 +67,25 @@ let fetchData = async (theurl) => {
 
                 let options = {
                     scales: {
-                        xAxes: [{
-                        type: "time",
-                        distribution: 'series',
-                        time: {
-                            min: timeArray[0],
-                            max: timeArray[timeArray.length-1],
-                            displayFormats: {
-                            day: 'MMM YY'
+                            xAxes: [{
+                            type: "time",
+                            distribution: 'series',
+                            time: {
+                                min: timeArray[0],
+                                max: timeArray[timeArray.length-1],
+                                displayFormats: {
+                                day: 'MMM YY'
+                                }
+                            },
+                            ticks: {
+                                source: "labels"
+                            },
+                            gridLines: {
+                                display: false
+                            },
+                            legend: {
+                                display: false
                             }
-                        },
-                        ticks: {
-                            source: "labels"
-                        },
-                        gridLines: {
-                            display: false
-                        }
                         }]
                     }
                 }
