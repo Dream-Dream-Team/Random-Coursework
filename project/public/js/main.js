@@ -123,7 +123,7 @@ function outputMessage(message) {
     div.style = "border: 4px solid rgba(232, 2, 14, 0.3);"
   } else {
     
-      if(eventHost != null && checkHostID == eventHost){
+      if(checkHostName != null && message.username == checkHostName){
         p.innerHTML += ` <i class="fas fa-check"> </i> `
         //div.style = "border: 4px solid;"
       }
