@@ -6,7 +6,7 @@ const userList = document.getElementById('users');
 // Getting the useranme and room
 const username = document.getElementById('currentUsername').innerText || "Guest" + getRandomInt(1000000);
 const room = document.getElementById('currentEventName').innerText;
-const checkHostName = document.getElementById('checkHostName').innerText;
+const checkHostName = document.getElementById('EventHostName').innerText;
 
 // Getting eventID
 let url = window.location.href;
