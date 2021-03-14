@@ -371,24 +371,52 @@ router.post('/feedback/:event_id', async (request, response) => {
 })
 
 router.post('/guestFeedback/:event_id', async (request, response) => {
-    const eventID = request.body.eventID;
+    const eventID = request.body.event_id;
 
-    var objectID = new ObjectID(eventID);
+    // var objectID = new ObjectID(eventID);
 
     request.session.username = request.body.guestUsername;
 
-    // append a user's username to the list of participants of the existing event
-    eventTemplate.findOneAndUpdate({_id: objectID}, 
-        {$push : { participantsList: request.body.guestUsername}}, {new: true}, function(err, doc) {
-            if(err) throw err;
-            
-            response.render('guestAttendeeView', {
-                username: request.body.guestUsername,
-                eventID: eventID,
-                event: doc,
-                moment: moment
-            });
-    });
+    if(request.body.guestToken) {
+        const checkExists = await eventTemplate.findOne({eventToken: request.body.guestToken});
+        if(!checkExists) return response.status(400).send('Event does not exist token');
+
+        // check if participant count is not exceeded
+        const event = await eventTemplate.findOne({eventToken: request.body.guestToken});
+        var numParticipants = event.participantsList.length;
+        var maxParticipants = event.participants;
+        
+        if(numParticipants + 1 > maxParticipants) return response.status(400).send('Maximum capacity to this event has reached');
+
+        // // append a user's username to the list of participants of the existing event
+        // append a user's username to the list of participants of the existing event
+        eventTemplate.findOneAndUpdate({eventToken: request.body.guestToken}, 
+            {$push : { participantsList: request.body.guestUsername}}, {new: true}, function(err, doc) {
+                if(err) throw err;
+                
+                response.render('guestAttendeeView', {
+                    username: request.body.guestUsername,
+                    checkHostID: "Guest",
+                    eventID: eventID,
+                    event: doc,
+                    moment: moment
+                });
+        });
+    }else{
+        // append a user's username to the list of participants of the existing event
+        eventTemplate.findOneAndUpdate({_id: eventID}, 
+            {$push : { participantsList: request.body.guestUsername}}, {new: true}, function(err, doc) {
+                if(err) throw err;
+                
+                response.render('guestAttendeeView', {
+                    username: request.body.guestUsername,
+                    checkHostID: "Guest",
+                    eventID: eventID,
+                    event: doc,
+                    moment: moment
+                });
+        });
+    }
 })
   
 
@@ -573,6 +601,7 @@ router.post('/ratings/:event_id', async (request, response) => {
                 if(err) throw err;
                 response.render('attendeeEventHomepage', {
                     username: request.session.user.username,
+                    checkHostID: request.session.user._id,
                     feedbackEvent: events,
                     joinedEvents: joinedEvent,
                     moment: moment
