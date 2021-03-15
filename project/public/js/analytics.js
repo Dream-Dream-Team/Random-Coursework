@@ -67,6 +67,7 @@ let fetchData = async (theurl) => {
 
                 let options = {
                     scales: {
+<<<<<<< HEAD
                             xAxes: [{
                             type: "time",
                             distribution: 'series',
@@ -79,7 +80,24 @@ let fetchData = async (theurl) => {
                             },
                             gridLines: {
                                 display: false
+=======
+                        xAxes: [{
+                        type: "time",
+                        distribution: 'series',
+                        time: {
+                            min: timeArray[0],
+                            max: timeArray[timeArray.length-1],
+                            displayFormats: {
+                            day: 'MMM YY'
+>>>>>>> parent of 1d3b756... Some changes
                             }
+                        },
+                        ticks: {
+                            source: "labels"
+                        },
+                        gridLines: {
+                            display: false
+                        }
                         }]
                     }
                 };
