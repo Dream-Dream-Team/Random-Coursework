@@ -77,9 +77,6 @@ let fetchData = async (theurl) => {
                                 day: 'MMM YY'
                                 }
                             },
-                            ticks: {
-                                source: "labels"
-                            },
                             gridLines: {
                                 display: false
                             }
