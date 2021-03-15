@@ -82,9 +82,6 @@ let fetchData = async (theurl) => {
                             },
                             gridLines: {
                                 display: false
-                            },
-                            legend: {
-                                display: false
                             }
                         }]
                     }
