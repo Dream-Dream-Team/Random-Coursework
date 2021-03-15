@@ -85,7 +85,7 @@ let fetchData = async (theurl) => {
                             }
                         }]
                     }
-                }
+                };
 
                 console.log(timeArray);
                 //console.log(avgSent);
